@@ -4,6 +4,7 @@ import './components/blog-block.js';
 import './components/widget-column.js';
 import './components/ad-widget.js';
 import './components/login-widget.js';
+import './components/trufact-widget.js';
 
 class Comp2110Portal extends LitElement {
   static properties = {
