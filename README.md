@@ -107,4 +107,3 @@ Should show tasks for the current logged in user, allow creation of new tasks an
 changing the state of existing tasks (marking them as done).
 
 * Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
-test
