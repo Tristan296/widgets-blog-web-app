@@ -1,48 +1,57 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
-class TruFact extends LitElement {
- static properties = {
-  date:{type: Date},
-  fact: {type: Text}
+class TrufactWidget extends LitElement {
+  static styles = 
+    css`
+      .widget-border {
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+    `;
+
+  static properties = {
+    date: {type: Date},
+    _data: {state: true}
   }
+
+  static BASE_URL = "http://numbersapi.com/";
 
   constructor() {
     super();
-    const date = getDate();
+    this.date = new Date();
   }
 
-  static styles = css` 
-   .trufact-block {
-     background-color: red;
-     border: 1px solid black;
-     padding: 10px;
-     margin: 10px;
-     width: 500px;
-     display: flex;
-     flex-direction: column;
-   }
-   .trufact-block > h2 {
-    color: white;
-   }
-  `;
-  
-
- fetchFact() {
-    const url = `http://numbersapi.com/3/22/date`;
+  connectedCallback() {
+    super.connectedCallback();
+    const url = TrufactWidget.BASE_URL + this.date.getMonth() +'/' + this.date.getDay() + '/date?json';
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        this.fact = data;
+        this._data = data;
       });
-  } 
+  }
 
   render() {
+    if (this._data){
+      return html`      
+      <div class="widget-border">
+      <h2>On this day...</h2>
+      <p>${this._data.text}</p>
+    </div>`
+    } else {
     return html`
-      <div class="trufact-block">
-        <h2>Trufacts About Today's Date</h2>
+      <div class="widget-border">
+        <h2>On this day...</h2>
+        <p>...loading a fact!</p>
+      </div>
     `;
+    }
   }
 
 }
 
-customElements.define('trufact', TruFact);
+customElements.define('trufact-widget', TrufactWidget);
