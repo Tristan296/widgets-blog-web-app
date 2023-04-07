@@ -6,6 +6,9 @@ import './components/ad-widget.js';
 import './components/login-widget.js';
 import './components/trufact-widget.js';
 
+//meme widget
+import './components/meme-widget.js';
+
 class Comp2110Portal extends LitElement {
   static properties = {
     header: { type: String },
