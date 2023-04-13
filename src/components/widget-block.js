@@ -16,7 +16,8 @@ class WidgetBlock extends LitElement {
 
   render() {
     return html`
-        <meme-widget></meme-widget>
+    <trufact-widget></trufact-widget>
+    <meme-widget></meme-widget>
     `;
   }
 }
