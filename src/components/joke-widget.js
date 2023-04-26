@@ -4,12 +4,13 @@ class JokeWidget extends LitElement {
     static styles = 
       css`
         .widget-border {
-          width: 200px;
+          width: 100px;
           border: 1px solid #ccc;
           border-radius: 8px;
           padding: 16px;
           box-sizing: border-box;
           text-align: center;
+
         }
       `;
 
