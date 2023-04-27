@@ -98,7 +98,6 @@ currencies.
 
 * A widget showing a random fact about the current date from <http://numbersapi.com/>,
 e.g. <http://numbersapi.com/3/22/date>.
-
 * A widget showing the upcoming public holidays from <https://date.nager.at>, e.g.
 [the 2023 Australian holidays](https://date.nager.at/api/v2/publicholidays/2023/AU).
 Your widget could allow selection of the country who's holidays are being displayed.
@@ -106,3 +105,9 @@ Your widget could allow selection of the country who's holidays are being displa
 * (Advanced) A TODO task widget using the API provided by the COMP2110 portal backend.
 Should show tasks for the current logged in user, allow creation of new tasks and
 changing the state of existing tasks (marking them as done).
+
+* Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
+
+## STACEY BRANCH DEV NOTES: 
+* 7/4/23: I spent a large chunk of time trying to work out why I couldn't get node.js and the local HTTP server to work. Turns out I was in the wrong project. Oops.
+* 7/4/23: Created folder system. Created js file for trufact widget. 
