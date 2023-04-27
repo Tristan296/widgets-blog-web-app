@@ -18,6 +18,7 @@ class WidgetBlock extends LitElement {
     return html`
     <trufact-widget></trufact-widget>
     <meme-widget></meme-widget>
+    <joke-widget></joke-widget>
     `;
   }
 }
