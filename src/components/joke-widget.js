@@ -49,7 +49,7 @@ render() {
   return html`
   <div class="widget-border">
   <p> JOKE SETUP: ${this.setup}</p>
-  <p> JOKE SETUP: ${this.punchline}</p>
+  <p> JOKE PUNCHLINE: ${this.punchline}</p>
   </div>`;
 
 }
@@ -58,5 +58,5 @@ render() {
 
 
       
-    }
+    
     customElements.define('joke-widget', JokeWidget);
