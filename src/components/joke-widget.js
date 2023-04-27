@@ -6,7 +6,7 @@ class JokeWidget extends LitElement {
     _data: {state:true}
 
 }
-
+  
     static styles = 
       css`
         .widget-border {
@@ -42,13 +42,6 @@ class JokeWidget extends LitElement {
       `;
 
 
-
-/* reveal button just changes to css 
-
-first goal: get both to display  (setup then punchline)
-
-*/
-
 constructor() {
   super();
   this._data = null;
@@ -68,20 +61,19 @@ fetchJoke() {
 }
 
 
-
 render() {
   if (this._data){
   return html`
   <div class="widget-border">
-  <p> <b> ${this._data.setup} </b></p>
+  <h2> Joke! </h2>
+  <p> <b> ${this._data.setup} </b> </p>
   <p> ${this._data.punchline}</p>
-  <button @click="${this.getNewJoke}">Show New Joke</button>
+  <button @click="${this.getNewJoke()}">Show New Joke</button>
   </div>`;
   }
   else {
     return html`
     <div class="widget-border">
-       
         <p>joke loading...</p>
       </div>
     `;
@@ -93,5 +85,6 @@ getNewJoke() {
 }
 }
  
+/* is working but is slow */
     
-    customElements.define('joke-widget', JokeWidget);
+customElements.define('joke-widget', JokeWidget);
