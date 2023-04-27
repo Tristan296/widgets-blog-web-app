@@ -110,4 +110,5 @@ changing the state of existing tasks (marking them as done).
 
 ## STACEY BRANCH DEV NOTES: 
 * 7/4/23: I spent a large chunk of time trying to work out why I couldn't get node.js and the local HTTP server to work. Turns out I was in the wrong project. Oops.
-* 7/4/23: Created folder system. Created js file for trufact widget. 
+* 7/4/23: Created folder system. Created js file for trufact widget.
+* 27/3/2023: Unsurprisingly, being silly and renaming my branch without thinking creates issues. Hopefully this fixes it?
