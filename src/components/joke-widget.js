@@ -2,25 +2,44 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 
 class JokeWidget extends LitElement {
 
+  static properties = {
+    _data: {state:true}
+
+}
+
     static styles = 
       css`
         .widget-border {
-          width: 100px;
+          width: 200px;
           border: 1px solid #ccc;
           border-radius: 8px;
           padding: 16px;
           box-sizing: border-box;
           text-align: center;
 
+
+          .widget-border button { 
+            background-color: white;
+            color: black;
+            border-radius: 20px;
+            border-style: none;
+            transition: ease-out 0.1s;
+          }
+    
+          .widget-border button:hover { 
+            background-color: black;
+            color: white;
+            transition: ease 0.3s;
+            transform: scale(1.05);
+          }
+    
+          .widget-border button:active {
+            background-color: black;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+          }
         }
       `;
-
-      
-  static properties = {
-    setup: {},
-    punchline: {}
-
-}
 
 
 
@@ -37,6 +56,10 @@ constructor() {
 
 connectedCallback() {
   super.connectedCallback();
+  this.fetchJoke();
+}
+
+fetchJoke() {
   fetch(`https://official-joke-api.appspot.com/random_joke`)
   .then(response => response.json())
   .then(data => {
@@ -44,19 +67,31 @@ connectedCallback() {
   });
 }
 
+
+
 render() {
-  
+  if (this._data){
   return html`
   <div class="widget-border">
-  <p> JOKE SETUP: ${this.setup}</p>
-  <p> JOKE PUNCHLINE: ${this.punchline}</p>
+  <p> <b> ${this._data.setup} </b></p>
+  <p> ${this._data.punchline}</p>
+  <button @click="${this.getNewJoke}">Show New Joke</button>
   </div>`;
+  }
+  else {
+    return html`
+    <div class="widget-border">
+       
+        <p>joke loading...</p>
+      </div>
+    `;
+  }
+}
 
+getNewJoke() {
+  this.fetchJoke();
 }
 }
-
-
-
-      
+ 
     
     customElements.define('joke-widget', JokeWidget);
