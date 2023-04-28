@@ -18,7 +18,11 @@ class WidgetColumn extends LitElement {
     return html`
       <div>
         <h2>${this.header}</h2>
-        <slot></slot>
+        <slot>
+          <meme-widget></meme-widget>
+          <trufact-widget></trufact-widget>
+          
+        </slot>
       </div>
     `;
   }
