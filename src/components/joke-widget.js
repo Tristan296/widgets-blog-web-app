@@ -68,7 +68,7 @@ render() {
   <h2> Joke! </h2>
   <p> <b> ${this._data.setup} </b> </p>
   <p> ${this._data.punchline}</p>
-  <button @click="${this.getNewJoke()}">Show New Joke</button>
+  <button @click="${this.getNewJoke}">Show New Joke</button>
   </div>`;
   }
   else {
@@ -85,6 +85,6 @@ getNewJoke() {
 }
 }
  
-/* is working but is slow */
+/* is working but is slow - do not know if need this.getNewJoke() or without ()*/
     
 customElements.define('joke-widget', JokeWidget);
