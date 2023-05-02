@@ -51,7 +51,8 @@ class BlockBlock extends LitElement {
       return html`Loading...`
     
     return html`
-      ${this._posts.map(post => html`<div class="blogpost">
+      ${this._posts.map(post => html`
+      <div class="blogpost">
         <h2>${post.title}</h2>
         <h3>By ${post.name}</h3>
         ${BlockBlock.formatBody(post.content)}
