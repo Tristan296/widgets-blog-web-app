@@ -21,7 +21,7 @@ class WidgetColumn extends LitElement {
         <slot>
           <meme-widget></meme-widget>
           <trufact-widget></trufact-widget>
-          
+          <joke-widget></joke-widget>
         </slot>
       </div>
     `;

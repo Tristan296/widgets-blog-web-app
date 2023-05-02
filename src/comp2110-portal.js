@@ -58,13 +58,12 @@ class Comp2110Portal extends LitElement {
 
       <main>
         <widget-column header="Left">
-          <widget-block header="Third Widget"></widget-block>
+          <widget-block header="First Widget"></widget-block>
         </widget-column>
         <blog-block></blog-block>       
         <widget-column header="Right">
           <ad-widget></ad-widget>
-          <widget-block header="Fourth Widget"></widget-block>
-          <widget-block header="Fifth Widget"></widget-block>
+          <widget-block header="Second Widget"></widget-block>
         </widget-column>
       </main>
 
