@@ -25,6 +25,7 @@ class Comp2110Portal extends LitElement {
       margin: 0 auto;
       text-align: center;
       background-color: lightgoldenrodyellow;
+    
     }
 
     main {
@@ -39,7 +40,52 @@ class Comp2110Portal extends LitElement {
     .app-footer a {
       margin-left: 5px;
     }
-  `;
+
+    header {
+      margin-left: -10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
+
+      background-color: #669991bf;
+      background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    h1 {
+      
+      grid-row: 2;
+      grid-column: 2;
+      font-size: xx-large;
+      text-transform: uppercase;
+      font-family: 'Press Start 2P', Georgia, serif;
+
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
+
+      background-image: url(https://cdn.pixabay.com/photo/2017/03/25/17/55/colorful-2174045_1280.png);
+      background-position: center;
+      background-repeat: repeat;
+      background-size: cover;
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-background-clip: text;
+      -moz-text-fill-color: transparent;
+      opacity: 0.5;
+
+      min-width: 400px;
+    }
+
+    login-widget{
+      grid-row: 3;
+      grid-column: 2;
+    }
+  `
+  ;
 
   constructor() {
     super();
