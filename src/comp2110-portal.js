@@ -14,6 +14,9 @@ import './components/meme-widget.js';
 //joke widget
 import './components/joke-widget.js';
 
+//trivia widget
+import './components/trivia-widget.js';
+
 class Comp2110Portal extends LitElement {
   static properties = {
     header: { type: String },
