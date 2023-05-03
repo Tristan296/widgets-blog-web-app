@@ -6,7 +6,6 @@ class WidgetBlock extends LitElement {
   }
 
   static styles = css`
-  
   `;
 
   constructor() {
@@ -19,6 +18,7 @@ class WidgetBlock extends LitElement {
       <meme-widget></meme-widget>
       <trufact-widget></trufact-widget>
       <joke-widget></joke-widget>
+      <trivia-widget></trivia-widget>
     `;
   }
 }
