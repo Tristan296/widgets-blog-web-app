@@ -14,11 +14,11 @@ class triviaWidget extends LitElement{
   `;
 
   static properties = {    
-    trivia: {type: Object},
+    _data: {state:true}
   }
   constructor() {
     super();
-    this.trivia = null;
+    this._data = null;
   }
   connectedCallBack(){
     super.connectedCallBack();
@@ -28,15 +28,16 @@ class triviaWidget extends LitElement{
     fetch('http://jservice.io/api/random')
       .then(response => response.json())
       .then(data => {
-        this.trivia = data;
+        this._ = data;
       });
     }
     render() {
     if (this._data){
       return html`      
       <div class="widget-border">
-      <p>${this._data.question.text}</p>
-      <p>${this._data.answer.text}</p>
+      <h2>Jeopardy Question:</h2>
+      <p>${this._data.question}</p>
+      <p>${this._data.answer}</p>
     </div>`
     } else {
     return html`
