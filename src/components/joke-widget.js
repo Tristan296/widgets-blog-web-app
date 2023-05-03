@@ -67,7 +67,8 @@ render() {
   <div class="widget-border">
   <h2> Joke! </h2>
   <p> <b> ${this._data.setup} </b> </p>
-  <p> ${this._data.punchline}</p>
+  <p> ${this._data.punchline} </p>
+  <button @click="${this.showPunchline}">Show Punchline</button>
   <button @click="${this.getNewJoke}">Show New Joke</button>
   </div>`;
   }
@@ -83,7 +84,17 @@ render() {
 getNewJoke() {
   this.fetchJoke();
 }
+
+showPunchline() {
+var p = this._data.punchline;
+if (p.styles.display === "none") {
+  p.styles.display = "block";
+} else {
+  p.styles.display = "none";
 }
+}
+}
+
  
 /* is working but is slow - do not know if need this.getNewJoke() or without ()*/
     
