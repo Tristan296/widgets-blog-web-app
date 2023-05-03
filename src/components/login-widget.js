@@ -11,7 +11,40 @@ class LoginWidget extends LitElement {
   static styles = css`
     :host {
         display: block;
-    }`;
+    }
+    form {
+      margin-top: 100px;
+      display: grid;
+      margin-left: 20%;
+      width: 300px;
+      grid-columns: 5% 50%, 40% 5%;
+      grid-rows: 45%, 5% 5% 45%;
+      text-transform: lowercase;
+      visibility: hidden; //hides ugly password / username text
+    }
+
+    input[type="password"]{
+      grid-column: 1;
+      grid-row: 2;
+      height: 3em;         
+      visibility: visible;
+    }
+
+    input[name="username"]{
+      grid-column: 1;
+      grid-row: 1;
+      height: 3em;
+      visibility: visible;
+    }
+
+    input[type="submit"]{
+      position: relative;
+      grid-row: 1/3;
+      grid-column:2/3;
+      height: 100%;
+      visibility: visible;
+    }
+ `;
 
   constructor() {
     super();
