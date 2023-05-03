@@ -11,6 +11,9 @@ import './components/trufact-widget.js';
 //meme widget
 import './components/meme-widget.js';
 
+//joke widget
+import './components/joke-widget.js';
+
 class Comp2110Portal extends LitElement {
   static properties = {
     header: { type: String },
@@ -102,14 +105,11 @@ class Comp2110Portal extends LitElement {
       <main>
         <widget-column header="Left">
           <widget-block header="First Widget"></widget-block>
-          <widget-block header="Second Widget"></widget-block>
-          <widget-block header="Third Widget"></widget-block>
         </widget-column>
         <blog-block></blog-block>       
         <widget-column header="Right">
           <ad-widget></ad-widget>
-          <widget-block header="Fourth Widget"></widget-block>
-          <widget-block header="Fifth Widget"></widget-block>
+          <widget-block header="Second Widget"></widget-block>
         </widget-column>
       </main>
 
