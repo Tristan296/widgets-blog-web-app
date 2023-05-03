@@ -5,6 +5,9 @@ import './components/widget-column.js';
 import './components/ad-widget.js';
 import './components/login-widget.js';
 
+//trivia widget
+import './components/trivia-widget.js';
+
 //trufact widget
 import './components/trufact-widget.js';
 
