@@ -14,6 +14,7 @@ export const storeUser = (userInfo) => {
     window.localStorage.setItem('user', JSON.stringify(userInfo));
     const event = new CustomEvent('user', {action: 'login'});
     window.dispatchEvent(event);
+    window.location.reload();
 }
 
 /**

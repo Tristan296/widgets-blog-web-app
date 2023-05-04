@@ -51,11 +51,11 @@ class Comp2110Portal extends LitElement {
       margin-left: 5px;
     }
 
-    header.login {
+    header {
       margin-left: -10px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
+      //grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
 
       background-color: #669991bf;
       background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
@@ -64,22 +64,10 @@ class Comp2110Portal extends LitElement {
       background-size: cover;
     }
 
-    header.user {
-      margin-left: -10px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 5vh 5vh 10vh 5vh 5vh;
-
-      background-color: #669991bf;
-      background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-    }
+    
 
 
-    h1 {
-      
+    h1 {      
       grid-row: 2;
       grid-column: 2;
       font-size: xx-large;
@@ -100,7 +88,6 @@ class Comp2110Portal extends LitElement {
       -moz-background-clip: text;
       -moz-text-fill-color: transparent;
       opacity: 0.5;
-
       min-width: 400px;
     }
 
@@ -121,10 +108,46 @@ class Comp2110Portal extends LitElement {
     this.user = getUser();
   }
 
+  updateCSS(){
+    let sheet = document.createElement('style');
+    if (this.user != null){
+      sheet.innerHTML = `header#user {
+        margin-left: -10px; display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 5vh 5vh 10vh 5vh 5vh;
+        
+        //background-color: red;
+        //background-color: #669991bf;
+        //background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }`;
+      document.body.appendChild(sheet);
+    }
+    if (this.user){
+      sheet.innerHTML = `header#user {
+        margin-left: -10px; display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 5vh 5vh 10vh 5vh 5vh;
+        
+        //background-color: red;
+        //background-color: #669991bf;
+        //background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }`;
+      document.body.appendChild(sheet);
+    }
+  }
+
   render() {
     if (this.user) {
+      this.updateCSS();
+      
       return html`
-     <header class="user">
+     <header id="user">
         <h1>${this.header}</h1>
         <login-widget></login-widget>
       </header>
@@ -146,8 +169,9 @@ class Comp2110Portal extends LitElement {
 
     }
     else {
+      this.updateCSS();
       return html`
-      <header class="login">
+      <header id="login">
         <h1>${this.header}</h1>
         <login-widget></login-widget>
       </header>

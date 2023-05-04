@@ -63,16 +63,18 @@ class LoginWidget extends LitElement {
     }).then(result => result.json()).then(response => {
         this.user = response;
         storeUser(response);
+      
     })
   }
 
   logout() {
     deleteUser();
     this.user = null;
+    window.location.reload();
   }
 
   render() {
-    if (this.user) {
+    if (this.user != null) {
         return html`<p>Logged in as ${this.user.name}</p><button @click=${this.logout}>Logout</button>`
     } 
     return html`
