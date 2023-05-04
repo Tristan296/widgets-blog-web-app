@@ -61,11 +61,10 @@ class memeWidget extends LitElement {
       .then(response => response.json())
       .then(data => {
         const memes = data.data.memes;
-        const randomIndex = Math.floor(Math.random() * memes.length);
-        this._data = memes[randomIndex];
+        this._data = memes[Math.floor(Math.random() * memes.length)];
       })
       .catch(error => {
-        console.error('Error fetching meme', error);
+        console.error('Encountered an error when fetching meme', error);
       });
   }
 
@@ -75,6 +74,7 @@ class memeWidget extends LitElement {
           <div class="widget-border">
             <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
             <button @click="${this.getNewMeme}">Show New Meme</button>
+            <button @click="${this.postMeme}">Post Caption</button>
             <p>${this._data.name}</p>
           </div>
         `;
@@ -90,6 +90,35 @@ class memeWidget extends LitElement {
   getNewMeme() {
     this.fetchMeme();
   }
+
+  postMeme() {
+    const memeCaption = this._data.name;
+    const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
+
+    const headers = {
+      'Authorization': 'Basic 8f590303-0179-4d1b-9c19-586f20e83efd',
+      'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({
+      title: "Meme Caption",
+      content: memeCaption
+    });
+  
+    // Send the request
+    fetch(endpoint, {
+      method: 'POST',
+      headers: headers,
+      body: body
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Meme caption posted:', data);
+      })
+      .catch(error => {
+        console.error('Error posting meme caption:', error);
+      });
+  }
+  
 }
 
 customElements.define('meme-widget', memeWidget);
