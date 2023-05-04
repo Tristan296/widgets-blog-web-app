@@ -96,14 +96,16 @@ class Comp2110Portal extends LitElement {
       -webkit-text-fill-color: transparent;
       -moz-background-clip: text;
       -moz-text-fill-color: transparent;
-      
+
       opacity: 0.5;
       min-width: 400px;
     }
 
     h1#login{
+      margin-top: -100px;
       grid-row: 2;
       grid-column: 2;
+      margin-bottom: -100px;
     }
 
     h1#user{
