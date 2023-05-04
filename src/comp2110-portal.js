@@ -5,6 +5,9 @@ import './components/widget-column.js';
 import './components/ad-widget.js';
 import './components/login-widget.js';
 
+//trivia widget
+import './components/trivia-widget.js';
+
 //trufact widget
 import './components/trufact-widget.js';
 
@@ -87,6 +90,10 @@ class Comp2110Portal extends LitElement {
       grid-row: 3;
       grid-column: 2;
     }
+
+  
+
+    
   `
   ;
 
