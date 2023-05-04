@@ -6,7 +6,10 @@ class WidgetColumn extends LitElement {
   }
 
   static styles = css`
-
+    .widget-section { 
+      margin-left: 40px;
+      margin-right: 40px;
+    }
   `;
 
   constructor() {
@@ -16,12 +19,13 @@ class WidgetColumn extends LitElement {
 
   render() {
     return html`
-      <div>
+      <div class="widget-section">
         <h2>${this.header}</h2>
         <slot>
           <meme-widget></meme-widget>
           <trufact-widget></trufact-widget>
           <joke-widget></joke-widget>
+          <trivia-widget></trivia-widget>
         </slot>
       </div>
     `;
