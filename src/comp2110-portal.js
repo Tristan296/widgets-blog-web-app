@@ -1,4 +1,6 @@
-import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { getUser } from '../src/auth.js';
+
 import './components/widget-block.js';
 import './components/blog-block.js';
 import './components/widget-column.js';
@@ -18,8 +20,10 @@ import './components/meme-widget.js';
 import './components/joke-widget.js';
 
 class Comp2110Portal extends LitElement {
+
   static properties = {
     header: { type: String },
+    user: { type: String, state: true }
   }
 
   static styles = css`
@@ -47,7 +51,7 @@ class Comp2110Portal extends LitElement {
       margin-left: 5px;
     }
 
-    header {
+    header.login {
       margin-left: -10px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -59,6 +63,20 @@ class Comp2110Portal extends LitElement {
       background-attachment: fixed;
       background-size: cover;
     }
+
+    header.user {
+      margin-left: -10px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 5vh 5vh 10vh 5vh 5vh;
+
+      background-color: #669991bf;
+      background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
 
     h1 {
       
@@ -95,16 +113,41 @@ class Comp2110Portal extends LitElement {
 
     
   `
-  ;
+    ;
 
   constructor() {
     super();
     this.header = 'COMP2110 Portal';
+    this.user = getUser();
   }
 
   render() {
-    return html`
-      <header>
+    if (this.user) {
+      return html`
+     <header class="user">
+        <h1>${this.header}</h1>
+        <login-widget></login-widget>
+      </header>
+
+      <main>
+        <widget-column header="Left">
+          <widget-block header="First Widget"></widget-block>
+        </widget-column>
+        <blog-block></blog-block>       
+        <widget-column header="Right">
+          <ad-widget></ad-widget>
+          <widget-block header="Second Widget"></widget-block>
+        </widget-column>
+      </main>
+
+      <p class="app-footer">
+        A product of the COMP2110 Web Development Collective &copy; 2023
+      </p>`;
+
+    }
+    else {
+      return html`
+      <header class="login">
         <h1>${this.header}</h1>
         <login-widget></login-widget>
       </header>
@@ -124,6 +167,7 @@ class Comp2110Portal extends LitElement {
         A product of the COMP2110 Web Development Collective &copy; 2023
       </p>
     `;
+    }
   }
 }
 
