@@ -83,7 +83,6 @@ class LoginWidget extends LitElement {
           Password: <input type="password" name="password">
           <input type='submit' value='Login'>
       </form>`;
-    
   }
 }
 

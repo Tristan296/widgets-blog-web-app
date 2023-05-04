@@ -3,12 +3,12 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class JokeWidget extends LitElement {
 
   static properties = {
-    _data: {state:true}
+    _data: { state: true }
 
-}
-  
-    static styles = 
-      css`
+  }
+
+  static styles =
+    css`
         .widget-border {
           width: 200px;
           border: 1px solid #ccc;
@@ -44,28 +44,28 @@ class JokeWidget extends LitElement {
       `;
 
 
-constructor() {
-  super();
-  this._data = null;
-}
+  constructor() {
+    super();
+    this._data = null;
+  }
 
-connectedCallback() {
-  super.connectedCallback();
-  this.fetchJoke();
-}
+  connectedCallback() {
+    super.connectedCallback();
+    this.fetchJoke();
+  }
 
-fetchJoke() {
-  fetch(`https://official-joke-api.appspot.com/random_joke`)
-  .then(response => response.json())
-  .then(data => {
-    this._data = data;
-  });
-}
+  fetchJoke() {
+    fetch(`https://official-joke-api.appspot.com/random_joke`)
+      .then(response => response.json())
+      .then(data => {
+        this._data = data;
+      });
+  }
 
 
-render() {
-  if (this._data){
-  return html`
+  render() {
+    if (this._data) {
+      return html`
   <div class="widget-border">
   <h2> Joke! </h2>
   <p> <b> ${this._data.setup} </b> </p>
@@ -73,31 +73,31 @@ render() {
   <button @click="${this.showPunchline}">Show Punchline</button>
   <button @click="${this.getNewJoke}">Show New Joke</button>
   </div>`;
-  }
-  else {
-    return html`
+    }
+    else {
+      return html`
     <div class="widget-border">
         <p>joke loading...</p>
       </div>
     `;
+    }
+  }
+
+  getNewJoke() {
+    this.fetchJoke();
+  }
+
+  showPunchline() {
+    var p = this._data.punchline;
+    if (p.styles.display === "none") {
+      p.styles.display = "block";
+    } else {
+      p.styles.display = "none";
+    }
   }
 }
 
-getNewJoke() {
-  this.fetchJoke();
-}
 
-showPunchline() {
-var p = this._data.punchline;
-if (p.styles.display === "none") {
-  p.styles.display = "block";
-} else {
-  p.styles.display = "none";
-}
-}
-}
-
- 
 /* is working but is slow - do not know if need this.getNewJoke() or without ()*/
-    
+
 customElements.define('joke-widget', JokeWidget);

@@ -95,10 +95,6 @@ class Comp2110Portal extends LitElement {
       grid-row: 3;
       grid-column: 2;
     }
-
-  
-
-    
   `
     ;
 
