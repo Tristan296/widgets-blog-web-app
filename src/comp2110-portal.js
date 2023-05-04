@@ -23,7 +23,8 @@ class Comp2110Portal extends LitElement {
 
   static properties = {
     header: { type: String },
-    user: { type: String, state: true }
+    user: { type: String, state: true },
+    loginStatus: { type: String}
   }
 
   static styles = css`
@@ -64,6 +65,13 @@ class Comp2110Portal extends LitElement {
       background-size: cover;
     }
 
+    header#login{
+      grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
+    }
+
+    header#user{
+      grid-template-rows: 1vh 12vh 12vh 5vh 5vh;
+    }
     
 
 
@@ -102,6 +110,7 @@ class Comp2110Portal extends LitElement {
     super();
     this.header = 'COMP2110 Portal';
     this.user = getUser();
+    this.loginStatus = 'login';
   }
 
   updateCSS(){
