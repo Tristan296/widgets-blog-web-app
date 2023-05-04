@@ -6,7 +6,6 @@ class WidgetColumn extends LitElement {
   }
 
   static styles = css`
-
   `;
 
   constructor() {
@@ -22,6 +21,7 @@ class WidgetColumn extends LitElement {
           <meme-widget></meme-widget>
           <trufact-widget></trufact-widget>
           <joke-widget></joke-widget>
+          <trivia-widget></trivia-widget>
         </slot>
       </div>
     `;
