@@ -6,6 +6,7 @@ import './components/blog-block.js';
 import './components/widget-column.js';
 import './components/ad-widget.js';
 import './components/login-widget.js';
+import './components/new-post.js';
 
 //trivia widget
 import './components/trivia-widget.js';
@@ -40,7 +41,8 @@ class Comp2110Portal extends LitElement {
     }
 
     main {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
 
     .app-footer {
@@ -122,6 +124,28 @@ class Comp2110Portal extends LitElement {
       grid-row: 2; 
       grid-column:3;
     }
+
+    main{
+      display: flex;
+      background-color: yellow;
+    }
+    widget-menu{
+      height:100%;
+      background-color:red;
+      display: flex;
+      flex-direction: row;
+    }
+
+    widget-block{
+      background-color: green;
+      flex-direction: row;
+      grid-column: 3;
+    }
+
+    new-post{
+      grid-column: 2;
+      grid-row: 3;
+    }
   `
     ;
 
@@ -140,16 +164,18 @@ class Comp2110Portal extends LitElement {
      <header id="user">
         <h1 id="user">${this.header}</h1>
         <login-widget id="user"></login-widget>
+        <new-post></new-post>        
       </header>
 
       <main>
-        <widget-column header="Left">
-          <widget-block header="First Widget"></widget-block>
+        
+        <widget-column id="Left">
+          <widget-block id="First Widget"></widget-block>
         </widget-column>
         <blog-block></blog-block>       
-        <widget-column header="Right">
+        <widget-column id="Right">
           <ad-widget></ad-widget>
-          <widget-block header="Second Widget"></widget-block>
+          <widget-block id="Second Widget"></widget-block>
         </widget-column>
       </main>
 
@@ -163,16 +189,19 @@ class Comp2110Portal extends LitElement {
       <header id="login">
         <h1 id="login">${this.header}</h1>
         <login-widget id="login"></login-widget>
+        
       </header>
 
       <main>
-        <widget-column header="Left">
-          <widget-block header="First Widget"></widget-block>
+        <widget-menu>
+        <widget-column id="Left">
+          <widget-block id="firstWidgets"></widget-block>
         </widget-column>
+        </widget-menu>
         <blog-block></blog-block>       
-        <widget-column header="Right">
+        <widget-column id="Right">
           <ad-widget></ad-widget>
-          <widget-block header="Second Widget"></widget-block>
+          <widget-block id="secondWidgets"></widget-block>
         </widget-column>
       </main>
 
