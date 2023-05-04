@@ -42,7 +42,7 @@ class BlockBlock extends LitElement {
   // a fancier version could use markdown and a third party markdown
   // formatting library
   static formatBody(text) {
-    const paragraphs = text.split('\r\n')
+    //const paragraphs = text.split('\r\n')
     return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
   }
   
