@@ -6,6 +6,8 @@ class WidgetColumn extends LitElement {
   }
 
   static styles = css`
+ 
+  
   `;
 
   constructor() {
