@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { getUser } from '../auth.js';
 
 class memeWidget extends LitElement {
   static styles =
@@ -43,12 +44,14 @@ class memeWidget extends LitElement {
 
 
   static properties = {
-    _data: { state: true }
+    _data: { state: true }, 
+    _user: { type: String, state: true }
   }
 
   constructor() {
     super();
     this._data = null;
+    this._user = getUser();
   }
 
   connectedCallback() {
@@ -93,10 +96,11 @@ class memeWidget extends LitElement {
 
   postMeme() {
     const memeCaption = this._data.name;
+    const Authorization = "Basic " + getUser().token;
     const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
 
     const headers = {
-      'Authorization': 'Basic 8f590303-0179-4d1b-9c19-586f20e83efd',
+      Authorization,
       'Content-Type': 'application/json'
     };
     const body = JSON.stringify({
