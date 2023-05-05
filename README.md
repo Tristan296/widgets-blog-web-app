@@ -105,7 +105,7 @@ Your widget could allow selection of the country who's holidays are being displa
 * (Advanced) A TODO task widget using the API provided by the COMP2110 portal backend.
 Should show tasks for the current logged in user, allow creation of new tasks and
 changing the state of existing tasks (marking them as done).
-
+`
 * Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
 
 ## STACEY BRANCH DEV NOTES: 
