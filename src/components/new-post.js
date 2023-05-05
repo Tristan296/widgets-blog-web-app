@@ -4,31 +4,29 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class NewPost extends LitElement {
     static properties = {
         _data: { state: true },
-        user: { type: String, state: true }, 
-        auth: { type: String, state: true },
+        _user: { type: String, state: true }, 
+        _title: { type: String, state: true },
     }
 
     constructor() {
         super();
-        this.user = getUser();
-        this.data = null;
-    //    this.auth = getAuth();
-    }
-
-    getAuth(){
-    //    return this.user.Authorization;
+        this._user = getUser();
+        this._data = null;
+        this._title = null;
     }
 
     postBlog() {
         const blogPost = this._data.name;
+        const title = this._title;
         const endpoint = "https://comp2110-portal-server.fly.dev/blog";
+        const Authorization = "Basic " + getUser().token;
 
         const headers = {
-            'Authorization': 'Basic 8f590303-0179-4d1b-9c19-586f20e83efd',
+            Authorization,
             'Content-Type': 'application/json'
         };
         const body = JSON.stringify({
-            title: "Meme Caption",
+            title: title,
             content: blogPost
         });
 
@@ -41,16 +39,16 @@ class NewPost extends LitElement {
             .then(response => response.json())
             .then(data => {
                 console.log('blog posted:', data);
-            })
+                location.reload();})
             .catch(error => {
                 console.error('Error posting to blog:', error);
             });
     }
 
     render(){
-        return html`<p>This is where I am going to build a form to fill in for a new post. 
-            This is currently a placeholder and will be relocated / moved.
-        </p>`;
+        return html`<p>This is currently a placeholder and will be relocated / moved.
+        </p>
+        <form>blogpost<input type=text id=title><input type=textarea id=blogpost></form>`;
     }
 }
 
