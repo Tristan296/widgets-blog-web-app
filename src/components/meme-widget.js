@@ -15,7 +15,7 @@ class memeWidget extends LitElement {
 
       .meme-img {
         width: 100%;
-        height: 160px;
+        height: 100%;
         object-fit: cover;
         border-radius: 8px;
       }
@@ -41,8 +41,7 @@ class memeWidget extends LitElement {
         transform: translateY(4px);
       }
     `;
-
-
+    
   static properties = {
     _data: { state: true }, 
     _user: { type: String, state: true }
