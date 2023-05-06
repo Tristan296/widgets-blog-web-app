@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { getUser } from '../auth.js';
 
 class memeWidget extends LitElement {
-  static styles = 
+  static styles =
     css`
       .widget-border {
         width: 200px;
@@ -14,7 +15,7 @@ class memeWidget extends LitElement {
 
       .meme-img {
         width: 100%;
-        height: 160px;
+        height: 100%;
         object-fit: cover;
         border-radius: 8px;
       }
@@ -40,14 +41,16 @@ class memeWidget extends LitElement {
         transform: translateY(4px);
       }
     `;
-
+    
   static properties = {
-      meme: { type: Object }
+    _data: { state: true }, 
+    _user: { type: String, state: true }
   }
 
   constructor() {
     super();
-    this.meme = null;
+    this._data = null;
+    this._user = getUser();
   }
 
   connectedCallback() {
@@ -60,25 +63,65 @@ class memeWidget extends LitElement {
       .then(response => response.json())
       .then(data => {
         const memes = data.data.memes;
-        const randomIndex = Math.floor(Math.random() * memes.length);
-        this.meme = memes[randomIndex];
+        this._data = memes[Math.floor(Math.random() * memes.length)];
+      })
+      .catch(error => {
+        console.error('Encountered an error when fetching meme', error);
       });
   }
 
   render() {
-    return html`
-      <div class="widget-border">
-        <img class="meme-img" src="${this.meme.url}" alt="${this.meme.name}">
-        <button @click="${this.getNewMeme}">Show New Meme</button>
-        <p>${this.meme.name}</p>
-      </div>
-    `;
+    if (this._data) {
+      return html`
+          <div class="widget-border">
+            <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
+            <button @click="${this.getNewMeme}">Show New Meme</button>
+            <button @click="${this.postMeme}">Post Caption</button>
+            <p>${this._data.name}</p>
+          </div>
+        `;
+    } else {
+      return html`
+          <div class="widget-border">
+            <p>Loading...</p>
+          </div>
+        `;
+    }
   }
 
   getNewMeme() {
-    // Event handler for "Next Meme" button click
-    this.fetchMeme(); // Fetch next meme
+    this.fetchMeme();
   }
+
+  postMeme() {
+    const memeCaption = this._data.name;
+    const Authorization = "Basic " + getUser().token;
+    const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
+
+    const headers = {
+      Authorization,
+      'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({
+      title: "Meme Caption",
+      content: memeCaption
+    });
+  
+    // Send the request
+    fetch(endpoint, {
+      method: 'POST',
+      headers: headers,
+      body: body
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Meme caption posted:', data);
+      })
+      .catch(error => {
+        console.error('Error posting meme caption:', error);
+      });
+  }
+  
 }
 
 customElements.define('meme-widget', memeWidget);
