@@ -16,8 +16,7 @@ class JokeWidget extends LitElement {
           padding: 16px;
           box-sizing: border-box;
           text-align: center;
-          margin-top: 40px;
-          margin-bottom: 40px;
+ 
 
           
 
