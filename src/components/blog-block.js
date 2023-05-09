@@ -9,8 +9,10 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 import { BASE_URL } from '../config.js';
 
 class BlockBlock extends LitElement {
+
   static properties = {
-    _posts: { state: true }
+    _posts: { state: true },
+    _update: {state: true}
   }
 
   static styles = css`
