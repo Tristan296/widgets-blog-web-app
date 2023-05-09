@@ -9,8 +9,10 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 import { BASE_URL } from '../config.js';
 
 class BlockBlock extends LitElement {
+
   static properties = {
-    _posts: { state: true }
+    _posts: { state: true },
+    _update: {state: true}
   }
 
   static styles = css`
@@ -41,10 +43,13 @@ class BlockBlock extends LitElement {
   // wraps each in a <p> tag
   // a fancier version could use markdown and a third party markdown
   // formatting library
-  static formatBody(text) {
-    const paragraphs = text.split('\r\n')
-    return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
-  }
+
+
+  //commented out function as do not need to split blog posts
+  // static formatBody(text) {
+  //   const paragraphs = text.split('\r\n')
+  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
+  // }
   
   render() {
     if (!this._posts)
@@ -55,7 +60,7 @@ class BlockBlock extends LitElement {
       <div class="blogpost">
         <h2>${post.title}</h2>
         <h3>By ${post.name}</h3>
-        ${BlockBlock.formatBody(post.content)}
+        <p> ${post.content}</p> 
       </div>`)}
       `;
   }
@@ -64,3 +69,4 @@ class BlockBlock extends LitElement {
 customElements.define('blog-block', BlockBlock);
 
 
+//${BlockBlock.formatBody(post.content)} deleted from render function

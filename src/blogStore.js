@@ -8,42 +8,36 @@
 /**
  * Store information about a logged in user, called on login
  *  - dispatch a 'user' event on the global window 
- * @param {Object} userInfo user information as returned by the login server
+ * @param {Object} blogInfo blog information as returned by the blog server
  */
-export const storeUser = (userInfo) => {
-    
-    window.localStorage.setItem('user', JSON.stringify(userInfo));
-    const event = new CustomEvent('user', {action: 'login'});
-    window.dispatchEvent(event);
+export const storeBlog = (blogInfo) => {
+    window.localStorage.setItem('blog', JSON.stringify(blogInfo));
+   // const event = new CustomEvent('blog', {action: 'reload?'});
+    //window.dispatchEvent(event);
     window.location.reload();
 }
 
 /**
  * delete the current user information if any, called on logout
  *  - dispatch a 'user' event on the global window 
- */
+ 
 export const deleteUser = () => {
     window.localStorage.removeItem('user');
     const event = new CustomEvent('user', {action: 'logout'}); 
     window.dispatchEvent(event);
 }
+*/
 
 /**
  * Get information about the current user, if any. 
  * @returns the user object if logged in or null if not
  */
-export const getUser = () => {
-    const userInfo = window.localStorage.getItem('user');
-    /*let test = JSON.stringify(userInfo);
-    if (test.includes("login incorrect")){
-        return null;
-    }*/
-
+export const getBlog = () => {
+    const userInfo = window.localStorage.getItem('blog');
     if (userInfo) {
         console.log(userInfo);
         return JSON.parse(userInfo);
     } 
-    console.log("not logged in");
     return null;
 }
 
