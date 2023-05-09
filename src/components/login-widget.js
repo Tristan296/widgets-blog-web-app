@@ -62,6 +62,8 @@ class LoginWidget extends LitElement {
         headers: {'Content-Type': 'application/json'}
     }).then(result => result.json()).then(response => {
         this.user = response;
+        console.log("store " + response);
+
         storeUser(response);
       
     })
@@ -74,9 +76,25 @@ class LoginWidget extends LitElement {
   }
 
   render() {
-    if (this.user != null) {
+    let test = JSON.stringify(this.user);
+    
+    if (test.includes("login incorrect")){
+        return html`
+        <p>"Error, try again!"</p>
+        <form @submit=${this.submitForm}>
+            Username: <input name="username">
+            Password: <input type="password" name="password">
+            <input type='submit' value='Login'>
+        </form>`;
+      }
+      if (this.user != null ) {
         return html`<p>Logged in as ${this.user.name}</p><button @click=${this.logout}>Logout</button>`
     } 
+    
+
+    /*else if (this.user.contains("error")){
+      return */
+
     return html`
       <form @submit=${this.submitForm}>
           Username: <input name="username">

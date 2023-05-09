@@ -162,7 +162,8 @@ class Comp2110Portal extends LitElement {
 
 
   render() {
-    if (this.user) {
+    
+    if (this.user && !JSON.stringify(this.user).includes("login incorrect")) {
       return html`
      <header id="user">
         <h1 id="user">${this.header}</h1>

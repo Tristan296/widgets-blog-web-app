@@ -11,6 +11,7 @@
  * @param {Object} userInfo user information as returned by the login server
  */
 export const storeUser = (userInfo) => {
+    
     window.localStorage.setItem('user', JSON.stringify(userInfo));
     const event = new CustomEvent('user', {action: 'login'});
     window.dispatchEvent(event);
@@ -33,10 +34,16 @@ export const deleteUser = () => {
  */
 export const getUser = () => {
     const userInfo = window.localStorage.getItem('user');
+    /*let test = JSON.stringify(userInfo);
+    if (test.includes("login incorrect")){
+        return null;
+    }*/
+
     if (userInfo) {
         console.log(userInfo);
         return JSON.parse(userInfo);
     } 
+    console.log("not logged in");
     return null;
 }
 
