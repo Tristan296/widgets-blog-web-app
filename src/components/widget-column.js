@@ -6,10 +6,8 @@ class WidgetColumn extends LitElement {
   }
 
   static styles = css`
-    .widget-section { 
-      margin-left: 40px;
-      margin-right: 40px;
-    }
+
+  
   `;
 
   constructor() {
