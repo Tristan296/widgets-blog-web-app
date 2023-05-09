@@ -3,19 +3,26 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 
 class NewPost extends LitElement {
     static properties = {
-        _user: { type: String, state: true }, 
+        _user: { type: String, state: true },
+        _error: { type: String, state: true }, 
     }
 
     constructor() {
         super();
         this._user = getUser();
+        this._error = null;
     }
 
     postBlog(event) {
         const blogPost = event.target.blogpost.value;
-        const title = event.target.title.value;
         const endpoint = "https://comp2110-portal-server.fly.dev/blog";
         const Authorization = "Basic " + getUser().token;
+        let title;
+        if (event.target.title.value === null){
+        title = "Untitled Blog Post";
+        } else {
+        title = event.target.title.value;
+        }
 
         const headers = {
             Authorization,
@@ -25,6 +32,8 @@ class NewPost extends LitElement {
             title: title,
             content: blogPost
         });
+
+
 
         // Send the request
         fetch(endpoint, {
