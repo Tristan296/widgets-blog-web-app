@@ -83,6 +83,8 @@ class BlockBlock extends LitElement {
   // a fancier version could use markdown and a third party markdown
   // formatting library
 
+  //we actually do need this functionality
+  //but we need blogpost sanitation first
 
   //commented out function as do not need to split blog posts
   // static formatBody(text) {
