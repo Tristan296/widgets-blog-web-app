@@ -20,8 +20,8 @@ class NewPost extends LitElement {
     --blue: #8bc5cd;
     }
 
-    button.toggle{
-        width: 50px;
+    input.toggle{
+        width: fit-content;
         height: 50px;
     }
     `;
@@ -30,13 +30,15 @@ class NewPost extends LitElement {
         _user: { type: String, state: true },
         _error: { type: String, state: true },
         _visible: { type: Boolean, state: true },
+        _handleToggle: {state: true},
     }
 
     constructor() {
         super();
         this._user = getUser();
         this._error = null;
-        this._visible = true;
+        this._visible = false;
+        console.log("hey" + this._visible);
     }
 
     postBlog(event) {
@@ -84,25 +86,29 @@ class NewPost extends LitElement {
         window.location.reload();
     }
 
-    toggle() {
+    _handleToggle(e) {
         if (this._visible === false) {
             this._visible = true;
         } else this._visible = false;
+        console.log("visibility has changed to " + this._visible + "|" + e);
     }
 
     render() {
         if (this._error && this._visible) {
-            return html`<div><p>ERROR: ${this._error}</p> 
+        return html`<div>
+            <p>ERROR: ${this._error}</p> 
             </p>
             <form @submit=${this.postBlog}>blogpost
             <input name="title" type=text id=title>
             <input name="blog" type=textarea id=blogpost>
             <input name="button" type='submit' value='post to blog'>
-            </form></div> 
-            <div>
-            <button @click=${this.toggle()} 
-            name="button" class="toggle" type='toggle' value='create post'>
-        </div>`
+            </form>
+        </div> 
+        <div>
+            <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" value="cancel">
+        </div>
+            `
         } else if (this._visible) {
             return html`<div>
         <p> This is currently a placeholder and will be relocated / moved.</p>
@@ -110,24 +116,16 @@ class NewPost extends LitElement {
             <input name="title" type=text id=title>
             <input name="blog" type=textarea id=blogpost>
             <input name="button" type='submit' value='post to blog'>
-        </form></div>
+        </form>
+        </div>
         <div>
-            <button @click=${this.toggle()} 
-            class="toggle" name="toggle-visibility" 
-            type='toggle' value='create post'>
+            <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" value="cancel">
         </div>`
         } else return html`<div><p> This is currently a placeholder and will be relocated / moved.
-        </p>
-        <form @submit=${this.postBlog}>blogpost
-            <input name="title" type=text id=title>
-            <input name="blog" type=textarea id=blogpost>
-            <input name="button" type='submit' value='post to blog'>
-        </form></div>
-        <div>
-            <button @click=${this.toggle()} 
-            class="toggle" name="toggle-visibility" 
-            type='toggle' value='create post">
-        </div>`
+        </p> <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" value="create post">
+        `
     }
 
 }
