@@ -98,7 +98,7 @@ VV review below style VV*/
           <div class="widget-border">
             <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
             <button @click="${this.getNewMeme}">Show New Meme</button>
-            <button @click="${this.postMeme}">Post Caption</button>
+            <button @click="${this.postMeme}">Post Caption and Image</button>
             <p>${this._data.name}</p>
           </div>
         `;
@@ -119,6 +119,7 @@ VV review below style VV*/
     const memeCaption = this._data.name;
     const Authorization = "Basic " + getUser().token;
     const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
+    const memeData = [this._data.url , " Caption: \'" + memeCaption + "\""]
 
     const headers = {
       Authorization,
@@ -126,7 +127,7 @@ VV review below style VV*/
     };
     const body = JSON.stringify({
       title: "Meme Caption",
-      content: memeCaption
+      content: memeData
     });
   
     // Send the request
