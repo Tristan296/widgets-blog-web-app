@@ -1,52 +1,85 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 class triviaWidget extends LitElement{
-    static styles = 
+  static properties = {
+    _data: { state: true }
+
+  }
+
+  static styles =
     css`
-      .widget-border {
-        width: 200px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
+    .widget-border {
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       padding: 16px;
       box-sizing: border-box;
       text-align: center;
-    }
-  `;
 
-  static properties = {    
-    _data: {state:true}
-  }
+      .widget-border button { 
+        background-color: white;
+        color: black;
+        border-radius: 20px;
+        border-style: none;
+        transition: ease-out 0.1s;
+      }
+
+      .widget-border button:hover { 
+        background-color: black;
+        color: white;
+        transition: ease 0.3s;
+        transform: scale(1.05);
+      }
+
+      .widget-border button:active {
+        background-color: black;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+      }
+    }
+      `;
+
+
   constructor() {
     super();
     this._data = null;
   }
-  connectedCallBack(){
-    super.connectedCallBack();
-    this.grabTrivia();
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.fetchTrivia();
   }
-  grabTrivia() {
-    fetch('http://jservice.io/api/random')
+
+  fetchTrivia() {
+    fetch(`http://jservice.io/api/random`)
       .then(response => response.json())
       .then(data => {
-        this._ = data;
+        console.log(data);
+        this._data = data[0];
       });
+  }
+
+
+  render() {
+    if (this._data) {
+      return html`
+  <div class="widget-border">
+  <h2> Trivia Question! </h2>
+  <p> <b> ${this._data.question} </b> </p>
+  <p> ${this._data.answer} </p>
+  <button @click="${this.getNewQuestion}">Show New Question</button>
+  </div>`;
     }
-    render() {
-    if (this._data){
-      return html`      
-      <div class="widget-border">
-      <h2>Jeopardy Question:</h2>
-      <p>${this._data.question}</p>
-      <p>${this._data.answer}</p>
-    </div>`
-    } else {
-    return html`
-      <div class="widget-border">
-        <h2>Jeopardy Question:</h2>
-        <p>Loading Question...</p>
+    else {
+      return html`
+    <div class="widget-border">
+        <p>Trivia Loading...</p>
       </div>
     `;
     }
+  }
+  getNewQuestion() {
+    this.fetchTrivia();
   }
 }
 customElements.define('trivia-widget', triviaWidget);
