@@ -14,7 +14,6 @@ class BlockBlock extends LitElement {
     _posts: { state: true },
     _update: { state: true },
     _number: { type: Number, state: true },
-
   }
 
   static styles = css`
