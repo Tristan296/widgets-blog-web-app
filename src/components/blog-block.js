@@ -83,6 +83,7 @@ class BlockBlock extends LitElement {
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
+        console.log(posts.posts[0]);
       });
   }
 
@@ -90,7 +91,7 @@ class BlockBlock extends LitElement {
     fetch(url)
       .then(response => response.json())
       .then(posts => {
-        this._number = posts[0].id;
+        this._number = posts.posts[0].id;
         console.log(this._number);
       });
   }
@@ -129,7 +130,7 @@ class BlockBlock extends LitElement {
     if (!this._posts)
       return html`Loading...`
 
-    return html`
+      return html`
       ${this._posts.map(post =>
       html`
       <div class="blog-border">
@@ -137,11 +138,26 @@ class BlockBlock extends LitElement {
           <h2>${post.title}</h2>
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
-          <img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>
         </div>
       </div>`
     )}
       `;
+  
+
+    /*return html`
+      ${this._posts.map(post =>
+      html`
+      <div class="blog-border">
+        <div class="blogpost">
+          <h2>${post.title}</h2>
+          <h3>By ${post.name}</h3>
+          <p> ${post.content}</p> 
+          <img class="meme-img" alt="couldn't load meme image" 
+          src="${post.content.split(',')[0]}"></img>
+        </div>
+      </div>`
+    )}
+      `;*/
   }
 }
 
