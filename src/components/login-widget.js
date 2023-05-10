@@ -72,7 +72,7 @@ class LoginWidget extends LitElement {
   logout() {
     deleteUser();
     this.user = null;
-    window.location.reload();
+    //window.location.reload();
   }
 
   render() {

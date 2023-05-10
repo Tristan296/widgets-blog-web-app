@@ -12,24 +12,62 @@ class BlockBlock extends LitElement {
 
   static properties = {
     _posts: { state: true },
-    _update: {state: true}
+    _update: {state: true},
+    _array: {state: true}
   }
 
   static styles = css`
+:root {
+    --background: #316273;
+    --darkBlue: #20315a;
+    --pinkHighlight: #c52973; 
+    --purpleBody: #832052;
+    --white: #f6f6ff;
+    --dgray: #4a4a4a;
+    --lgray: #bdbdc5;
+    --pinkText: #f65273;
+    --cyan: #41839c;
+    --gold: #a47b39;
+    --hay: #decd73;
+    --blue: #8bc5cd;
+    --width: calc(50vw+20px)
+}
+
   :host {
     margin: 1em;
   }
+
+  .blog-border{
+    border-style: solid;
+    border-color: var(--dgray);
+    border-width: calc(50vw+10vw);
+    background-color: var(--dgray);
+    }
   .blogpost {
+    padding-left: 30px;
+    border-style: solid;
+    border-color: var(--lgray);
+    border-width: 7px;
+    width: 50vw;
     text-align: left;
+    background-color: var(--white);
+  }
+  .blogpost p {
+    font: serif;
+    margin-top: -20px;
+  }
+  .blogpost h3{
+    margin-top: -20px;
   }
   .blogpost h2 {
-    background-color: pink;
-    text-transform: capitalize;
+    margin-top: 5px;
+      text-transform: capitalize;
   }
   `;
 
   constructor() {
     super();
+    let build = new Array(20);
 
     const url = `${BASE_URL}blog`;
     fetch(url)
@@ -37,6 +75,8 @@ class BlockBlock extends LitElement {
         .then(posts => {
             this._posts = posts.posts; 
         });
+
+      
   }
 
   // A simple formatter that just splits text into paragraphs and 
@@ -57,10 +97,12 @@ class BlockBlock extends LitElement {
     
     return html`
       ${this._posts.map(post => html`
-      <div class="blogpost">
-        <h2>${post.title}</h2>
-        <h3>By ${post.name}</h3>
-        <p> ${post.content}</p> 
+      <div class="blog-border">
+        <div class="blogpost">
+          <h2>${post.title}</h2>
+          <h3>By ${post.name}</h3>
+          <p> ${post.content}</p> 
+        </div>
       </div>`)}
       `;
   }
