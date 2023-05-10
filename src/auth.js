@@ -11,11 +11,9 @@
  * @param {Object} userInfo user information as returned by the login server
  */
 export const storeUser = (userInfo) => {
-    
     window.localStorage.setItem('user', JSON.stringify(userInfo));
     const event = new CustomEvent('user', {action: 'login'});
     window.dispatchEvent(event);
-    window.location.reload();
 }
 
 /**
@@ -34,16 +32,14 @@ export const deleteUser = () => {
  */
 export const getUser = () => {
     const userInfo = window.localStorage.getItem('user');
-    /*let test = JSON.stringify(userInfo);
-    if (test.includes("login incorrect")){
-        return null;
-    }*/
+    /* Incorrect login returned as "error" "login incorrect", not null.
+    The reason it needs to return the "login incorrect" user info below is 
+    because the login message / header change needs to detect if an incorrect 
+    login has occurred.*/
 
     if (userInfo) {
-        console.log(userInfo);
         return JSON.parse(userInfo);
     } 
-    console.log("not logged in");
     return null;
 }
 

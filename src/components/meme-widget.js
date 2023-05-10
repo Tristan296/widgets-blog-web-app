@@ -4,14 +4,36 @@ import { getUser } from '../auth.js';
 class memeWidget extends LitElement {
   static styles =
     css`
-      .widget-border {
-        width: 200px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 16px;
-        box-sizing: border-box;
-        text-align: center;
-      }
+/*Stacey's Style Edit:
+VV review below style VV*/
+:root {
+  --background: #316273;
+  --darkBlue: #20315a;
+  --pinkHighlight: #c52973; 
+  --purpleBody: #832052;
+  --white: #f6f6ff;
+  --dgray: #4a4a4a;
+  --lgray: #bdbdc5;
+  --pinkText: #f65273;
+  --cyan: #41839c;
+  --gold: #a47b39;
+  --hay: #decd73;
+  --blue: #8bc5cd;
+  }
+  div {
+  min-width: 100px;
+  min-height: 100px;
+  background-color: var(--white);
+  }
+  .widget-border {
+    width: 200px;
+    border: 6px solid var(--pinkHighlight);
+    border-radius: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+    text-align: center;
+}
+/*^^review above style^^*/
 
       .meme-img {
         width: 100%;
@@ -76,7 +98,7 @@ class memeWidget extends LitElement {
           <div class="widget-border">
             <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
             <button @click="${this.getNewMeme}">Show New Meme</button>
-            <button @click="${this.postMeme}">Post Caption</button>
+            <button @click="${this.postMeme}">Post Caption and Image</button>
             <p>${this._data.name}</p>
           </div>
         `;
@@ -97,6 +119,7 @@ class memeWidget extends LitElement {
     const memeCaption = this._data.name;
     const Authorization = "Basic " + getUser().token;
     const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
+    const memeData = [this._data.url , " Caption: \'" + memeCaption + "\""]
 
     const headers = {
       Authorization,
@@ -104,7 +127,7 @@ class memeWidget extends LitElement {
     };
     const body = JSON.stringify({
       title: "Meme Caption",
-      content: memeCaption
+      content: memeData
     });
   
     // Send the request
