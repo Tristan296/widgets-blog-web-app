@@ -6,6 +6,13 @@ class WidgetBlock extends LitElement {
   }
 
   static styles = css`
+  div{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+
   `;
 
   constructor() {
@@ -15,10 +22,12 @@ class WidgetBlock extends LitElement {
 
   render() {
     return html`
-      <meme-widget></meme-widget>
+      <div>
+      <meme-widget class="widget"></meme-widget>
       <trufact-widget></trufact-widget>
       <joke-widget></joke-widget>
       <trivia-widget></trivia-widget>
+      </div>
     `;
   }
 }
