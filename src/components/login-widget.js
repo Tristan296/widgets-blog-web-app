@@ -63,8 +63,8 @@ class LoginWidget extends LitElement {
     }).then(result => result.json()).then(response => {
         this.user = response;
         console.log("store " + response);
-
         storeUser(response);
+        window.location.reload();
       
     })
   }
@@ -72,7 +72,7 @@ class LoginWidget extends LitElement {
   logout() {
     deleteUser();
     this.user = null;
-    //window.location.reload();
+    window.location.reload();
   }
 
   render() {
