@@ -87,34 +87,36 @@ VV review below style VV*/
     if (this._data) {
       return html`
   <div class="widget-border">
-  <h2> Joke! </h2>
+  <h2>Joke!</h2>
   <p> <b> ${this._data.setup} </b> </p>
-  <p> ${this._data.punchline} </p>
   <button @click="${this.showPunchline}">Show Punchline</button>
+
+  <div class = "punchlineTest">
+  <p> ${this._data.punchline} </p>
+  </div>
+
   <button @click="${this.getNewJoke}">Show New Joke</button>
   </div>`;
     }
     else {
       return html`
     <div class="widget-border">
+    <h2>Joke!</h2>
         <p>joke loading...</p>
       </div>
     `;
     }
   }
 
+  showPunchline(){
+
+  }
+
   getNewJoke() {
     this.fetchJoke();
   }
 
-  showPunchline() {
-    var p = this._data.punchline;
-    if (p.styles.display === "none") {
-      p.styles.display = "block";
-    } else {
-      p.styles.display = "none";
-    }
-  }
+  
 }
 
 
