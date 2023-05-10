@@ -13,7 +13,7 @@ class BlockBlock extends LitElement {
   static properties = {
     _posts: { state: true },
     _update: {state: true},
-    _array: {state: true}
+
   }
 
   static styles = css`
@@ -67,8 +67,7 @@ class BlockBlock extends LitElement {
 
   constructor() {
     super();
-    let build = new Array(20);
-
+  
     const url = `${BASE_URL}blog`;
     fetch(url)
         .then(response => response.json())
