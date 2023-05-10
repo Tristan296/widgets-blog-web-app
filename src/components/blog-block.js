@@ -12,8 +12,8 @@ class BlockBlock extends LitElement {
 
   static properties = {
     _posts: { state: true },
-    _update: {state: true},
-
+    _update: { state: true },
+    _number: { type: Number, state: true },
   }
 
   static styles = css`
@@ -63,19 +63,52 @@ class BlockBlock extends LitElement {
     margin-top: 5px;
       text-transform: capitalize;
   }
+  .meme-img { 
+    width: 150px;
+    border: 5px solid black;
+    border-radius: 10px;
+  }
   `;
 
   constructor() {
     super();
-  
     const url = `${BASE_URL}blog`;
-    fetch(url)
-        .then(response => response.json())
-        .then(posts => {
-            this._posts = posts.posts; 
-        });
+    this.createBlog(url); //sets _posts
+    this.countPosts(url); //sets _numbersD
+    //this.sanitisePosts(url); //checks for nulls and gets rid of them
+  }
 
-      
+  createBlog(url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(posts => {
+        this._posts = posts.posts;
+      });
+  }
+
+  countPosts(url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(posts => {
+        this._number = posts[0].id;
+        console.log(this._number);
+      });
+  }
+
+  async sanitisePosts(url) {
+    await this.countPosts(url).then(santisePosts());
+    if (this._posts === null) {
+      return;
+    }
+    let countNulls = 0;
+    if (this._posts != null) {
+      for (let stuff of posts) {
+        console.count.println();
+        if (this._posts[stuff].title === null || this._posts[stuff].content === null) {
+          countNulls++;
+        }
+      }
+    }
   }
 
   // A simple formatter that just splits text into paragraphs and 
@@ -91,20 +124,23 @@ class BlockBlock extends LitElement {
   //   const paragraphs = text.split('\r\n')
   //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
   // }
-  
+
   render() {
     if (!this._posts)
       return html`Loading...`
-    
+
     return html`
-      ${this._posts.map(post => html`
+      ${this._posts.map(post =>
+      html`
       <div class="blog-border">
         <div class="blogpost">
           <h2>${post.title}</h2>
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
+          <img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>
         </div>
-      </div>`)}
+      </div>`
+    )}
       `;
   }
 }
