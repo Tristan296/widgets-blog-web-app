@@ -93,7 +93,6 @@ VV review below style VV*/
 
   <div class = "punchlineTest">
   <p> ${this._data.punchline} </p>
- can you see this?
   </div>
 
   <button @click="${this.getNewJoke}">Show New Joke</button>
@@ -109,18 +108,15 @@ VV review below style VV*/
     }
   }
 
+  showPunchline(){
+
+  }
+
   getNewJoke() {
     this.fetchJoke();
   }
 
-  showPunchline() {
-    var p = this._data.punchline;
-    if (p.styles.display === "none") {
-      p.styles.display = "block";
-    } else {
-      p.styles.display = "none";
-    }
-  }
+  
 }
 
 

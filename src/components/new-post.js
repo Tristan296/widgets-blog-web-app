@@ -7,6 +7,33 @@ class NewPost extends LitElement {
        // _error: {type: string, state: true}
     }
 
+    static styles = 
+    //trying to format the submit buttons
+        css `{
+
+            input[type="submit"]{
+                background-color: white;
+                color: black;
+                border-radius: 20px;
+                border-style: none;
+                transition: ease-out 0.1s;
+              }
+        
+              input[type="submit"]:hover { 
+                background-color: black;
+                color: white;
+                transition: ease 0.3s;
+                transform: scale(1.05);
+              }
+        
+              input[type="submit"]:active {
+                background-color: black;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+              }
+    }
+    `
+
     constructor() {
         super();
         this._user = getUser();
@@ -77,11 +104,15 @@ class NewPost extends LitElement {
             };  */
        return html`<p> This is currently a placeholder and will be relocated / moved.
         </p>
+
+        <div class="form-submit">
         <form @submit=${this.postBlog}>blogpost
         <input name="title" type=text id=title>
         <input name="blog" type=textarea id=blogpost>
         <input name="button" type='submit' value='post to blog'>
-        </form>`
+        </form>
+
+        </div>`
     }
 }
 customElements.define('new-post', NewPost);
