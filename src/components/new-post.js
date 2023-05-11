@@ -76,6 +76,7 @@ class NewPost extends LitElement {
         transform: translateY(4px);
         }
 
+        //new post formatting
         #title{ 
         height: 20px;
         width: 80%;
