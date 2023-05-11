@@ -36,25 +36,35 @@ class TrufactWidget extends LitElement {
     `;
 
   static properties = {
-    date: {type: Date},
-    _data: {state: true}
+    _date: {type: Date},
+    _data: {state: true},
+    _handleRefresh: {state: true},
   }
 
   static BASE_URL = "http://numbersapi.com/";
 
   constructor() {
     super();
-    this.date = new Date();
+    this._date = new Date();
+    this.connectedCallback();
   }
 
   connectedCallback() {
     super.connectedCallback();
-    const url = TrufactWidget.BASE_URL + this.date.getMonth() +'/' + this.date.getDay() + '/date?json';
+    this.todayFact();
+  }
+
+  todayFact(){
+    const url = TrufactWidget.BASE_URL + this._date.getMonth() +'/' + this._date.getDay() + '/date?json';
     fetch(url)
       .then(response => response.json())
       .then(data => {
         this._data = data;
       });
+  }
+
+  _handleRefresh(e){
+    this.connectedCallback();
   }
 
   render() {
@@ -63,7 +73,7 @@ class TrufactWidget extends LitElement {
       <div class="widget-border">
       <h2>On this day...</h2>
       <p>${this._data.text}</p>
-      <input type="button">new fact</button>
+      <input @click=${this._handleRefresh} type="button" value="new fact"></button>
     </div>`
     } else {
     return html`

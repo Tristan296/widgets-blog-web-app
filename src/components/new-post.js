@@ -55,6 +55,7 @@ class NewPost extends LitElement {
         border-radius: 18px;
         border: 10px solid var(--pinkHighlight);
         transition: ease-out 0.1s;
+        margin-top: 10px;
     }
 
    //button formatting//
@@ -116,6 +117,10 @@ class NewPost extends LitElement {
             align-content: center;
         }
 
+        .postbox > #tog{
+            margin-top: 100px;
+        }
+
     `;
 
     static properties = {
@@ -132,22 +137,22 @@ class NewPost extends LitElement {
         this._user = getUser();
         this._error = null;
         this._visible = false;
-        console.log("hey" + this._visible);
     }
 
     postBlog(event) {
+        //this stops the page refreshing on submit
+        event.preventDefault();
+        //prevents the user from submitting a null blog post.
+        this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
-            //this stops the page refreshing on submit
-            event.preventDefault();
             this._error = "please write content.";
-            console.log(this._error + " User did not enter text field.")
-            return;
+            console.log(this._error + " User did not enter text field.");
         } else {
             const blogPost = text;
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
             const Authorization = "Basic " + getUser().token;
-            let title = "Untitled Blog Post";
+            let title = "Untitled Blog Post"; //default title (used if null)
 
             if (event.target.title.value != null && event.target.title.value != "") {
                 title = event.target.title.value;
@@ -172,12 +177,19 @@ class NewPost extends LitElement {
                 .then(response => response.json())
                 .then(data => {
                     console.log('blog posted:', data);
+                    if (data.status=='success'){
+                        //this reloads the blog only on a successful post. 
+                        //window.location.reload();
+                        const success = new CustomEvent('success');
+                        window.dispatchEvent(success);
+                        console.log(success);
+                    }
                 })
                 .catch(error => {
                     console.error('Error posting to blog:', error);
+                    this._error = error;
                 });
-        } //gets the latest posts & refreshes the screen 
-        window.location.reload();
+        }
     }
 
     _handleToggle(e) {
@@ -195,8 +207,9 @@ class NewPost extends LitElement {
         </div>
         <div class="visible">
             <div class="postbox">
+                <p> New blog post</p> 
                 <p>ERROR: ${this._error}</p> 
-                <form @submit=${this.postBlog}>blogpost
+                <form @submit=${this.postBlog}>
                 <input name="title" type="text" id="title">
                 <input name="blog" type="textarea" id="blogpost">
                 <input name="button" type='submit' value='post to blog'>
@@ -217,9 +230,8 @@ class NewPost extends LitElement {
             <div class="flex">
                 <div class="visible">
                     <div class="postbox">
-                        <p> This is currently a placeholder 
-                        and will be relocated / moved.</p>
-                        <form @submit=${this.postBlog}>blogpost
+                        <p>New Blog Post</p>
+                        <form @submit=${this.postBlog}>
                         <input name="title" type="text" id="title">
                         <input name="blog" type="textarea" id="blogpost">
                         <input name="button" type='submit' value='post to blog'>
@@ -239,8 +251,6 @@ class NewPost extends LitElement {
             </div>
             
             <div class="togglebox">
-                <p> This is currently a placeholder 
-                    and will be relocated / moved.</p> 
                 <input @click=${this._handleToggle} name="button" 
                     type="button" class="toggle" id="tog" 
                     value="create post">
