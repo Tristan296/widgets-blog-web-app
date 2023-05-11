@@ -75,6 +75,7 @@ class BlockBlock extends LitElement {
     const url = `${BASE_URL}blog`;
     this.createBlog(url); //sets _posts
     this.countPosts(url); //sets _numbersD
+    this.reloadBlog();
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
@@ -93,6 +94,14 @@ class BlockBlock extends LitElement {
         this._number = posts[0].id;
         console.log(this._number);
       });
+  }
+
+  // A reload function which updates only the blog portion of the website
+  reloadBlog() {
+    setTimeout(function () {
+      console.log("Reloading blog...");
+      location.reload();
+    }, 15000); // 15 second delay
   }
 
   async sanitisePosts(url) {
@@ -136,7 +145,7 @@ class BlockBlock extends LitElement {
         <div class="blogpost">
           <h2>${post.title}</h2>
           <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
+          <p> ${post.content}</p>
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
         </div>
       </div>`
