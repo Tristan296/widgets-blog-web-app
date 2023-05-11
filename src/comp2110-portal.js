@@ -9,7 +9,7 @@ import './components/login-widget.js';
 import './components/new-post.js';
 
 //trivia widget
-//import './components/trivia-widget.js';
+import './components/trivia-widget.js';
 
 //trufact widget
 import './components/trufact-widget.js';
@@ -18,7 +18,7 @@ import './components/trufact-widget.js';
 import './components/meme-widget.js';
 
 //joke widget
-//import './components/joke-widget.js';
+import './components/joke-widget.js';
 
 class Comp2110Portal extends LitElement {
 
