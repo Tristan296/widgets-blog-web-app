@@ -92,11 +92,20 @@ class NewPost extends LitElement {
         .visible{
             color: var(--pinkHighlight);
             position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            align-items: stretch;
             left: 0;
             top: 20vh;
-            width: 66vw;
+            width: 100%;
             height: 40vh;
+        }
+        .postbox{
             background-color: var(--purpleBody);
+            width: fit-content;
+
         }
 
         .flex{
