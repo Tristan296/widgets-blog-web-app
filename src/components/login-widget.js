@@ -95,11 +95,12 @@ class LoginWidget extends LitElement {
       return */
 
     return html`
-      <form @submit=${this.submitForm}>
-          Username: <input name="username">
-          Password: <input type="password" name="password">
-          <input type='submit' value='Login'>
-      </form>`;
+      <p>"Login to Portal"</p>
+        <form @submit=${this.submitForm}>
+            Username: <input name="username" placeholder="Enter Username...">
+            Password: <input type="password" placeholder="Enter Password..." name="password">
+            <input type='submit' value='Login'>
+        </form>`;
   }
 }
 
