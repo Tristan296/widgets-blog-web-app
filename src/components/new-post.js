@@ -33,6 +33,33 @@ class NewPost extends LitElement {
         _handleToggle: {state: true},
     }
 
+    static styles = 
+    //trying to format the submit buttons
+        css `{
+
+            input[type="submit"]{
+                background-color: white;
+                color: black;
+                border-radius: 20px;
+                border-style: none;
+                transition: ease-out 0.1s;
+              }
+        
+              input[type="submit"]:hover { 
+                background-color: black;
+                color: white;
+                transition: ease 0.3s;
+                transform: scale(1.05);
+              }
+        
+              input[type="submit"]:active {
+                background-color: black;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+              }
+    }
+    `
+
     constructor() {
         super();
         this._user = getUser();
