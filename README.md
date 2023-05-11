@@ -109,11 +109,53 @@ changing the state of existing tasks (marking them as done).
 `
 * Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
 
-## Web Application Overview: 
-    This web app has the ability to login and logout and displays the most recent blog posts. There is a different layout for when the user is logged into the website vs when they are logged out. Creating a new post refreshes the blog, not the whole page. The user cannot 
-    enter a null title (the web app assigns a default title), and the user is prevented
-    from submitting blank content to the server. If the user leaves the content field blank,
-    they are prompted to enter text.
-## Trufact Widget: 
-    The trufact widget accesses the number API and retrieves a fact about today's date. 
-    The user can click the button to access another random fact. 
+# Web Application Overview:
+This web app was developed using [Lit Web Components](https://lit.dev/). 
+This application has the following functionality
+* users can login and logout
+* displays the most recent blog posts
+* the layout changes depending on whether a user is logged in or not
+* creating a new post refreshes the blog, not the whole page
+* the user cannot enter a null title (the web app assigns a default title)
+* if the user leaves the content field in their new post blank, they are prompted to enter text
+    (the user is prevented from submitting blank content to the server)
+
+It also includes four widgets integrated into the overall design. 
+## About our group: 
+Group two is made up of the following individuals: 
+((put your name, user ID here))
+* Stacey Purcell, 42123682. 
+# Who did what?
+## Integration of Individual Widgets 
+(include a brief comment how your widget is integrated in the blog website's overall functionality, there is space to describe your widget in detail below)
+* 
+* 
+* 
+* 
+## Design 
+(put your name here any any design elements you contributed)
+* Stacey Purcell, style and layout; particularly header and blog post.
+* 
+* 
+* 
+## Bug Testing
+(include major bugs here and the fix, eg Brigid's fix for null entries)
+* 
+* 
+* 
+* 
+
+## Extension to <blog-block>, the post request
+* Stacey Purcell: initial implementation of the ability to post to the blog
+* Stacey Purcell: event listener to refresh <blog-block> only on successful post.  
+# Individual Widgets
+((include your widget below with a summary))
+## Trufact Widget by Stacey Purcell 42123682
+The trufact widget accesses the number API and retrieves a fact about today's date. 
+The user can click the button to access another random fact. 
+
+## Meme Widget by
+
+## Joke Widget by
+
+## Trivia Widget by
