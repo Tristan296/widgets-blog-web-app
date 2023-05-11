@@ -14,6 +14,8 @@ class BlockBlock extends LitElement {
     _posts: { state: true },
     _update: { state: true },
     _number: { type: Number, state: true },
+    _url: {type: String, state: true},
+    _handlePost: {state: true},
   }
 
   static styles = css`
@@ -72,9 +74,15 @@ class BlockBlock extends LitElement {
 
   constructor() {
     super();
-    const url = `${BASE_URL}blog`;
-    this.createBlog(url); //sets _posts
-    this.countPosts(url); //sets _numbersD
+    this._url = `${BASE_URL}blog`;
+    window.addEventListener('success', () => this.connectedCallback());
+  }
+
+//this is used to reload just the blog posts when a 'success' event is created by the posts. 
+  connectedCallback(){
+    super.connectedCallback();
+    this.createBlog(this._url); //sets _posts
+    this.countPosts(this._url); //sets _numbersD
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
