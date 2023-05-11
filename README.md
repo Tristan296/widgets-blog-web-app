@@ -98,6 +98,7 @@ currencies.
 
 * A widget showing a random fact about the current date from <http://numbersapi.com/>,
 e.g. <http://numbersapi.com/3/22/date>.
+
 * A widget showing the upcoming public holidays from <https://date.nager.at>, e.g.
 [the 2023 Australian holidays](https://date.nager.at/api/v2/publicholidays/2023/AU).
 Your widget could allow selection of the country who's holidays are being displayed.
@@ -108,8 +109,11 @@ changing the state of existing tasks (marking them as done).
 `
 * Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
 
-## STACEY BRANCH DEV NOTES: 
-* 9/5/2023: 
-    This web app has the ability to login and logout and displays the most recent blog posts. There is a different layout for when the user is logged into the website vs when they are logged out. 
-
+## Web Application Overview: 
+    This web app has the ability to login and logout and displays the most recent blog posts. There is a different layout for when the user is logged into the website vs when they are logged out. Creating a new post refreshes the blog, not the whole page. The user cannot 
+    enter a null title (the web app assigns a default title), and the user is prevented
+    from submitting blank content to the server. If the user leaves the content field blank,
+    they are prompted to enter text.
+## Trufact Widget: 
     The trufact widget accesses the number API and retrieves a fact about today's date. 
+    The user can click the button to access another random fact. 

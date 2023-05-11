@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class TrufactWidget extends LitElement {
   static styles = 
     css`
-/*DEFAULT STYLE START*/
+/*default styles*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
