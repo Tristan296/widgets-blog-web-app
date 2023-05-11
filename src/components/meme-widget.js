@@ -32,7 +32,7 @@ VV review below style VV*/
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
-}
+  }
 /*^^review above style^^*/
 
       .meme-img {
@@ -63,9 +63,9 @@ VV review below style VV*/
         transform: translateY(4px);
       }
     `;
-    
+
   static properties = {
-    _data: { state: true }, 
+    _data: { state: true },
     _user: { type: String, state: true }
   }
 
@@ -118,8 +118,8 @@ VV review below style VV*/
   postMeme() {
     const memeCaption = this._data.name;
     const Authorization = "Basic " + getUser().token;
-    const endpoint = "https://comp2110-portal-server.fly.dev/blog"; 
-    const memeData = [this._data.url , " Caption: \'" + memeCaption + "\""]
+    const endpoint = "https://comp2110-portal-server.fly.dev/blog";
+    const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
 
     const headers = {
       Authorization,
@@ -129,7 +129,7 @@ VV review below style VV*/
       title: "Meme Caption",
       content: memeData
     });
-  
+
     // Send the request
     fetch(endpoint, {
       method: 'POST',
@@ -144,7 +144,7 @@ VV review below style VV*/
         console.error('Error posting meme caption:', error);
       });
   }
-  
+
 }
 
 customElements.define('meme-widget', memeWidget);

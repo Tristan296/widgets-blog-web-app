@@ -138,7 +138,8 @@ class BlockBlock extends LitElement {
           <h2>${post.title}</h2>
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
-        </div>
+          ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
+         </div>
       </div>`
     )}
       `;
