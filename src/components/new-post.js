@@ -19,32 +19,94 @@ class NewPost extends LitElement {
     --blue: #8bc5cd;
     }/*^^ default styles ^^ */
 
-   //button formatting
-    input[type="submit"]{
-        background-color: white;
-        color: black;
-        border-radius: 20px;
-        border-style: none;
+
+    div.menu{
+        z-index: -10;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 30vh;
+        width: 100%;
+    }
+
+    div.menubar{
+        z-index: 2;
+        position: relative;
+        background-color: var(--purpleBody);
+        width: 100%;
+        height: 150px;
+    }
+    div.togglebox{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        color: var(--pinkHighlight);
+
+    }
+
+    .togglebox > #tog{
+        background-color: var(--purpleBody);
+        color: var(--pinkHighlight);
+        width: 100px;
+        height: 50px;
+        border-radius: 18px;
+        border: 10px solid var(--pinkHighlight);
         transition: ease-out 0.1s;
+    }
+
+   //button formatting//
+        .toggle{
+        color: var(--pinkHighlight);
         }
 
-        input[type="submit"]:hover { 
-        background-color: black;
-        color: white;
-        transition: ease 0.3s;
+       input[name="button"]:hover { 
+        background-color: var(--cyan);
+        color: var(--white);
+        transition: ease 0.5s;
         transform: scale(1.05);
         }
 
-        input[type="submit"]:active {
+        input[name="button"]:active {
         background-color: black;
-        box-shadow: 0 5px #666;
+        box-shadow: 0 5px var(--dgray);
         transform: translateY(4px);
         }
 
-        input.toggle{
-        width: fit-content;
-        height: 50px;
-    }
+        #title{ 
+        height: 20px;
+        width: 80%;
+        color: var(--dGray);
+        background-color: var(--white);
+        }
+
+        #blogpost{
+        height: 20vh;
+        width: 80%;
+        color: var(--dGray);
+        background-color: var(--white);
+        }
+
+        .visible{
+            color: var(--pinkHighlight);
+            position: relative;
+            left: 0;
+            top: 20vh;
+            width: 66vw;
+            height: 40vh;
+            background-color: var(--purpleBody);
+        }
+
+        .flex{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: center;
+        }
+
     `;
 
     static properties = {
@@ -118,36 +180,63 @@ class NewPost extends LitElement {
 
     render() {
         if (this._error && this._visible) {
-        return html`<div>
-            <p>ERROR: ${this._error}</p> 
-            </p>
-            <form @submit=${this.postBlog}>blogpost
-            <input name="title" type=text id=title>
-            <input name="blog" type=textarea id=blogpost>
-            <input name="button" type='submit' value='post to blog'>
-            </form>
-        </div> 
-        <div>
-            <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="cancel">
+        return html`
+        <div class="menu">
+            <div class="menubar"></div>
         </div>
+        <div class="visible">
+            <div class="postbox">
+                <p>ERROR: ${this._error}</p> 
+                <form @submit=${this.postBlog}>blogpost
+                <input name="title" type="text" id="title">
+                <input name="blog" type="textarea" id="blogpost">
+                <input name="button" type='submit' value='post to blog'>
+                </form>
+                    <div class="togglebox">
+                    <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" value="cancel">
+                    </div>
+            </div> 
+        </div> 
             `
         } else if (this._visible) {
-            return html`<div>
-        <p> This is currently a placeholder and will be relocated / moved.</p>
-        <form @submit=${this.postBlog}>blogpost
-            <input name="title" type=text id=title>
-            <input name="blog" type=textarea id=blogpost>
-            <input name="button" type='submit' value='post to blog'>
-        </form>
-        </div>
-        <div>
-            <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="cancel">
-        </div>`
-        } else return html`<div><p> This is currently a placeholder and will be relocated / moved.
-        </p> <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="create post">
+            return html`
+        
+            <div class="menu">
+                <div class="menubar"></div>
+            </div>
+            <div class="flex">
+                <div class="visible">
+                    <div class="postbox">
+                        <p> This is currently a placeholder 
+                        and will be relocated / moved.</p>
+                        <form @submit=${this.postBlog}>blogpost
+                        <input name="title" type="text" id="title">
+                        <input name="blog" type="textarea" id="blogpost">
+                        <input name="button" type='submit' value='post to blog'>
+                        </form>
+                        <div class="togglebox">
+                            <input @click=${this._handleToggle} name="button" 
+                                type="button" class="toggle" id="tog" 
+                                value="cancel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        } else return html`
+        <div class="menu">&nbsp;
+            <div class="menubar"></div>
+            </div>
+            
+            <div class="togglebox">
+                <p> This is currently a placeholder 
+                    and will be relocated / moved.</p> 
+                <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" 
+                    value="create post">
+            </div>
+
         `
     }
 
