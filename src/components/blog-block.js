@@ -78,17 +78,12 @@ class BlockBlock extends LitElement {
     window.addEventListener('success', () => this.connectedCallback());
   }
 
-
+//this is used to reload just the blog posts when a 'success' event is created by the posts. 
   connectedCallback(){
     super.connectedCallback();
     this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
-  }
-
-  _handlePost(e){
-    console.log(e);
-    this.connectedCallback();
   }
 
   createBlog(url) {

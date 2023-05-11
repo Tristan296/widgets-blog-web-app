@@ -178,8 +178,7 @@ class NewPost extends LitElement {
                 .then(data => {
                     console.log('blog posted:', data);
                     if (data.status=='success'){
-                        //this reloads the blog only on a successful post. 
-                        //window.location.reload();
+                        //this reloads the blog only on a successful post (listener in blog-block)
                         const success = new CustomEvent('success');
                         window.dispatchEvent(success);
                         console.log(success);
