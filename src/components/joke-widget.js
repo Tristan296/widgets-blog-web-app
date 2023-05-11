@@ -2,7 +2,10 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 
 class JokeWidget extends LitElement {
 
+  
+
   static properties = {
+    twopart: {type: String},
     _data: { state: true }
 
   }
@@ -67,6 +70,7 @@ VV review below style VV*/
   constructor() {
     super();
     this._data = null;
+    var count = 0;
   }
 
   connectedCallback() {
@@ -75,7 +79,7 @@ VV review below style VV*/
   }
 
   fetchJoke() {
-    fetch(`https://official-joke-api.appspot.com/random_joke`)
+    fetch(`https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit&type=twopart`)
       .then(response => response.json())
       .then(data => {
         this._data = data;
@@ -84,20 +88,29 @@ VV review below style VV*/
 
 
   render() {
+
+    
+
     if (this._data) {
       return html`
-  <div class="widget-border">
+      
+<div class="widget-border">
   <h2>Joke!</h2>
   <p> <b> ${this._data.setup} </b> </p>
   <button @click="${this.showPunchline}">Show Punchline</button>
 
   <div class = "punchlineTest">
-  <p> ${this._data.punchline} </p>
-  </div>
+  <p> ${this._data.delivery} </p>
+  
 
   <button @click="${this.getNewJoke}">Show New Joke</button>
-  </div>`;
-    }
+`
+
+
+;
+      }
+   
+    
     else {
       return html`
     <div class="widget-border">
@@ -108,12 +121,11 @@ VV review below style VV*/
     }
   }
 
-  showPunchline(){
 
-  }
 
   getNewJoke() {
     this.fetchJoke();
+    
   }
 
   
