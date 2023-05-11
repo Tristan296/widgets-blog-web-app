@@ -3,7 +3,7 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class TrufactWidget extends LitElement {
   static styles = 
     css`
-/*Stacey's Styles*/
+/*DEFAULT STYLE START*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
@@ -31,7 +31,8 @@ class TrufactWidget extends LitElement {
     box-sizing: border-box;
     text-align: center;
 }
-/*end styles*/
+/*DEFAULT STYLES FINISH*/
+//write override styles below
     `;
 
   static properties = {
@@ -62,6 +63,7 @@ class TrufactWidget extends LitElement {
       <div class="widget-border">
       <h2>On this day...</h2>
       <p>${this._data.text}</p>
+      <input type="button">new fact</button>
     </div>`
     } else {
     return html`

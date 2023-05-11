@@ -4,8 +4,7 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class NewPost extends LitElement {
     static styles = 
     css`
-    /*Stacey's Styles*/
-    :root {
+    :root { /*vv DEFAULT STYLE vv*/
     --background: #316273;
     --darkBlue: #20315a;
     --pinkHighlight: #c52973; 
@@ -18,9 +17,31 @@ class NewPost extends LitElement {
     --gold: #a47b39;
     --hay: #decd73;
     --blue: #8bc5cd;
-    }
+    }/*^^ default styles ^^ */
 
-    input.toggle{
+   //button formatting
+    input[type="submit"]{
+        background-color: white;
+        color: black;
+        border-radius: 20px;
+        border-style: none;
+        transition: ease-out 0.1s;
+        }
+
+        input[type="submit"]:hover { 
+        background-color: black;
+        color: white;
+        transition: ease 0.3s;
+        transform: scale(1.05);
+        }
+
+        input[type="submit"]:active {
+        background-color: black;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+        }
+
+        input.toggle{
         width: fit-content;
         height: 50px;
     }
@@ -33,32 +54,7 @@ class NewPost extends LitElement {
         _handleToggle: {state: true},
     }
 
-    static styles = 
-    //trying to format the submit buttons
-        css `{
-
-            input[type="submit"]{
-                background-color: white;
-                color: black;
-                border-radius: 20px;
-                border-style: none;
-                transition: ease-out 0.1s;
-              }
-        
-              input[type="submit"]:hover { 
-                background-color: black;
-                color: white;
-                transition: ease 0.3s;
-                transform: scale(1.05);
-              }
-        
-              input[type="submit"]:active {
-                background-color: black;
-                box-shadow: 0 5px #666;
-                transform: translateY(4px);
-              }
-    }
-    `
+ 
 
     constructor() {
         super();
