@@ -92,15 +92,20 @@ class BlockBlock extends LitElement {
     super();
     this._url = `${BASE_URL}blog`;;
     window.addEventListener('reload', () => this.connectedCallback());
+    this._url = `${BASE_URL}blog`;
+    window.addEventListener('success', () => this.connectedCallback());
   }
-
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
  *  
  *  - */
-    this._url = `${BASE_URL}blog`;
-    window.addEventListener('success', () => this.connectedCallback());
-  }
+connectedCallback(){
+  super.connectedCallback();
+  this.createBlog(this._url); //sets _posts
+  this.countPosts(this._url); //sets _numbersD
+  this._reloadBlog();
+  //this.sanitisePosts(url); //checks for nulls and gets rid of them
+}
 
 //this is used to reload just the blog posts when a 'success' event is created by the posts. 
   connectedCallback(){
