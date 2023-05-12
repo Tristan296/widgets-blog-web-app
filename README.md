@@ -14,10 +14,11 @@ It also includes four widgets integrated into the overall design.
 Group two is made up of the following individuals: 
 ((put your name, user ID here))
 * Stacey Purcell, 42123682. 
+* Tristan Norbury, 47308028.
 # Who did what?
 ## Integration of Individual Widgets 
 (include a brief comment how your widget is integrated in the blog website's overall functionality, there is space to describe your widget in detail below)
-* 
+* Tristan Norbury, post meme image url and url (button) - which is then fetched from the blog posts array and displayed as an image, Post meme caption - posts the associated meme's caption as a quote. Fetch new meme (button) - retrieves a new random meme by choosing a random index from the imgflip meme array.
 * 
 * 
 * 
@@ -29,7 +30,7 @@ Group two is made up of the following individuals:
 * 
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
-* 
+* Tristan Norbury, bug fixes; The website now displays only one widget on each side, instead of displaying three identical widgets for all of them.
 * 
 * 
 * 
@@ -43,7 +44,7 @@ Group two is made up of the following individuals:
 The trufact widget accesses the number API and retrieves a fact about today's date. 
 The user can click the button to access another random fact. 
 
-## Meme Widget by
+## Meme Widget by Tristan Norbury 47308028
 
 ## Joke Widget by
 
