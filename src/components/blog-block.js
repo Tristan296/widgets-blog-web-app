@@ -75,7 +75,7 @@ class BlockBlock extends LitElement {
     const url = `${BASE_URL}blog`;
     this.createBlog(url); //sets _posts
     this.countPosts(url); //sets _numbersD
-    this.reloadBlog();
+    // this.reloadBlog();
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
