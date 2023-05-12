@@ -94,19 +94,22 @@ class Comp2110Portal extends LitElement {
     }
 
     header >div.menu {
+      min-height: 70px;
       grid-row: 4;
       background-color: var(--purpleBody);
       grid-column: 1/4;
     }
 
     header#login{
+      height: 100vh;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
+      grid-template-rows: 1fr 1fr 1fr 70px;
     }
     header#user{
       height: 30vh;
+      min-height: 200px;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1vh 12vh 12vh 5vh 5vh;
+      grid-template-rows: 1fr 1fr 1fr 1fr
     }
       
 
@@ -141,8 +144,8 @@ class Comp2110Portal extends LitElement {
     }
 
     h1#login{
-      margin-top: -100px;
-      grid-row: 2;
+      //margin-top: -100px;
+      grid-row: 4;
       grid-column: 2;
       margin-bottom: -100px;
     }
@@ -203,7 +206,7 @@ class Comp2110Portal extends LitElement {
         <login-widget id="user"></login-widget>
         <div class="menu">
           <new-post></new-post>
-        </menu>        
+        </div>        
       </header>
 
       <main>
@@ -229,7 +232,7 @@ class Comp2110Portal extends LitElement {
       <header id="login">
         <h1 id="login">${this.header}</h1>
         <login-widget id="login"></login-widget>
-        
+        <div class="menu"></div>
       </header>
 
       <main>

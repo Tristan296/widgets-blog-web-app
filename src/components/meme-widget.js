@@ -4,7 +4,8 @@ import { getUser } from '../auth.js';
 class memeWidget extends LitElement {
   static styles =
     css`
-/*default styles*/
+/*Stacey's Style Edit:
+VV review below style VV*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
@@ -32,8 +33,7 @@ class memeWidget extends LitElement {
     box-sizing: border-box;
     text-align: center;
   }
-/*DEFAULT STYLES FINISH*/
-//write override styles below
+/*^^review above style^^*/
 
       .meme-img {
         width: 100%;

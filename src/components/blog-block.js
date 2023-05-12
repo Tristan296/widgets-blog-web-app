@@ -16,6 +16,8 @@ class BlockBlock extends LitElement {
     _number: { type: Number, state: true },
     _url: {type: String, state: true},
     _handlePost: {state: true},
+    _reloadBlog: {state:true},
+    _timerInterval: {type: Number},
   }
 
   static styles = css`
@@ -72,19 +74,38 @@ class BlockBlock extends LitElement {
   }
   `;
 
+/* constructor() notes:
+ * called when element is created and invoked when element is upgraded.
+ * - adds _url string for use within blog-block.  
+ * - adds 'reload' event listener to global window
+ * 
+ * !! - 'reload' event listener important note - !!
+ *   as variables in Lit constructors are added EACH time the the blog reloads
+ *   with event listeners only listening for one 'event' before reloading.
+ *   All functions that wish to reload the blog should use a 'reload' custom event.       
+ *   EG: 
+ *       const reload = new CustomEvent('reload');
+ *       window.dispatchEvent(reload);
+ *       
+**/
   constructor() {
     super();
-    this._url = `${BASE_URL}blog`;
-    window.addEventListener('success', () => this.connectedCallback());
+    this._url = `${BASE_URL}blog`;;
+    window.addEventListener('reload', () => this.connectedCallback());
   }
 
-//this is used to reload just the blog posts when a 'success' event is created by the posts. 
+/** connectedCallback()
+ * setup tasks that should only occur when element is connnected to the document.
+ *  
+ *  - */
   connectedCallback(){
     super.connectedCallback();
     this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
+    this._reloadBlog();
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
+
 
   createBlog(url) {
     fetch(url)
@@ -102,6 +123,18 @@ class BlockBlock extends LitElement {
         this._number = posts.posts[0].id;
         console.log(this._number);
       });
+  }
+
+/** _reloadBlog()
+ * creates a 90 second server tick which will trigger the connectedCallback() function.
+ *  - dispatch a 'reload' event on the global window */
+  _reloadBlog() { 
+    setTimeout(function () {
+      console.log("reloading...");
+      const reload = new CustomEvent('reload');
+      window.dispatchEvent(reload);
+      console.log("event created:"+ reload);
+      }, 9000); // 90 second delay
   }
 
   async sanitisePosts(url) {
