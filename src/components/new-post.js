@@ -131,8 +131,6 @@ class NewPost extends LitElement {
         _handleToggle: {state: true},
     }
 
- 
-
     constructor() {
         super();
         this._user = getUser();
@@ -140,6 +138,13 @@ class NewPost extends LitElement {
         this._visible = false;
     }
 
+/** postBlog(event)
+ * Posts a new blog post to the server.
+ *  - if the user enters a null title, it gives the default title of "Untitled Blog Post".
+ *  - if the user enters a null content field, it displays an error.
+ *  - dispatch a 'reload' custom event on the global window
+ * @param {Event} event clicking the 'post to blog' button
+ */
     postBlog(event) {
         //this stops the page refreshing on submit
         event.preventDefault();
@@ -180,7 +185,7 @@ class NewPost extends LitElement {
                     console.log('blog posted:', data);
                     if (data.status=='success'){
                         //this reloads the blog only on a successful post (listener in blog-block)
-                        const success = new CustomEvent('success');
+                        const success = new CustomEvent('reload');
                         window.dispatchEvent(success);
                         console.log(success);
                     }
@@ -192,6 +197,10 @@ class NewPost extends LitElement {
         }
     }
 
+ /** _handleToggle(e)
+ * Toggles whether the New Blog Post window is visible or not. 
+ * @param {Event} e clicking the toggle button (create post / cancel)
+ */
     _handleToggle(e) {
         if (this._visible === false) {
             this._visible = true;
