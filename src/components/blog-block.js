@@ -116,7 +116,6 @@ connectedCallback(){
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
-
   createBlog(url) {
     fetch(url)
       .then(response => response.json())
@@ -202,22 +201,6 @@ connectedCallback(){
       </div>`
     )}
       `;
-  
-
-    /*return html`
-      ${this._posts.map(post =>
-      html`
-      <div class="blog-border">
-        <div class="blogpost">
-          <h2>${post.title}</h2>
-          <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
-          <img class="meme-img" alt="couldn't load meme image" 
-          src="${post.content.split(',')[0]}"></img>
-        </div>
-      </div>`
-    )}
-      `;*/
   }
 }
 
