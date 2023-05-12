@@ -14,6 +14,8 @@ class BlockBlock extends LitElement {
     _posts: { state: true },
     _update: { state: true },
     _number: { type: Number, state: true },
+    _url: {type: String, state: true},
+    _handlePost: {state: true},
   }
 
   static styles = css`
@@ -72,10 +74,15 @@ class BlockBlock extends LitElement {
 
   constructor() {
     super();
-    const url = `${BASE_URL}blog`;
-    this.createBlog(url); //sets _posts
-    this.countPosts(url); //sets _numbersD
-    // this.reloadBlog();
+    this._url = `${BASE_URL}blog`;
+    window.addEventListener('success', () => this.connectedCallback());
+  }
+
+//this is used to reload just the blog posts when a 'success' event is created by the posts. 
+  connectedCallback(){
+    super.connectedCallback();
+    this.createBlog(this._url); //sets _posts
+    this.countPosts(this._url); //sets _numbersD
     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
@@ -84,6 +91,7 @@ class BlockBlock extends LitElement {
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
+        console.log(posts.posts[0]);
       });
   }
 
@@ -91,18 +99,18 @@ class BlockBlock extends LitElement {
     fetch(url)
       .then(response => response.json())
       .then(posts => {
-        this._number = posts[0].id;
+        this._number = posts.posts[0].id;
         console.log(this._number);
       });
   }
 
-  // A reload function which updates only the blog portion of the website
-  reloadBlog() {
-    setTimeout(function () {
-      console.log("Reloading blog...");
-      location.reload();
-    }, 15000); // 15 second delay
-  }
+// A reload function which updates only the blog portion of the website
+reloadBlog() {
+  setTimeout(function () {
+    console.log("Reloading blog...");
+    location.reload();
+  }, 15000); // 15 second delay
+}
 
   async sanitisePosts(url) {
     await this.countPosts(url).then(santisePosts());
@@ -138,19 +146,35 @@ class BlockBlock extends LitElement {
     if (!this._posts)
       return html`Loading...`
 
-    return html`
+      return html`
       ${this._posts.map(post =>
       html`
       <div class="blog-border">
         <div class="blogpost">
           <h2>${post.title}</h2>
           <h3>By ${post.name}</h3>
-          <p> ${post.content}</p>
+          <p> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
-        </div>
+         </div>
       </div>`
     )}
       `;
+  
+
+    /*return html`
+      ${this._posts.map(post =>
+      html`
+      <div class="blog-border">
+        <div class="blogpost">
+          <h2>${post.title}</h2>
+          <h3>By ${post.name}</h3>
+          <p> ${post.content}</p> 
+          <img class="meme-img" alt="couldn't load meme image" 
+          src="${post.content.split(',')[0]}"></img>
+        </div>
+      </div>`
+    )}
+      `;*/
   }
 }
 
