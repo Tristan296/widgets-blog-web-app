@@ -98,6 +98,11 @@ class BlockBlock extends LitElement {
  * setup tasks that should only occur when element is connnected to the document.
  *  
  *  - */
+    this._url = `${BASE_URL}blog`;
+    window.addEventListener('success', () => this.connectedCallback());
+  }
+
+//this is used to reload just the blog posts when a 'success' event is created by the posts. 
   connectedCallback(){
     super.connectedCallback();
     this.createBlog(this._url); //sets _posts
@@ -136,6 +141,14 @@ class BlockBlock extends LitElement {
       console.log("event created:"+ reload);
       }, 9000); // 90 second delay
   }
+
+// // A reload function which updates only the blog portion of the website
+// reloadBlog() {
+//   setTimeout(function () {
+//     console.log("Reloading blog...");
+//     location.reload();
+//   }, 15000); // 15 second delay
+// }
 
   async sanitisePosts(url) {
     await this.countPosts(url).then(santisePosts());
