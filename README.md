@@ -1,9 +1,56 @@
-# COMP2110 Portal - Starter
+# COMP2110 Portal: Group 2 Web Application Overview:
+This web app was developed using [Lit Web Components](https://lit.dev/). 
+This application has the following functionality
+* users can login and logout
+* displays the most recent blog posts
+* the layout changes depending on whether a user is logged in or not
+* creating a new post refreshes the blog, not the whole page
+* the user cannot enter a null title (the web app assigns a default title)
+* if the user leaves the content field in their new post blank, they are prompted to enter text
+    (the user is prevented from submitting blank content to the server)
 
-This is the starter repository for the COMP2110 Portal front end assignment 2023. You are
-expected to customise this README file to describe your own project.  You may delete or modify
-any or all of the current contents.
+It also includes four widgets integrated into the overall design. 
+## About our group: 
+Group two is made up of the following individuals: 
+((put your name, user ID here))
+* Stacey Purcell, 42123682. 
+# Who did what?
+## Integration of Individual Widgets 
+(include a brief comment how your widget is integrated in the blog website's overall functionality, there is space to describe your widget in detail below)
+* 
+* 
+* 
+* 
+## Design 
+(put your name here any any design elements you contributed)
+* Stacey Purcell, style and layout; particularly header and blog post.
+* 
+* 
+* 
+## Bug Testing
+(include major bugs here and the fix, eg Brigid's fix for null entries)
+* 
+* 
+* 
+* 
 
+## Extension to <blog-block>, the post request
+* Stacey Purcell: initial implementation of the ability to post to the blog
+* Stacey Purcell: event listener to refresh <blog-block> only on successful post.  
+# Individual Widgets
+((include your widget below with a summary))
+## Trufact Widget by Stacey Purcell 42123682
+The trufact widget accesses the number API and retrieves a fact about today's date. 
+The user can click the button to access another random fact. 
+
+## Meme Widget by
+
+## Joke Widget by
+
+## Trivia Widget by
+
+# Boilerplate 'starter code' documentation: 
+The boilerplate and starter code remains a product of the COMP2110 Web Development Collective © 2023. The following documentation was provided for the boilerplate.
 ## Installation
 
 The project has no external dependencies, it uses Lit via a CDN load directly into
@@ -79,83 +126,3 @@ posting in some way.
 
 This component displays an advertisement from the backend portal server. You should not
 modify it and it should appear somewhere in your page design.
-
-
-## Possible Widgets to Implement
-
-Your first task is for each team member to choose one widget from the following list
-to implement as a Lit component, following the basic outline provided in
-`src/components/widget-block.js`.
-
-* Weather forecast with data from <https://api.open-meteo.com/v1/forecast>, e.g.
-[this example](https://api.open-meteo.com/v1/forecast?latitude=-33.87&longitude=151.21&current_weather=true).  Location can be fixed or derived from the Javascript 
-[Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API).
-
-* Currency conversion with data from <https://exchangerate.host/> e.g. 
-[USD to EUR](https://api.exchangerate.host/convert?from=USD&to=EUR).  Your widget should
-allow the user to input an amount to be converted and possibly select the to/from
-currencies.
-
-* A widget showing a random fact about the current date from <http://numbersapi.com/>,
-e.g. <http://numbersapi.com/3/22/date>.
-
-* A widget showing the upcoming public holidays from <https://date.nager.at>, e.g.
-[the 2023 Australian holidays](https://date.nager.at/api/v2/publicholidays/2023/AU).
-Your widget could allow selection of the country who's holidays are being displayed.
-
-* (Advanced) A TODO task widget using the API provided by the COMP2110 portal backend.
-Should show tasks for the current logged in user, allow creation of new tasks and
-changing the state of existing tasks (marking them as done).
-`
-* Your own design making use of data from an open API (e.g. see [this list](https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/)).
-
-# Web Application Overview:
-This web app was developed using [Lit Web Components](https://lit.dev/). 
-This application has the following functionality
-* users can login and logout
-* displays the most recent blog posts
-* the layout changes depending on whether a user is logged in or not
-* creating a new post refreshes the blog, not the whole page
-* the user cannot enter a null title (the web app assigns a default title)
-* if the user leaves the content field in their new post blank, they are prompted to enter text
-    (the user is prevented from submitting blank content to the server)
-
-It also includes four widgets integrated into the overall design. 
-## About our group: 
-Group two is made up of the following individuals: 
-((put your name, user ID here))
-* Stacey Purcell, 42123682. 
-# Who did what?
-## Integration of Individual Widgets 
-(include a brief comment how your widget is integrated in the blog website's overall functionality, there is space to describe your widget in detail below)
-* 
-* 
-* 
-* 
-## Design 
-(put your name here any any design elements you contributed)
-* Stacey Purcell, style and layout; particularly header and blog post.
-* 
-* 
-* 
-## Bug Testing
-(include major bugs here and the fix, eg Brigid's fix for null entries)
-* 
-* 
-* 
-* 
-
-## Extension to <blog-block>, the post request
-* Stacey Purcell: initial implementation of the ability to post to the blog
-* Stacey Purcell: event listener to refresh <blog-block> only on successful post.  
-# Individual Widgets
-((include your widget below with a summary))
-## Trufact Widget by Stacey Purcell 42123682
-The trufact widget accesses the number API and retrieves a fact about today's date. 
-The user can click the button to access another random fact. 
-
-## Meme Widget by
-
-## Joke Widget by
-
-## Trivia Widget by
