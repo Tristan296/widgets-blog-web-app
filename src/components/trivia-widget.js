@@ -8,8 +8,7 @@ class triviaWidget extends LitElement{
 
   static styles =
     css`
-    /*Stacey's Style Edit:
-VV review below style VV*/
+/*default styles*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
@@ -37,7 +36,8 @@ VV review below style VV*/
     box-sizing: border-box;
     text-align: center;
 }
-/*^^review above style^^*/
+/*DEFAULT STYLES FINISH*/
+//write override styles below
     
 .widget-border button { 
         background-color: white;

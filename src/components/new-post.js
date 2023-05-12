@@ -4,8 +4,7 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class NewPost extends LitElement {
     static styles = 
     css`
-    /*Stacey's Styles*/
-    :root {
+    :root { /*vv DEFAULT STYLE vv*/
     --background: #316273;
     --darkBlue: #20315a;
     --pinkHighlight: #c52973; 
@@ -18,12 +17,111 @@ class NewPost extends LitElement {
     --gold: #a47b39;
     --hay: #decd73;
     --blue: #8bc5cd;
+    }/*^^ default styles ^^ */
+
+
+    div.menu{
+        z-index: -10;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 30vh;
+        width: 100%;
     }
 
-    input.toggle{
-        width: fit-content;
-        height: 50px;
+    div.menubar{
+        z-index: 2;
+        position: relative;
+        background-color: var(--purpleBody);
+        width: 100%;
+        height: 150px;
     }
+    div.togglebox{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        color: var(--pinkHighlight);
+
+    }
+
+    .togglebox > #tog{
+        background-color: var(--purpleBody);
+        color: var(--pinkHighlight);
+        width: 100px;
+        height: 50px;
+        border-radius: 18px;
+        border: 10px solid var(--pinkHighlight);
+        transition: ease-out 0.1s;
+        margin-top: 10px;
+    }
+
+   //button formatting//
+        .toggle{
+        color: var(--pinkHighlight);
+        }
+
+       input[name="button"]:hover { 
+        background-color: var(--cyan);
+        color: var(--white);
+        transition: ease 0.5s;
+        transform: scale(1.05);
+        }
+
+        input[name="button"]:active {
+        background-color: black;
+        box-shadow: 0 5px var(--dgray);
+        transform: translateY(4px);
+        }
+
+        //new post formatting
+        #title{ 
+        height: 20px;
+        width: 80%;
+        color: var(--dGray);
+        background-color: var(--white);
+        }
+
+        #blogpost{
+        height: 20vh;
+        width: 80%;
+        color: var(--dGray);
+        background-color: var(--white);
+        }
+
+        .visible{
+            color: var(--pinkHighlight);
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            align-items: stretch;
+            left: 0;
+            top: 20vh;
+            width: 100%;
+            height: 40vh;
+        }
+        .postbox{
+            background-color: var(--purpleBody);
+            width: fit-content;
+
+        }
+
+        .flex{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .postbox > #tog{
+            margin-top: 100px;
+        }
+
     `;
 
     static properties = {
@@ -33,54 +131,34 @@ class NewPost extends LitElement {
         _handleToggle: {state: true},
     }
 
-    static styles = 
-    //trying to format the submit buttons
-        css `{
-
-            input[type="submit"]{
-                background-color: white;
-                color: black;
-                border-radius: 20px;
-                border-style: none;
-                transition: ease-out 0.1s;
-              }
-        
-              input[type="submit"]:hover { 
-                background-color: black;
-                color: white;
-                transition: ease 0.3s;
-                transform: scale(1.05);
-              }
-        
-              input[type="submit"]:active {
-                background-color: black;
-                box-shadow: 0 5px #666;
-                transform: translateY(4px);
-              }
-    }
-    `
-
     constructor() {
         super();
         this._user = getUser();
         this._error = null;
         this._visible = false;
-        console.log("hey" + this._visible);
     }
 
+/** postBlog(event)
+ * Posts a new blog post to the server.
+ *  - if the user enters a null title, it gives the default title of "Untitled Blog Post".
+ *  - if the user enters a null content field, it displays an error.
+ *  - dispatch a 'reload' custom event on the global window
+ * @param {Event} event clicking the 'post to blog' button
+ */
     postBlog(event) {
+        //this stops the page refreshing on submit
+        event.preventDefault();
+        //prevents the user from submitting a null blog post.
+        this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
-            //this stops the page refreshing on submit
-            event.preventDefault();
             this._error = "please write content.";
-            console.log(this._error + " User did not enter text field.")
-            return;
+            console.log(this._error + " User did not enter text field.");
         } else {
             const blogPost = text;
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
             const Authorization = "Basic " + getUser().token;
-            let title = "Untitled Blog Post";
+            let title = "Untitled Blog Post"; //default title (used if null)
 
             if (event.target.title.value != null && event.target.title.value != "") {
                 title = event.target.title.value;
@@ -105,14 +183,24 @@ class NewPost extends LitElement {
                 .then(response => response.json())
                 .then(data => {
                     console.log('blog posted:', data);
+                    if (data.status=='success'){
+                        //this reloads the blog only on a successful post (listener in blog-block)
+                        const success = new CustomEvent('reload');
+                        window.dispatchEvent(success);
+                        console.log(success);
+                    }
                 })
                 .catch(error => {
                     console.error('Error posting to blog:', error);
+                    this._error = error;
                 });
-        } //gets the latest posts & refreshes the screen 
-        window.location.reload();
+        }
     }
 
+ /** _handleToggle(e)
+ * Toggles whether the New Blog Post window is visible or not. 
+ * @param {Event} e clicking the toggle button (create post / cancel)
+ */
     _handleToggle(e) {
         if (this._visible === false) {
             this._visible = true;
@@ -122,36 +210,61 @@ class NewPost extends LitElement {
 
     render() {
         if (this._error && this._visible) {
-        return html`<div>
-            <p>ERROR: ${this._error}</p> 
-            </p>
-            <form @submit=${this.postBlog}>blogpost
-            <input name="title" type=text id=title>
-            <input name="blog" type=textarea id=blogpost>
-            <input name="button" type='submit' value='post to blog'>
-            </form>
-        </div> 
-        <div>
-            <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="cancel">
+        return html`
+        <div class="menu">
+            <div class="menubar"></div>
         </div>
+        <div class="visible">
+            <div class="postbox">
+                <p> New blog post</p> 
+                <p>ERROR: ${this._error}</p> 
+                <form @submit=${this.postBlog}>
+                <input name="title" type="text" id="title">
+                <input name="blog" type="textarea" id="blogpost">
+                <input name="button" type='submit' value='post to blog'>
+                </form>
+                    <div class="togglebox">
+                    <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" value="cancel">
+                    </div>
+            </div> 
+        </div> 
             `
         } else if (this._visible) {
-            return html`<div>
-        <p> This is currently a placeholder and will be relocated / moved.</p>
-        <form @submit=${this.postBlog}>blogpost
-            <input name="title" type=text id=title>
-            <input name="blog" type=textarea id=blogpost>
-            <input name="button" type='submit' value='post to blog'>
-        </form>
-        </div>
-        <div>
-            <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="cancel">
-        </div>`
-        } else return html`<div><p> This is currently a placeholder and will be relocated / moved.
-        </p> <input @click=${this._handleToggle} name="button" 
-                    type="button" class="toggle" id="tog" value="create post">
+            return html`
+        
+            <div class="menu">
+                <div class="menubar"></div>
+            </div>
+            <div class="flex">
+                <div class="visible">
+                    <div class="postbox">
+                        <p>New Blog Post</p>
+                        <form @submit=${this.postBlog}>
+                        <input name="title" type="text" id="title">
+                        <input name="blog" type="textarea" id="blogpost">
+                        <input name="button" type='submit' value='post to blog'>
+                        </form>
+                        <div class="togglebox">
+                            <input @click=${this._handleToggle} name="button" 
+                                type="button" class="toggle" id="tog" 
+                                value="cancel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        } else return html`
+        <div class="menu">&nbsp;
+            <div class="menubar"></div>
+            </div>
+            
+            <div class="togglebox">
+                <input @click=${this._handleToggle} name="button" 
+                    type="button" class="toggle" id="tog" 
+                    value="create post">
+            </div>
+
         `
     }
 
