@@ -97,7 +97,7 @@ class LoginWidget extends LitElement {
 
     return html`
       <form @submit=${this.submitForm}>
-          Username: <input name="username">
+          Username: <input name="username" >
           Password: <input type="password" name="password">
           <input type='submit' value='Login'>
       </form>`;

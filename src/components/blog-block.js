@@ -42,7 +42,6 @@ class BlockBlock extends LitElement {
     border-color: var(--dgray);
     border-width: calc(50vw+10vw);
     background-color: var(--dgray);
-    border-radius: 20px;
     }
   .blogpost {
     padding-left: 30px;
