@@ -114,7 +114,7 @@ connectedCallback(){
       .then(posts => {
         this._posts = posts.posts;
         console.log(posts.posts[0]);
-        this.sanitisePosts(this._posts);
+        this.giveTitles(this._posts);
       });
   }
 
@@ -127,12 +127,26 @@ connectedCallback(){
       });
   }
 
+  /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
+   * 
+  ** @param {Object} posts the most recent 10 posts loaded */
+
+  giveTitles(posts) {
+    console.log(posts[0]);
+    this._posts = this._posts.map(post => {
+      return {
+        title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
+        content: this.sanitise(post.content),
+      };
+    });
+  }
+
   /* sanitisePosts(posts)
   * This uses filter() which creates a shallow copy of a portion of an array
   * filtering to just the elements that pass the test implemented by the
   * provided function. In this case, that the post !== null
   * 
-  * */
+  ** @param {Object} posts the most recent 10 posts loaded */
 
   sanitisePosts(posts) {
     console.log(posts)
@@ -148,12 +162,14 @@ connectedCallback(){
     });
   }
 
+
+
   /* sanitise(text)
   *  this uses regex to attempt to match <script> tags to prevent XSS attack.
   *  while Lit uses HTML templating for rendering web components, it is still
   *  important to ensure that user input is properly sanitised and validated
   *  before it is rendered to the page.
-  * */
+  * @param {Object} text: the text to be examined */
 
   sanitise(text) {
     // removes < > " ' `
@@ -167,11 +183,10 @@ connectedCallback(){
   _reloadBlog() { 
     clearTimeout(this._timerInterval);
     this._timerInterval = setTimeout(() => {
-      console.log("reloading...");
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
-      console.log("event created:"+ reload);
-      }, 100000);
+      console.log("event created:"+ reload.type);
+      }, 10000);
   }
 
   render() {
