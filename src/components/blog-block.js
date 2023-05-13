@@ -176,7 +176,9 @@ connectedCallback(){
 
   sanitise(text) {
     // removes < > " ' `
-    return text.replace(/[<>"'`]/g, '');
+    if (text.includes('<img>')){
+      return text;
+    }else return text.replace(/[<>"'`]/g, '');
   }
 
 /** _reloadBlog()
