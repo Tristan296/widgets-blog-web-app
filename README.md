@@ -9,6 +9,8 @@ This application has the following functionality
 * if the user leaves the content field in their new post blank, they are prompted to enter text
     (the user is prevented from submitting blank content to the server)
 * the blog loads new content automatically every 10 seconds, allowing it to function more as a chatroom
+* if the application loads a blogpost with a null title, it gives it a default title
+* if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post.
 
 It also includes four widgets integrated into the overall design. 
 ## About our group: 
