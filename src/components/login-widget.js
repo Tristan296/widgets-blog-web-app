@@ -82,7 +82,7 @@ class LoginWidget extends LitElement {
         return html`
         <p>"Error, try again!"</p>
         <form @submit=${this.submitForm}>
-            Username: <input name="username" placeholder: "username">
+            Username: <input name="username" >
             Password: <input type="password" name="password">
             <input type='submit' value='Login'>
         </form>`;
