@@ -3,7 +3,10 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class JokeWidget extends LitElement {
 
   static properties = {
-    _data: { state: true }
+    twopart: { type: String },
+    _data: { state: true },
+    visible: { type: Boolean }
+
 
   }
 
@@ -37,8 +40,10 @@ class JokeWidget extends LitElement {
     box-sizing: border-box;
     text-align: center;
 }
+
 /*DEFAULT STYLES FINISH*/
 //write override styles below
+
 
           .widget-border button { 
             background-color: white;
@@ -67,6 +72,8 @@ class JokeWidget extends LitElement {
   constructor() {
     super();
     this._data = null;
+    this.visible = false;
+
   }
 
   connectedCallback() {
@@ -74,29 +81,32 @@ class JokeWidget extends LitElement {
     this.fetchJoke();
   }
 
+
+
   fetchJoke() {
-    fetch(`https://official-joke-api.appspot.com/random_joke`)
+    fetch(`https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit&type=twopart`)
       .then(response => response.json())
       .then(data => {
         this._data = data;
       });
   }
 
-
+//show joke
   render() {
     if (this._data) {
       return html`
-  <div class="widget-border">
+      
+<div class="widget-border">
   <h2>Joke!</h2>
   <p> <b> ${this._data.setup} </b> </p>
-  <button @click="${this.showPunchline}">Show Punchline</button>
+  <div ?hidden="${!this.visible}">
 
-  <div class = "punchlineTest">
-  <p> ${this._data.punchline} </p>
-  </div>
+  <p> ${this._data.delivery} </p>
+</div>
+<button @click="${this.togglePunchline}">${this.visible ? 'Hide Punchline' : 'Show Punchline'}</button>
 
-  <button @click="${this.getNewJoke}">Show New Joke</button>
-  </div>`;
+<button @click="${this.getNewJoke}">Show New Joke</button>
+`      ;
     }
     else {
       return html`
@@ -108,18 +118,19 @@ class JokeWidget extends LitElement {
     }
   }
 
-  showPunchline(){
 
-  }
-
+//function to call new joke (used on button click)
   getNewJoke() {
     this.fetchJoke();
   }
 
-  
+  //function to hide and show punchline
+  togglePunchline() {
+    this.visible = !this.visible;
+    const text = this.shadowRoot.querySelector('div hidden');
+    text.hidden = !this.visible;
+  }
 }
 
-
-/* is working but is slow - do not know if need this.getNewJoke() or without ()*/
 
 customElements.define('joke-widget', JokeWidget);

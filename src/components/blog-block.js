@@ -92,23 +92,21 @@ class BlockBlock extends LitElement {
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
   }
-
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
  *  
  *  - */
-  connectedCallback(){
-    super.connectedCallback();
-    //redraws the blogblock
-    this.createBlog(this._url); //sets _posts
-    this.countPosts(this._url); //sets _numbersD
-    this._reloadBlog();
-  }
+  
+connectedCallback(){
+  super.connectedCallback();
+  this.createBlog(this._url); //sets _posts
+  this.countPosts(this._url); //sets _numbersD
+  this._reloadBlog();
+}
 
   disconnectedCallback(){
     window.removeEventListener('reload', this.reloadListener);
   }
-
 
   createBlog(url) {
     fetch(url)
@@ -162,8 +160,6 @@ class BlockBlock extends LitElement {
     return text.replace(/[<>"'`]/g, '');
   }
 
-
-
 /** _reloadBlog()
  * creates a server tick which will trigger the connectedCallback() function.
  * The time is in ms, eg 10000 = 10 seconds. 90000 = 90 seconds.
@@ -200,9 +196,8 @@ class BlockBlock extends LitElement {
 
 customElements.define('blog-block', BlockBlock);
 
-
+/* to remove before submission date if not implemented, but we need to try and implement*/
 //${BlockBlock.formatBody(post.content)} deleted from render function
-
  // A simple formatter that just splits text into paragraphs and 
   // wraps each in a <p> tag
   // a fancier version could use markdown and a third party markdown
