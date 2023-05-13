@@ -64,6 +64,7 @@ class BlockBlock extends LitElement {
   }
   .blogpost h3{
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h2 {
     margin-top: 5px;
