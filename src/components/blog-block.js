@@ -52,7 +52,6 @@ class BlockBlock extends LitElement {
     width: 50vw;
     text-align: left;
     background-color: var(--white);
-    border-radius: 20px;
   }
   .blogpost p {
     font: serif;
