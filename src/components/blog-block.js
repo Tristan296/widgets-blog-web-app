@@ -1,8 +1,7 @@
 /**
  * A Blog widget that displays blog posts pulled from 
  * an API
- * 
- * <blog-block></blog-block>
+ * It inserts this into the HTML: <blog-block></blog-block>
  */
 
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
@@ -18,6 +17,7 @@ class BlockBlock extends LitElement {
     _handlePost: {state: true},
     _reloadBlog: {state:true},
     _timerInterval: {type: Number},
+    reloadListener: {type: Function},
   }
 
   static styles = css`
@@ -91,7 +91,8 @@ class BlockBlock extends LitElement {
   constructor() {
     super();
     this._url = `${BASE_URL}blog`;;
-    window.addEventListener('reload', () => this.connectedCallback());
+    this.reloadListener = this.connectedCallback.bind(this);
+    window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
   }
 
 /** connectedCallback()
@@ -100,10 +101,15 @@ class BlockBlock extends LitElement {
  *  - */
   connectedCallback(){
     super.connectedCallback();
+    //redraws the blogblock
     this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     this._reloadBlog();
-    //this.sanitisePosts(url); //checks for nulls and gets rid of them
+     //this.sanitisePosts(url); //checks for nulls and gets rid of them
+  }
+
+  disconnectedCallback(){
+    window.removeEventListener('reload', this.reloadListener);
   }
 
 
@@ -126,17 +132,19 @@ class BlockBlock extends LitElement {
   }
 
 /** _reloadBlog()
- * creates a 90 second server tick which will trigger the connectedCallback() function.
+ * creates a server tick which will trigger the connectedCallback() function.
+ * The time is in ms, eg 5000ms = 5 seconds. 90000 = 90 seconds.
  *  - dispatch a 'reload' event on the global window */
   _reloadBlog() { 
-    setTimeout(function () {
+    clearTimeout(this._timerInterval);
+    this._timerInterval = setTimeout(() => {
       console.log("reloading...");
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload);
-      }, 9000); // 90 second delay
+      }, 5000);
   }
-
+/* ignore this.
   async sanitisePosts(url) {
     await this.countPosts(url).then(santisePosts());
     if (this._posts === null) {
@@ -151,7 +159,7 @@ class BlockBlock extends LitElement {
         }
       }
     }
-  }
+  }*/
 
   // A simple formatter that just splits text into paragraphs and 
   // wraps each in a <p> tag
@@ -184,22 +192,6 @@ class BlockBlock extends LitElement {
       </div>`
     )}
       `;
-  
-
-    /*return html`
-      ${this._posts.map(post =>
-      html`
-      <div class="blog-border">
-        <div class="blogpost">
-          <h2>${post.title}</h2>
-          <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
-          <img class="meme-img" alt="couldn't load meme image" 
-          src="${post.content.split(',')[0]}"></img>
-        </div>
-      </div>`
-    )}
-      `;*/
   }
 }
 
