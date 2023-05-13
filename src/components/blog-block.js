@@ -115,7 +115,7 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log(posts.posts[0]);
+        //console.log(posts.posts[0]);
         this.giveTitles(this._posts);
       });
   }
@@ -125,7 +125,7 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._number = posts.posts[0].id;
-        console.log(this._number);
+        console.log(this._number + " " + posts);
       });
   }
 
@@ -134,13 +134,13 @@ connectedCallback(){
   ** @param {Object} posts the most recent 10 posts loaded */
 
   giveTitles(posts) {
-    console.log(posts[0]);
+    //console.log(posts[0]);
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
         content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
         name: this.sanitise(post.name),  
-        timestamp: date.toLocaleDateString(),
+        timestamp: post.timestamp,
       };
     });
   }
@@ -192,7 +192,7 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 10000);
+      }, 1000);
   }
 
   //Create a date from the timestamp field in 'posts'.
@@ -208,7 +208,7 @@ connectedCallback(){
     if (!this._posts)
       return html`Loading...`
 
-      return html`
+     else return html`
       ${this._posts.map(post =>
       html`
       <div class="blog-border">
