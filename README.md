@@ -15,31 +15,34 @@ Group two is made up of the following individuals:
 ((put your name, user ID here))
 * Stacey Purcell, 42123682. 
 * Tristan Norbury, 47308028.
+
 # Who did what?
 ## Integration of Individual Widgets 
-(include a brief comment how your widget is integrated in the blog website's overall functionality, there is space to describe your widget in detail below)
 * Tristan Norbury, post meme image url and url (button) - which is then fetched from the blog posts array and displayed as an image, Post meme caption - posts the associated meme's caption as a quote. Fetch new meme (button) - retrieves a new random meme by choosing a random index from the imgflip meme array.
 * 
 * 
-* 
+
+
 ## Design 
 (put your name here any any design elements you contributed)
 * Stacey Purcell, style and layout; particularly header and blog post.
 * 
 * 
-* 
+
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
 * Tristan Norbury, bug fixes; The website now displays only one widget on each side, instead of displaying three identical widgets for all of them.
 * 
 * 
 * 
+* 
 
-## Extension to <blog-block>, the post request
+## Extension to blog-block, the post request
 * Stacey Purcell: initial implementation of the ability to post to the blog
-* Stacey Purcell: event listener to refresh <blog-block> only on successful post.  
+* Stacey Purcell: event listener to refresh blog-block only on successful post.  
+
 # Individual Widgets
-((include your widget below with a summary))
+((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
 The trufact widget accesses the number API and retrieves a fact about today's date. 
 The user can click the button to access another random fact. 
@@ -127,5 +130,4 @@ posting in some way.
 
 This component displays an advertisement from the backend portal server. You should not
 modify it and it should appear somewhere in your page design.
-
 # 12/5/2023
