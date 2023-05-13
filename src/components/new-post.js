@@ -222,6 +222,19 @@ class NewPost extends LitElement {
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
 
+    firstUpdated(){
+        const titleInput = this.shadowRoot.getElementById('input-title');
+        const contentInput = this.shadowRoot.getElementById('input-content');
+        if (this._visible){
+            const submitButton = this.shadowRoot.getElementById('input-title');
+        } 
+        const toggleButton = this.ShadowRoot.getElementbyId('toggle-button');
+
+        toggleBu
+        
+        
+    }
+
     render() {
         if (this._error && this._visible) {
         return html`
