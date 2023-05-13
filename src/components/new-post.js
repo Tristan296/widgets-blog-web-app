@@ -222,7 +222,7 @@ class NewPost extends LitElement {
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
 
-    firstUpdated(){
+ /*   firstUpdated(){
         const titleInput = this.shadowRoot.getElementById('input-title');
         const contentInput = this.shadowRoot.getElementById('input-content');
         if (this._visible){
@@ -233,7 +233,7 @@ class NewPost extends LitElement {
         toggleBu
         
         
-    }
+    }*/
 
     render() {
         if (this._error && this._visible) {
