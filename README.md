@@ -52,7 +52,7 @@ Group two is made up of the following individuals:
 # Individual Widgets
 ((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
-- The trufact widget accesses the number API and retrieves a fact about today's date. 
+- The trufact widget accesses the [Numbers API](http://numbersapi.com/#42) and retrieves a fact about today's date. 
 - The user can click the button to access another random fact. 
 
 ## Meme Widget by Tristan Norbury 47308028
