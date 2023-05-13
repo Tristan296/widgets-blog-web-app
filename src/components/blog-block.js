@@ -140,6 +140,7 @@ connectedCallback(){
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
         content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
         name: this.sanitise(post.name),  
+        timestamp: date.toLocaleDateString(),
       };
     });
   }
