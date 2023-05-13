@@ -49,6 +49,7 @@ class BlockBlock extends LitElement {
     }
   .blogpost {
     padding-left: 30px;
+    padding-right: 30px;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
@@ -59,6 +60,7 @@ class BlockBlock extends LitElement {
   .blogpost p {
     font: serif;
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h3{
     margin-top: -20px;
