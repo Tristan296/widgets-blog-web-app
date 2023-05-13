@@ -105,7 +105,6 @@ class BlockBlock extends LitElement {
     this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     this._reloadBlog();
-     //this.sanitisePosts(url); //checks for nulls and gets rid of them
   }
 
   disconnectedCallback(){
@@ -119,6 +118,7 @@ class BlockBlock extends LitElement {
       .then(posts => {
         this._posts = posts.posts;
         console.log(posts.posts[0]);
+        this.sanitisePosts(this._posts);
       });
   }
 
@@ -130,6 +130,41 @@ class BlockBlock extends LitElement {
         console.log(this._number);
       });
   }
+
+  /* sanitisePosts(posts)
+  * This uses filter() which creates a shallow copy of a portion of an array
+  * filtering to just the elements that pass the test implemented by the
+  * provided function. In this case, that the post !== null
+  * 
+  * */
+
+  sanitisePosts(posts) {
+    console.log(posts)
+    // Remove any null posts
+    this._posts = posts.filter(post => post !== null);
+    // Sanitize content of each post
+    this._posts = this._posts.map(post => {
+      return {
+        title: this.sanitise(post.title),
+        name: this.sanitise(post.name),
+        content: this.sanitise(post.content),
+      };
+    });
+  }
+
+  /* sanitise(text)
+  *  this uses regex to attempt to match <script> tags to prevent XSS attack.
+  *  while Lit uses HTML templating for rendering web components, it is still
+  *  important to ensure that user input is properly sanitised and validated
+  *  before it is rendered to the page.
+  * */
+
+  sanitise(text) {
+    // removes < > " ' `
+    return text.replace(/[<>"'`]/g, '');
+  }
+
+
 
 /** _reloadBlog()
  * creates a server tick which will trigger the connectedCallback() function.
@@ -144,36 +179,6 @@ class BlockBlock extends LitElement {
       console.log("event created:"+ reload);
       }, 5000);
   }
-/* ignore this.
-  async sanitisePosts(url) {
-    await this.countPosts(url).then(santisePosts());
-    if (this._posts === null) {
-      return;
-    }
-    let countNulls = 0;
-    if (this._posts != null) {
-      for (let stuff of posts) {
-        console.count.println();
-        if (this._posts[stuff].title === null || this._posts[stuff].content === null) {
-          countNulls++;
-        }
-      }
-    }
-  }*/
-
-  // A simple formatter that just splits text into paragraphs and 
-  // wraps each in a <p> tag
-  // a fancier version could use markdown and a third party markdown
-  // formatting library
-
-  //we actually do need this functionality
-  //but we need blogpost sanitation first
-
-  //commented out function as do not need to split blog posts
-  // static formatBody(text) {
-  //   const paragraphs = text.split('\r\n')
-  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
-  // }
 
   render() {
     if (!this._posts)
@@ -199,3 +204,17 @@ customElements.define('blog-block', BlockBlock);
 
 
 //${BlockBlock.formatBody(post.content)} deleted from render function
+
+ // A simple formatter that just splits text into paragraphs and 
+  // wraps each in a <p> tag
+  // a fancier version could use markdown and a third party markdown
+  // formatting library
+
+  //we actually do need this functionality
+  //but we need blogpost sanitation first
+
+  //commented out function as do not need to split blog posts
+  // static formatBody(text) {
+  //   const paragraphs = text.split('\r\n')
+  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
+  // }
