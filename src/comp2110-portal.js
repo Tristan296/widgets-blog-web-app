@@ -85,19 +85,31 @@ class Comp2110Portal extends LitElement {
     header {
       margin-left: -10px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
       background-color: #316273;
       background-image: linear-gradient(45deg, #669991bf, #f7bd60a5, #e66f5fdc, #7d6a83d9), url(https://cdn.pixabay.com/photo/2016/11/18/18/37/programming-1836330_1280.png);
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
+      max-width: 100vw;
+    }
+
+    header >div.menu {
+      min-height: 70px;
+      grid-row: 4;
+      background-color: var(--purpleBody);
+      grid-column: 1/4;
     }
 
     header#login{
-      grid-template-rows: 22vh 22vh 22vh 25vh 5vh;
+      height: 100vh;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr 1fr 70px;
     }
     header#user{
-      grid-template-rows: 1vh 12vh 12vh 5vh 5vh;
+      height: 30vh;
+      min-height: 200px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr 1fr 1fr
     }
       
 
@@ -132,8 +144,8 @@ class Comp2110Portal extends LitElement {
     }
 
     h1#login{
-      margin-top: -100px;
-      grid-row: 2;
+      //margin-top: -100px;
+      grid-row: 4;
       grid-column: 2;
       margin-bottom: -100px;
     }
@@ -152,11 +164,7 @@ class Comp2110Portal extends LitElement {
       grid-row: 2; 
       grid-column:3;
     }
-
-    new-post{
-      grid-column: 2;
-      grid-row: 3;
-    }
+    
     #Left{
       margin-left: 0px;
       grid-column: 1;
@@ -196,7 +204,9 @@ class Comp2110Portal extends LitElement {
      <header id="user">
         <h1 id="user">${this.header}</h1>
         <login-widget id="user"></login-widget>
-        <new-post></new-post>        
+        <div class="menu">
+          <new-post></new-post>
+        </div>        
       </header>
 
       <main>
@@ -222,7 +232,7 @@ class Comp2110Portal extends LitElement {
       <header id="login">
         <h1 id="login">${this.header}</h1>
         <login-widget id="login"></login-widget>
-        
+        <div class="menu"></div>
       </header>
 
       <main>

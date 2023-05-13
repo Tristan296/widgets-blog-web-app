@@ -65,7 +65,6 @@ class LoginWidget extends LitElement {
         console.log("store " + response);
         storeUser(response);
         window.location.reload();
-      
     })
   }
 
@@ -82,8 +81,8 @@ class LoginWidget extends LitElement {
         return html`
         <p>"Error, try again!"</p>
         <form @submit=${this.submitForm}>
-            Username: <input name="username">
-            Password: <input type="password" name="password">
+            Username: <input name="username" placeholder="Enter Username...">
+            Password: <input type="password" placeholder="Enter Password..." name="password">
             <input type='submit' value='Login'>
         </form>`;
       }
@@ -96,11 +95,12 @@ class LoginWidget extends LitElement {
       return */
 
     return html`
-      <form @submit=${this.submitForm}>
-          Username: <input name="username">
-          Password: <input type="password" name="password">
-          <input type='submit' value='Login'>
-      </form>`;
+      <p>"Login to Portal"</p>
+        <form @submit=${this.submitForm}>
+            Username: <input name="username" placeholder="Enter Username...">
+            Password: <input type="password" placeholder="Enter Password..." name="password">
+            <input type='submit' value='Login'>
+        </form>`;
   }
 }
 
