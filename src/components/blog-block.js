@@ -11,10 +11,8 @@ class BlockBlock extends LitElement {
 
   static properties = {
     _posts: { state: true },
-    _update: { state: true },
     _number: { type: Number, state: true },
     _url: {type: String, state: true},
-    _handlePost: {state: true},
     _reloadBlog: {state:true},
     _timerInterval: {type: Number},
     reloadListener: {type: Function},
@@ -168,7 +166,7 @@ class BlockBlock extends LitElement {
 
 /** _reloadBlog()
  * creates a server tick which will trigger the connectedCallback() function.
- * The time is in ms, eg 5000ms = 5 seconds. 90000 = 90 seconds.
+ * The time is in ms, eg 10000 = 10 seconds. 90000 = 90 seconds.
  *  - dispatch a 'reload' event on the global window */
   _reloadBlog() { 
     clearTimeout(this._timerInterval);
@@ -177,7 +175,7 @@ class BlockBlock extends LitElement {
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload);
-      }, 5000);
+      }, 100000);
   }
 
   render() {
