@@ -130,7 +130,7 @@ connectedCallback(){
   }
 
   /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
-   * 
+   * It also sanitises names, because when it didn't the name ceased displaying.
   ** @param {Object} posts the most recent 10 posts loaded */
 
   giveTitles(posts) {
@@ -138,7 +138,8 @@ connectedCallback(){
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
-        content: this.sanitise(post.content),
+        content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
+        name: this.sanitise(post.name),  
       };
     });
   }
