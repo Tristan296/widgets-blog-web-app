@@ -8,6 +8,7 @@ This application has the following functionality
 * the user cannot enter a null title (the web app assigns a default title)
 * if the user leaves the content field in their new post blank, they are prompted to enter text
     (the user is prevented from submitting blank content to the server)
+* the blog loads new content automatically every 10 seconds, allowing it to function more as a chatroom
 
 It also includes four widgets integrated into the overall design. 
 ## About our group: 
