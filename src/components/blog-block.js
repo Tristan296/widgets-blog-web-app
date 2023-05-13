@@ -47,6 +47,7 @@ class BlockBlock extends LitElement {
     }
   .blogpost {
     padding-left: 30px;
+    padding-right: 30px;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
@@ -57,6 +58,7 @@ class BlockBlock extends LitElement {
   .blogpost p {
     font: serif;
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h3{
     margin-top: -20px;
@@ -190,6 +192,15 @@ connectedCallback(){
       }, 10000);
   }
 
+  //Create a date from the timestamp field in 'posts'.
+  getBlogPostDate(timestamp) { 
+    var time = new Date(timestamp).toLocaleTimeString("en-us");
+    var date = new Date(timestamp).toLocaleDateString("en-US");
+    return {
+      time, date
+    };
+  }
+
   render() {
     if (!this._posts)
       return html`Loading...`
@@ -203,6 +214,8 @@ connectedCallback(){
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
+          <p style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
+          <p style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
          </div>
       </div>`
     )}
