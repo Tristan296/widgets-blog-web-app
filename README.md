@@ -1,28 +1,32 @@
 # COMP2110 Portal: Group 2 Web Application Overview:
 This web app was developed using [Lit Web Components](https://lit.dev/). 
-This application has the following functionality
-* users can login and logout
+## This application has the following functionality
+* users can login and logout and the layout changes depending on whether a user is logged in or not
 * displays the most recent blog posts
-* the layout changes depending on whether a user is logged in or not
 * creating a new post refreshes the blog, not the whole page
 * the user cannot enter a null title (the web app assigns a default title)
 * if the user leaves the content field in their new post blank, they are prompted to enter text
     (the user is prevented from submitting blank content to the server)
-* the blog loads new content automatically every 10 seconds, allowing it to function more as a chatroom
+* the blog loads new content automatically
 * if the application loads a blogpost with a null title, it gives it a default title
-* if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post.
+* if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post
+* messages over a certain length are hidden
+* messages without spaces are still wrapped to fit rather than going off the screen
 
 It also includes four widgets integrated into the overall design. 
 ## About our group: 
 Group two is made up of the following individuals: 
 ((put your name, user ID here))
-* Stacey Purcell, 42123682. 
-* Tristan Norbury, 47308028.
+* Stacey Purcell, 42123682 
+* Tristan Norbury, 47308028
+* Brigid
+* Nathan
 
 # Who did what?
 ## Integration of Individual Widgets 
-* Tristan Norbury, post meme image url and url (button) - which is then fetched from the blog posts array and displayed as an image, Post meme caption - posts the associated meme's caption as a quote. Fetch new meme (button) - retrieves a new random meme by choosing a random index from the imgflip meme array.
-* 
+(put your name and the name of your widget here. There is another area below to describe what your widget does and how it is integrated into the page.
+* Tristan Norbury, 'meme' widget
+* Stacey Purcell, 'tru-fact' widget
 * 
 
 
@@ -35,22 +39,26 @@ Group two is made up of the following individuals:
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
 * Tristan Norbury, bug fixes; The website now displays only one widget on each side, instead of displaying three identical widgets for all of them.
-* 
+* Stacey Purcell, bug fixes; basic null checking and sanitation. 
 * 
 * 
 * 
 
-## Extension to blog-block, the post request
+## Extension to blog-block: new-post.js
 * Stacey Purcell: initial implementation of the ability to post to the blog
 * Stacey Purcell: event listener to refresh blog-block only on successful post.  
+* Stacey Purcell: new posts have default titles and the user cannot submit a null or blank content post
 
 # Individual Widgets
 ((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
-The trufact widget accesses the number API and retrieves a fact about today's date. 
-The user can click the button to access another random fact. 
+- The trufact widget accesses the number API and retrieves a fact about today's date. 
+- The user can click the button to access another random fact. 
 
 ## Meme Widget by Tristan Norbury 47308028
+- posts meme image url and url (button) which is then fetched from the blog posts array and displayed as an image, 
+- Post meme caption posts the associated meme's caption as a quote. 
+- Fetch new meme (button) retrieves a new random meme by choosing a random index from the imgflip meme array.
 
 ## Joke Widget by
 
