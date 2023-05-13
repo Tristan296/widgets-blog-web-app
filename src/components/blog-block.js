@@ -140,7 +140,7 @@ connectedCallback(){
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
         content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
         name: this.sanitise(post.name),  
-        timestamp: date.toLocaleDateString(),
+        timestamp: post.timestamp,
       };
     });
   }
@@ -192,7 +192,7 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 10000);
+      }, 1000);
   }
 
   //Create a date from the timestamp field in 'posts'.
