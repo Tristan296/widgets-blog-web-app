@@ -129,6 +129,7 @@ class NewPost extends LitElement {
         _error: { type: String, state: true },
         _visible: { type: Boolean, state: true },
         _handleToggle: {state: true},
+        
     }
 
     constructor() {
@@ -136,6 +137,18 @@ class NewPost extends LitElement {
         this._user = getUser();
         this._error = null;
         this._visible = false;
+        this.addEventListener('keydown', this.handleKeyDown.bind(this));
+    }
+
+/** handleKeyDown(e)
+ * This allows the user to hit enter and insert multiple lines within the context
+ * of the text box.
+ * */
+
+    handleKeyDown(e){
+        if (e.key === 'Enter' && !e.shiftKey){
+            this.preventDefault();
+        }
     }
 
 /** postBlog(event)
@@ -156,6 +169,7 @@ class NewPost extends LitElement {
             console.log(this._error + " User did not enter text field.");
         } else {
             const blogPost = text;
+            console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
             const Authorization = "Basic " + getUser().token;
             let title = "Untitled Blog Post"; //default title (used if null)
@@ -219,8 +233,9 @@ class NewPost extends LitElement {
                 <p> New blog post</p> 
                 <p>ERROR: ${this._error}</p> 
                 <form @submit=${this.postBlog}>
+                <label for="title">Title:</label>
                 <input name="title" type="text" id="title">
-                <input name="blog" type="textarea" id="blogpost">
+                <textarea name="blogpost" id="blogpost"></textarea>
                 <input name="button" type='submit' value='post to blog'>
                 </form>
                     <div class="togglebox">
@@ -241,8 +256,9 @@ class NewPost extends LitElement {
                     <div class="postbox">
                         <p>New Blog Post</p>
                         <form @submit=${this.postBlog}>
+                        <label for="title">Title:</label>
                         <input name="title" type="text" id="title">
-                        <input name="blog" type="textarea" id="blogpost">
+                        <textarea name="blogpost" id="blogpost"></textarea>
                         <input name="button" type='submit' value='post to blog'>
                         </form>
                         <div class="togglebox">
