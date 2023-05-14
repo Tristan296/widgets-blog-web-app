@@ -65,14 +65,10 @@ class NewPost extends LitElement {
     }       
 
 .togglebox > #tog:hover{
-    background-color: var(--purpleBody);
+    background-color: var(--cyan);
         color: var(--pinkHighlight);
-        width: 100px;
-        height: 50px;
-        border-radius: 18px;
-        border: 10px solid var(--pinkHighlight);
+        border: 3px solid var(--blue);
         transition: ease-out 0.1s;
-        margin-top: 10px;
 }
         .toggle{
             color: var(--pinkHighlight);
@@ -91,14 +87,10 @@ class NewPost extends LitElement {
         }
 
        input[name="button"]:hover { 
-            background-color: var(--purpleBody);
+            background-color: var(--cyan);
             color: var(--pinkHighlight);
-            width: 100px;
-            height: 50px;
-            border-radius: 18px;
-            border: 10px solid var(--pinkHighlight);
+            border: 3px solid var(--blue);
             transition: ease-out 0.1s;
-            margin-top: 10px;
         }
 
         

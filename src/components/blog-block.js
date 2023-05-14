@@ -33,25 +33,8 @@ class BlockBlock extends LitElement {
     --blue: #8bc5cd;
     --width: calc(50vw+20px)
 }
-  .blog-border{
-    position: relative;
-    top: 0;
-    left: -1%;
-    width: 98%;
-    border-radius:20px;
-    border-style: solid;
-    border-color: var(--dgray);
-    background-color: var(--dgray);
-  }
-  .blogpost {
-    border-radius:20px;
-    height: fit-content;
-    border-style: solid;
-    border-color: var(--lgray);
-    border-width: 7px;
-    text-align: left;
-    background-color: var(--white);
-  }
+
+
 
   .blogpost p {
     font: serif;
@@ -66,6 +49,10 @@ class BlockBlock extends LitElement {
     word-break: break-all;
     margin-top: 5px;
     text-transform: capitalize;
+  }
+
+  h4{
+    margin-top: -20px;
   }
   .meme-img { 
     width: 150px;
@@ -87,24 +74,61 @@ class BlockBlock extends LitElement {
       height: 100vh;
     }
 
-  /*@media screen and (max-width: 1000px) {
-    .blog-border{
-      margin-left: -20px;
-      border-radius:20px;
-      border-style: solid;
-      border-color: var(--dgray);
-      background-color: var(--dgray);
-    }
-    .blogpost {
-      border-radius:20px;
-      border-style: solid;
-      border-color: var(--lgray);
-      border-width: 7px;
-      text-align: left;
-      background-color: var(--white);
-    }*/
+  .blog-border{
+    position: relative;
+    top: 0;
+    left: -1%;
+    width: 98%;
+    border-radius:20px;
+    border-style: solid;
+    border-color: var(--dgray);
+    background-color: var(--dgray);
+  }
+  .blogpost {
+    padding: 20px;
+    border-radius:20px;
+    border-style: solid;
+    border-color: var(--lgray);
+    border-width: 7px;
+    text-align: left;
+    background-color: var(--white);
+  }
 
+  .information{
+    display: grid;
+    gap: 0px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    max-height: 100px;
+    padding: 0px;
+    margin: 0px;
+  }
 
+  .information h2 {
+    grid-column: 1/3;
+    grid-row: 1;
+  }
+
+  .information h3 {
+    grid-column: 1/3;
+    grid-row: 2;
+    text-transform: lowercase;
+  }
+
+  .information h4{
+    grid-column: 5;
+  }
+
+  .information> h4.date{
+    grid-row: 1;
+    padding-top: 20px;
+  }
+
+  .information h4.time{
+    grid-row:2;
+  }
+
+ 
   `;
 
 /* constructor() notes:
@@ -283,13 +307,16 @@ connectedCallback(){
       html`
       <div class="blog-border">
         <div class="blogpost">
-          <h2>${post.title}</h2>
-          <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
+          <div class="information">
+            <h2>${post.title}</h2>
+            <h3>By ${post.name}</h3>
+            <h4 id="date" style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
+            <h4 id="time" style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
+          </div>
+          <div class="content">
+          <p id="post-content"> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
-          
-          <p style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
-          <p style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
+          </div>   
          </div>
       </div>`
     )}

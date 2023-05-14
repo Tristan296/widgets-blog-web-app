@@ -107,7 +107,7 @@ class Comp2110Portal extends LitElement {
       min-width: 400px;
     }
 
-    div.app-footer{
+    footer.app-footer{
       padding: 20px;
       margin: 0px;
       background-image: 
@@ -241,14 +241,15 @@ class Comp2110Portal extends LitElement {
         <widget-row id="top">
           <widget-block id="widget-block"></widget-block>
         </widget-row>
-        <blog-block id="blogs"></blog-block>       
+        <blog-block id="blogs"></blog-block>
+      </main>       
         
-        <div class="app-footer"> 
+      <footer class="app-footer"> 
           <p class="app-footer">
           A product of the COMP2110 Web Development Collective &copy; 2023
           </p>
-        </div>
-      </main>`;
+      </footer>
+      `;
     }
     else {
       return html`
@@ -267,13 +268,14 @@ class Comp2110Portal extends LitElement {
         <widget-column id="Right">
           <widget-block id="secondWidgets"></widget-block>
         </widget-column>
+        </main>
 
-        <div class="app-footer"> 
+        <footer class="app-footer"> 
           <p class="app-footer">
           A product of the COMP2110 Web Development Collective &copy; 2023
           </p>
-        </div>
-      </main>
+        </footer>
+      
     `;
     }
   }

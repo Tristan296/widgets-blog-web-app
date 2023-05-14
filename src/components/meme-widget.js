@@ -24,36 +24,29 @@ VV review below style VV*/
   background-color: var(--white);
   }
   .widget-border {
-    flex-basis: 1;
-    max-height: fit-content;
-    max-width: fit-content;
     display: flex;
     flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
-    box-sizing: border-box;
     text-align: center;
     margin: 0;
     padding: 0;
   }
-  h2 {flex-basis: 3;
+  h2 {
     font-size: 1em;
     margin: 0;
     padding: 0;
   }
 
   .content {
-    flex-basis: 2;
     max-height: 250px;
     overflow: hidden;
     margin: 0;
-    padding: 0;
+    padding: 20px;
   }
 
   div.buttons{
-    flex-basis: 1;
-    grid-row:2;
     margin: 0;
     min-height: 10px;
     display: flex;
@@ -69,15 +62,13 @@ VV review below style VV*/
 
   .meme-img {
     grid-row: 4;
-        flex-basis: 1;
-        max-width: 100px;
-        height: 50%;
-        object-fit: scale-down;
-        border-radius: 8px;
-      }
+    max-width: 100px;
+    height: 40%;
+    object-fit: scale-down;
+    border-radius: 8px;
+  }
 
   #button {
-  flex-basis: 1; 
   background-color: var(--hay);
   color: var(--gold);
   border: 6px solid var(--gold);

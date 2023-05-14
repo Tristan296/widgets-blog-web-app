@@ -41,9 +41,10 @@ class triviaWidget extends LitElement{
   }
 
   .content {
-    max-height: 300px;
+    max-height: 250px;
+    overflow: hidden;
     margin: 0;
-    padding: 0;
+    padding: 20px;
   }
 
   .text {
@@ -56,6 +57,7 @@ class triviaWidget extends LitElement{
     margin: 0;
     display: flex;
     flex-basis: row;
+    justify-content: center;
   }
 
   #button {
