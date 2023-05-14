@@ -45,15 +45,14 @@ class NewPost extends LitElement {
         display: flex;
         justify-content: center;
         color: var(--pinkHighlight);
+        margin-bottom: 20px;
+
     }
 
-   
-
-
-    
    //button formatting//
 
    .togglebox > #tog{
+    
     background-color: var(--purpleBody);
     color: var(--pinkHighlight);
     width: 100px;
@@ -61,8 +60,8 @@ class NewPost extends LitElement {
     border-radius: 9px;
     border: 3px solid var(--pinkHighlight);
     transition: ease-out 0.1s;
-    margin-top: 10px;
-}
+    margin-top: 10px;   
+    }       
 
 .togglebox > #tog:hover{
     background-color: var(--purpleBody);
@@ -78,8 +77,6 @@ class NewPost extends LitElement {
             color: var(--pinkHighlight);
         }
 
-
-
     input[name="button"] {
             background-color: var(--purpleBody);
             color: var(--pinkHighlight);
@@ -88,7 +85,8 @@ class NewPost extends LitElement {
             border-radius: 9px;
             border: 3px solid var(--pinkHighlight);
             transition: ease-out 0.1s;
-            margin-top: 10px;
+            margin-top: 20px;
+            margin-top: 20px;
         }
 
        input[name="button"]:hover { 
@@ -105,11 +103,17 @@ class NewPost extends LitElement {
         
 
         //new post formatting
-        #title { 
+
+        /*need the below brackets */
+        { }
+
+        .titlebox > #title { 
             height: 20px;
             display: flex;
-            width: 80%;
+            margin: 5px auto auto auto;
             color: var(--dGray);
+            border-radius: 5px;
+            width: 80%;
             background-color: var(--white);
         }
 
@@ -120,6 +124,7 @@ class NewPost extends LitElement {
             width: 80%;
             color: var(--dGray);
             background-color: var(--white);
+            border-radius: 5px;
         }
 
         .visible{
@@ -160,6 +165,7 @@ class NewPost extends LitElement {
         .postbox > #tog{
             margin-top: 100px;
         }
+       
 
     `;
 
@@ -324,7 +330,9 @@ class NewPost extends LitElement {
                         <p>New Blog Post</p>
                         <form @submit=${this.postBlog}>
                         <label for="title">Title:</label>
-                        <input name="title" type="text" placeholder="Enter title here..." id="title">
+                        <div class="titlebox">
+                        <input name="title" type="text" id="title" placeholder="Enter title here..." >
+                        </div>
                         <label for="blogpost">Content:</label>
                         <textarea name="blogpost" id="blogpost" placeholder="Enter blog post content here..."></textarea>
                         <input name="button" type='submit' value='post to blog'>
@@ -348,7 +356,7 @@ class NewPost extends LitElement {
             <div class="togglebox">
                 <input @click=${this._handleToggle} name="button" 
                     type="button" class="toggle" id="tog" 
-                    value="create post">
+                    value="Create Post">
             </div>
 
         `
