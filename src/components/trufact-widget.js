@@ -45,7 +45,6 @@ class TrufactWidget extends LitElement {
     margin: 0;
     padding: 20px;
   }
-  
   .text {
     max-height: 100px;
     overflow-y: scroll;
@@ -94,7 +93,6 @@ class TrufactWidget extends LitElement {
   constructor() {
     super();
     this._date = new Date();
-    this.connectedCallback();
   }
 
   connectedCallback() {
@@ -116,12 +114,14 @@ class TrufactWidget extends LitElement {
   }
 
   _handleShare(e) {
-    const shareFact = new CustomEvent('share-fact', { detail: this.data.text });
+    const shareFact = new CustomEvent('share-fact', { detail: this._data.text });
     window.dispatchEvent(shareFact);
     console.log("fact dispatched: " + shareFact.type + shareFact.detail);
+    this.todayFact();
   }
 
   render() {
+    console.log("facts rendered");
     if (this._data) {
       return html`      
       <div class="widget-border">
@@ -140,13 +140,13 @@ class TrufactWidget extends LitElement {
       return html`
       <div class="widget-border">
         <input @click=${this._handleRefresh} id="button" value="new fact">
+        <input @click=${this._handleShare} id="button" type="button" value="share fact">
         <h2>On this day...</h2>
         <p>...loading a fact!</p>
       </div>
     `;
     }
   }
-
 }
 
 customElements.define('trufact-widget', TrufactWidget);
