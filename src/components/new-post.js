@@ -190,8 +190,7 @@ class NewPost extends LitElement {
             console.log(this._error + " User did not enter text field.");
         } else {
 
-            const form = this.shadowRoot.querySelector('form');
-            form.reset();
+            
 
             const blogPost = text;
             console.log("user content= " + blogPost);
@@ -212,6 +211,9 @@ class NewPost extends LitElement {
                 title: useThis,
                 content: blogPost
             });
+
+            const form = this.shadowRoot.querySelector('form');
+            form.reset();
 
             // Send the request
             fetch(endpoint, {
