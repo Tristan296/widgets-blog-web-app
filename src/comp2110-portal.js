@@ -53,21 +53,20 @@ class Comp2110Portal extends LitElement {
       --blue: #8bc5cd;
 }
 
-    main {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      width:100%;
-      background-color: var(--background);
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width:100%;
+    background-color: var(--background);
     }
 
     body {
       background-color: var(--background);
-  }
+    }
 
   footer.footer-border {
     width: 100%;
-    background-color: red;
-    color: white;
+    color: var(--background);
     text-align: center;
   }
 
@@ -78,7 +77,7 @@ class Comp2110Portal extends LitElement {
       height: 50px;
     }
 
-    .app-footer a {
+    .app-footer>a {
       margin-left: 5px;
     }
 
@@ -174,9 +173,6 @@ class Comp2110Portal extends LitElement {
       grid-column: 4;
     }
 
-    #advertisement{
-      background-color: red;
-    }
     blog-block{
       background-color: var(----purpleBody);
       grid-column: 2;
@@ -184,6 +180,33 @@ class Comp2110Portal extends LitElement {
       display: flex;
       flex-direction: column;
       padding-left: 90px;
+    }
+    main {
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    #top {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      align-content: stretch;
+      justify-content: center + safe;
+      grid-row: 1;
+    }
+    #blogs{
+      grid-row: 3;
+      grid-column-start: 0;
+      
+    }
+
+    #widget-block{
+      width:100%;
+      display: flex;
+      flex-direction: row;
     }
   `
     ;
@@ -205,21 +228,15 @@ class Comp2110Portal extends LitElement {
         <h1 id="user">${this.header}</h1>
         <login-widget id="user"></login-widget>
         <div class="menu">
-          <new-post></new-post>
+        <new-post></new-post>
         </div>        
       </header>
 
       <main>
-        
-        <widget-column id="Left">
-        <ad-widget></ad-widget>
-          <widget-block id="First Widget"></widget-block>
-        </widget-column>
-        <blog-block></blog-block>       
-        <widget-column id="Right">
-          
-          <widget-block id="Second Widget"></widget-block>
-        </widget-column>
+        <widget-row id="top">
+          <widget-block id="widget-block"></widget-block>
+        </widget-row>
+        <blog-block id="blogs"></blog-block>       
       </main>
 
       <p class="app-footer">
@@ -237,9 +254,9 @@ class Comp2110Portal extends LitElement {
 
       <main>
         <widget-menu>
-        <widget-column id="Left">
+          <widget-column id="Left">
           <widget-block id="firstWidgets"></widget-block>
-        </widget-column>
+          </widget-column>
         </widget-menu>
         <blog-block></blog-block>       
         <widget-column id="Right">

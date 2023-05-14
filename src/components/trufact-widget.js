@@ -19,18 +19,40 @@ class TrufactWidget extends LitElement {
   --blue: #8bc5cd;
   }
   div {
-  min-width: 100px;
-  min-height: 100px;
   background-color: var(--white);
   }
   .widget-border {
-    width: 200px;
+    width: 220px;
+    max-height: 250px;
+    height: fit-content;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
-  }
+    }
+
+    .widget-text{
+      padding:0;
+      margin:0;
+      width: 180px;
+      height: 180px;
+      overflow-y: scroll;
+    }
+
+    h2{
+      height: fit-content;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .fact-buttons{
+      display: flex;
+      flex-basis: row;
+      justify-content: space-around;
+
+    }
 
 @media screen and (max-width: 900px) {
   .widget-border {
@@ -88,14 +110,18 @@ class TrufactWidget extends LitElement {
     if (this._data) {
       return html`      
       <div class="widget-border">
-      <h2>On this day...</h2>
-      <p>${this._data.text}</p>
-      <input @click=${this._handleRefresh} type="button" value="new fact">
-      <input @click=${this._handleShare} type="button" value="share fact">
-    </div>`
+        <div class="widget-text">
+          <h2>On this day in history:</h2>
+          <p>${this._data.text}</p></div>
+          <div class="fact-buttons">
+            <input @click=${this._handleRefresh} type="button" value="new fact">
+            <input @click=${this._handleShare} type="button" value="share fact">
+          </div>
+      </div>`
     } else {
       return html`
       <div class="widget-border">
+        <input @click=${this._handleRefresh} type="button" value="new fact">
         <h2>On this day...</h2>
         <p>...loading a fact!</p>
       </div>

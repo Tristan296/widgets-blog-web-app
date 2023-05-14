@@ -33,23 +33,19 @@ class BlockBlock extends LitElement {
     --blue: #8bc5cd;
     --width: calc(50vw+20px)
 }
-
-  :host {
-    margin: 1em;
-  }
-
   .blog-border{
+    position: relative;
+    top: 0;
+    left: -1%;
+    width: 98%;
     border-radius:20px;
     border-style: solid;
     border-color: var(--dgray);
-    border-width: calc(50vw+10vw);
     background-color: var(--dgray);
   }
   .blogpost {
     border-radius:20px;
-    width: 780px;
-    padding-left: 30px;
-    padding-right: 30px;
+    height: fit-content;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
@@ -77,31 +73,28 @@ class BlockBlock extends LitElement {
     border-radius: 10px;
     margin-bottom: 20px;
   }
+  .blogpost p {
+      font: serif;
+      word-break: ellipse;
+    }
 
-  @media screen and (max-width: 1000px) {
+  /*@media screen and (max-width: 1000px) {
     .blog-border{
+      margin-left: -20px;
       border-radius:20px;
       border-style: solid;
       border-color: var(--dgray);
-      border-width: calc(20+5vw);
       background-color: var(--dgray);
     }
     .blogpost {
       border-radius:20px;
-      width: 300px;
-      padding-left: 5px;
-      padding-right: 5px;
       border-style: solid;
       border-color: var(--lgray);
       border-width: 7px;
       text-align: left;
       background-color: var(--white);
-    }
-    .blogpost p {
-      font: serif;
-      margin-top: -20px;
-      word-break: ellipse;
-    }
+    }*/
+
 
   `;
 
