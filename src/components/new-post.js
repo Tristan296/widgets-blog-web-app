@@ -39,12 +39,12 @@ class NewPost extends LitElement {
         width: 100%;
         height: 150px;
     }
+    
     div.togglebox{
         position: relative;
         display: flex;
         justify-content: center;
         color: var(--pinkHighlight);
-
     }
 
     .togglebox > #tog{
@@ -58,56 +58,71 @@ class NewPost extends LitElement {
         margin-top: 10px;
     }
 
+    
    //button formatting//
         .toggle{
-        color: var(--pinkHighlight);
+            color: var(--pinkHighlight);
         }
 
        input[name="button"]:hover { 
-        background-color: var(--cyan);
-        color: var(--white);
-        transition: ease 0.5s;
-        transform: scale(1.05);
+            background-color: var(--purpleBody);
+            color: var(--pinkHighlight);
+            width: 100px;
+            height: 50px;
+            border-radius: 18px;
+            border: 10px solid var(--pinkHighlight);
+            transition: ease-out 0.1s;
+            margin-top: 10px;
         }
 
-        input[name="button"]:active {
-        background-color: black;
-        box-shadow: 0 5px var(--dgray);
-        transform: translateY(4px);
+        input[name="button"] {
+            background-color: var(--purpleBody);
+            color: var(--pinkHighlight);
+            width: 100px;
+            height: 30px;
+            border-radius: 9px;
+            border: 3px solid var(--pinkHighlight);
+            transition: ease-out 0.1s;
+            margin-top: 10px;
         }
 
         //new post formatting
-        #title{ 
-        height: 20px;
-        width: 80%;
-        color: var(--dGray);
-        background-color: var(--white);
+        #title { 
+            height: 20px;
+            display: flex;
+            width: 80%;
+            color: var(--dGray);
+            background-color: var(--white);
         }
 
         #blogpost{
-        height: 20vh;
-        width: 80%;
-        color: var(--dGray);
-        background-color: var(--white);
+            margin: 5px auto auto auto;
+            display: flex;
+            height: 20vh;
+            width: 80%;
+            color: var(--dGray);
+            background-color: var(--white);
         }
 
         .visible{
             color: var(--pinkHighlight);
             position: relative;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: flex-start;
             justify-content: center;
             align-items: stretch;
             left: 0;
             top: 20vh;
             width: 100%;
-            height: 40vh;
+            height: 46vh;
         }
+
         .postbox{
             background-color: var(--purpleBody);
             width: fit-content;
-
+            align-self: center;
+            width: 30%;
         }
 
         .flex{
@@ -116,6 +131,11 @@ class NewPost extends LitElement {
             flex-wrap: nowrap;
             justify-content: center;
             align-content: center;
+        }
+        label:nth-child(3) { 
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
         }
 
         .postbox > #tog{
@@ -129,6 +149,7 @@ class NewPost extends LitElement {
         _error: { type: String, state: true },
         _visible: { type: Boolean, state: true },
         _handleToggle: {state: true},
+        
     }
 
     constructor() {
@@ -136,6 +157,18 @@ class NewPost extends LitElement {
         this._user = getUser();
         this._error = null;
         this._visible = false;
+        this.addEventListener('keydown', this.handleKeyDown.bind(this));
+    }
+
+/** handleKeyDown(e)
+ * This allows the user to hit enter and insert multiple lines within the context
+ * of the text box.
+ * */
+
+    handleKeyDown(e){
+        if (e.key === 'Enter' && !e.shiftKey){
+            this.preventDefault();
+        }
     }
 
 /** postBlog(event)
@@ -156,6 +189,7 @@ class NewPost extends LitElement {
             console.log(this._error + " User did not enter text field.");
         } else {
             const blogPost = text;
+            console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
             const Authorization = "Basic " + getUser().token;
             let title = "Untitled Blog Post"; //default title (used if null)
@@ -208,6 +242,19 @@ class NewPost extends LitElement {
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
 
+ /*   firstUpdated(){
+        const titleInput = this.shadowRoot.getElementById('input-title');
+        const contentInput = this.shadowRoot.getElementById('input-content');
+        if (this._visible){
+            const submitButton = this.shadowRoot.getElementById('input-title');
+        } 
+        const toggleButton = this.ShadowRoot.getElementbyId('toggle-button');
+
+        toggleBu
+        
+        
+    }*/
+
     render() {
         if (this._error && this._visible) {
         return html`
@@ -219,8 +266,10 @@ class NewPost extends LitElement {
                 <p> New blog post</p> 
                 <p>ERROR: ${this._error}</p> 
                 <form @submit=${this.postBlog}>
+                <label for="title">Title:</label>
                 <input name="title" type="text" id="title">
-                <input name="blog" type="textarea" id="blogpost">
+                <label for="blogpost">Content:</label>
+                <textarea name="blogpost" id="blogpost"></textarea>
                 <input name="button" type='submit' value='post to blog'>
                 </form>
                     <div class="togglebox">
@@ -241,8 +290,10 @@ class NewPost extends LitElement {
                     <div class="postbox">
                         <p>New Blog Post</p>
                         <form @submit=${this.postBlog}>
-                        <input name="title" type="text" id="title">
-                        <input name="blog" type="textarea" id="blogpost">
+                        <label for="title">Title:</label>
+                        <input name="title" type="text" placeholder="Enter title here..." id="title">
+                        <label for="blogpost">Content:</label>
+                        <textarea name="blogpost" id="blogpost" placeholder="Enter blog post content here..."></textarea>
                         <input name="button" type='submit' value='post to blog'>
                         </form>
                         <div class="togglebox">

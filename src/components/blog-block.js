@@ -1,8 +1,7 @@
 /**
  * A Blog widget that displays blog posts pulled from 
  * an API
- * 
- * <blog-block></blog-block>
+ * It inserts this into the HTML: <blog-block></blog-block>
  */
 
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
@@ -12,12 +11,11 @@ class BlockBlock extends LitElement {
 
   static properties = {
     _posts: { state: true },
-    _update: { state: true },
     _number: { type: Number, state: true },
     _url: {type: String, state: true},
-    _handlePost: {state: true},
     _reloadBlog: {state:true},
     _timerInterval: {type: Number},
+    reloadListener: {type: Function},
   }
 
   static styles = css`
@@ -49,6 +47,7 @@ class BlockBlock extends LitElement {
     }
   .blogpost {
     padding-left: 30px;
+    padding-right: 30px;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
@@ -59,6 +58,7 @@ class BlockBlock extends LitElement {
   .blogpost p {
     font: serif;
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h3{
     margin-top: -20px;
@@ -71,6 +71,7 @@ class BlockBlock extends LitElement {
     width: 150px;
     border: 5px solid black;
     border-radius: 10px;
+    margin-bottom: 20px;
   }
   `;
 
@@ -91,31 +92,24 @@ class BlockBlock extends LitElement {
   constructor() {
     super();
     this._url = `${BASE_URL}blog`;;
-    window.addEventListener('reload', () => this.connectedCallback());
-    this._url = `${BASE_URL}blog`;
-    window.addEventListener('success', () => this.connectedCallback());
+    this.reloadListener = this.connectedCallback.bind(this);
+    window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
   }
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
  *  
  *  - */
+  
 connectedCallback(){
   super.connectedCallback();
   this.createBlog(this._url); //sets _posts
   this.countPosts(this._url); //sets _numbersD
   this._reloadBlog();
-  //this.sanitisePosts(url); //checks for nulls and gets rid of them
 }
 
-//this is used to reload just the blog posts when a 'success' event is created by the posts. 
-  connectedCallback(){
-    super.connectedCallback();
-    this.createBlog(this._url); //sets _posts
-    this.countPosts(this._url); //sets _numbersD
-    this._reloadBlog();
-    //this.sanitisePosts(url); //checks for nulls and gets rid of them
+  disconnectedCallback(){
+    window.removeEventListener('reload', this.reloadListener);
   }
-
 
   createBlog(url) {
     fetch(url)
@@ -123,6 +117,7 @@ connectedCallback(){
       .then(posts => {
         this._posts = posts.posts;
         console.log(posts.posts[0]);
+        this.giveTitles(this._posts);
       });
   }
 
@@ -135,55 +130,80 @@ connectedCallback(){
       });
   }
 
+  /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
+   * It also sanitises names, because when it didn't the name ceased displaying.
+  ** @param {Object} posts the most recent 10 posts loaded */
+
+  giveTitles(posts) {
+    console.log(posts[0]);
+    this._posts = this._posts.map(post => {
+      return {
+        title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
+        content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
+        name: this.sanitise(post.name),  
+        timestamp: post.timestamp,
+      };
+    });
+  }
+
+  /* sanitisePosts(posts)
+  * This uses filter() which creates a shallow copy of a portion of an array
+  * filtering to just the elements that pass the test implemented by the
+  * provided function. In this case, that the post !== null
+  * 
+  ** @param {Object} posts the most recent 10 posts loaded */
+
+  sanitisePosts(posts) {
+    console.log(posts)
+    // Remove any null posts
+    this._posts = posts.filter(post => post !== null);
+    // Sanitize content of each post
+    this._posts = this._posts.map(post => {
+      return {
+        title: this.sanitise(post.title),
+        name: this.sanitise(post.name),
+        content: this.sanitise(post.content),
+      };
+    });
+  }
+
+
+
+  /* sanitise(text)
+  *  this uses regex to attempt to match <script> tags to prevent XSS attack.
+  *  while Lit uses HTML templating for rendering web components, it is still
+  *  important to ensure that user input is properly sanitised and validated
+  *  before it is rendered to the page.
+  * @param {Object} text: the text to be examined */
+
+  sanitise(text) {
+    // removes < > " ' `
+    if (text.includes('<img>')){
+      return text;
+    }else return text.replace(/[<>"'`]/g, '');
+  }
+
 /** _reloadBlog()
- * creates a 90 second server tick which will trigger the connectedCallback() function.
+ * creates a server tick which will trigger the connectedCallback() function.
+ * The time is in ms, eg 10000 = 10 seconds. 90000 = 90 seconds.
  *  - dispatch a 'reload' event on the global window */
   _reloadBlog() { 
-    setTimeout(function () {
-      console.log("reloading...");
+    clearTimeout(this._timerInterval);
+    this._timerInterval = setTimeout(() => {
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
-      console.log("event created:"+ reload);
-      }, 9000); // 90 second delay
+      console.log("event created:"+ reload.type);
+      }, 1000);
   }
 
-// // A reload function which updates only the blog portion of the website
-// reloadBlog() {
-//   setTimeout(function () {
-//     console.log("Reloading blog...");
-//     location.reload();
-//   }, 15000); // 15 second delay
-// }
-
-  async sanitisePosts(url) {
-    await this.countPosts(url).then(santisePosts());
-    if (this._posts === null) {
-      return;
-    }
-    let countNulls = 0;
-    if (this._posts != null) {
-      for (let stuff of posts) {
-        console.count.println();
-        if (this._posts[stuff].title === null || this._posts[stuff].content === null) {
-          countNulls++;
-        }
-      }
-    }
+  //Create a date from the timestamp field in 'posts'.
+  getBlogPostDate(timestamp) { 
+    var time = new Date(timestamp).toLocaleTimeString("en-us");
+    var date = new Date(timestamp).toLocaleDateString("en-US");
+    return {
+      time, date
+    };
   }
-
-  // A simple formatter that just splits text into paragraphs and 
-  // wraps each in a <p> tag
-  // a fancier version could use markdown and a third party markdown
-  // formatting library
-
-  //we actually do need this functionality
-  //but we need blogpost sanitation first
-
-  //commented out function as do not need to split blog posts
-  // static formatBody(text) {
-  //   const paragraphs = text.split('\r\n')
-  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
-  // }
 
   render() {
     if (!this._posts)
@@ -198,30 +218,29 @@ connectedCallback(){
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
+          <p style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
+          <p style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
          </div>
       </div>`
     )}
       `;
-  
-
-    /*return html`
-      ${this._posts.map(post =>
-      html`
-      <div class="blog-border">
-        <div class="blogpost">
-          <h2>${post.title}</h2>
-          <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
-          <img class="meme-img" alt="couldn't load meme image" 
-          src="${post.content.split(',')[0]}"></img>
-        </div>
-      </div>`
-    )}
-      `;*/
   }
 }
 
 customElements.define('blog-block', BlockBlock);
 
-
+/* to remove before submission date if not implemented, but we need to try and implement*/
 //${BlockBlock.formatBody(post.content)} deleted from render function
+ // A simple formatter that just splits text into paragraphs and 
+  // wraps each in a <p> tag
+  // a fancier version could use markdown and a third party markdown
+  // formatting library
+
+  //we actually do need this functionality
+  //but we need blogpost sanitation first
+
+  //commented out function as do not need to split blog posts
+  // static formatBody(text) {
+  //   const paragraphs = text.split('\r\n')
+  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
+  // }

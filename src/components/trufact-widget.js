@@ -67,13 +67,20 @@ class TrufactWidget extends LitElement {
     this.connectedCallback();
   }
 
+  _handleShare(e){
+    const shareFact = new CustomEvent('share-fact', {detail: this.data.text});
+    window.dispatchEvent(shareFact);
+    console.log("fact dispatched: " + shareFact.type + shareFact.detail);
+  }
+
   render() {
     if (this._data){
       return html`      
       <div class="widget-border">
       <h2>On this day...</h2>
       <p>${this._data.text}</p>
-      <input @click=${this._handleRefresh} type="button" value="new fact"></button>
+      <input @click=${this._handleRefresh} type="button" value="new fact">
+      <input @click=${this._handleShare} type="button" value="share fact">
     </div>`
     } else {
     return html`

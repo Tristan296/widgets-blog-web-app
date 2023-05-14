@@ -38,11 +38,34 @@ class LoginWidget extends LitElement {
     }
 
     input[type="submit"]{
+      margin-left: .8px;
+      font-size: 13px;
+      width: 80%;
       position: relative;
       grid-row: 1/3;
       grid-column:2/3;
       height: 100%;
       visibility: visible;
+      transition: ease-out 0.7s;
+    }
+
+    input[type="submit"]:hover{
+      animation: ease_color 8s infinite;
+      color: white;
+      font-weight: bolder;
+      border: none;
+    }
+
+    @keyframes ease_color {
+      0% {
+        background-color: #CC0000;
+      }
+      50% {
+        background-color: #FFDE00;
+      }
+      100% {
+        background-color: #3B4CCA;
+      }
     }
  `;
 
