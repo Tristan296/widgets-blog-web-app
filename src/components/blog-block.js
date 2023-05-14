@@ -57,6 +57,7 @@ class BlockBlock extends LitElement {
     text-align: left;
     background-color: var(--white);
   }
+
   .blogpost p {
     font: serif;
     margin-top: -20px;
@@ -64,10 +65,12 @@ class BlockBlock extends LitElement {
   }
   .blogpost h3{
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h2 {
     margin-top: 5px;
-      text-transform: capitalize;
+    text-transform: capitalize;
+    word-break: break-all;
   }
   .meme-img { 
     width: 150px;
@@ -75,6 +78,32 @@ class BlockBlock extends LitElement {
     border-radius: 10px;
     margin-bottom: 20px;
   }
+
+  @media screen and (max-width: 1000px) {
+    .blog-border{
+      border-radius:20px;
+      border-style: solid;
+      border-color: var(--dgray);
+      border-width: calc(20+5vw);
+      background-color: var(--dgray);
+    }
+    .blogpost {
+      border-radius:20px;
+      width: 300px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-style: solid;
+      border-color: var(--lgray);
+      border-width: 7px;
+      text-align: left;
+      background-color: var(--white);
+    }
+    .blogpost p {
+      font: serif;
+      margin-top: -20px;
+      word-break: ellipse;
+    }
+
   `;
 
 /* constructor() notes:
@@ -169,8 +198,6 @@ connectedCallback(){
     });
   }
 
-
-
   /* sanitise(text)
   *  this uses regex to attempt to match <script> tags to prevent XSS attack.
   *  while Lit uses HTML templating for rendering web components, it is still
@@ -206,6 +233,8 @@ connectedCallback(){
       time, date
     };
   }
+
+  
 
   render() {
     if (!this._posts)
