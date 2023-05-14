@@ -121,10 +121,20 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log("test"+posts.posts.post);
+        console.log("test: ", this._posts);
         this.giveTitles(this._posts);
-      });
-      console.log("blog-block createblog");
+        this._posts.forEach(post => {
+          console.log(`"id": ${post.id}`);
+          console.log(`"title": ${post.title}`);
+          console.log(`"content": ${post.content}`);
+          console.log(`"timestamp": ${post.timestamp}`);
+          console.log(`creator: ${post.creator}`);
+          console.log(`"name": ${post.name}`);
+          console.log('---');
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -200,12 +210,12 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 100000000000);
+      }, 100000000000);  //NB TURNED THIS DOWN FOR TESTING
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
-    console.log("blog-block getBlogPostDate");
+    //console.log("blog-block getBlogPostDate");
     var time = new Date(timestamp).toLocaleTimeString("en-us");
     var date = new Date(timestamp).toLocaleDateString("en-US");
     return {
