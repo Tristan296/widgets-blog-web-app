@@ -121,10 +121,12 @@ class BlockBlock extends LitElement {
 **/
   constructor() {
     super();
-    this._url = `${BASE_URL}blog`;;
+    this._url = `${BASE_URL}blog`;
+    this.successListener = this.connectedCallback.bind(this);
+    window.addEventListener('success', this.successListener); //added to ensure it is always present
+    
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
-    this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     console.log("blog-block constructor");
   }
@@ -135,6 +137,7 @@ class BlockBlock extends LitElement {
   
 connectedCallback(){
   super.connectedCallback();
+  this.createBlog(this._url); //sets _posts
   this._reloadBlog();
   console.log("blog-block connectedCallback");
 }
