@@ -148,7 +148,7 @@ class BlockBlock extends LitElement {
   constructor() {
     super();
     this._url = `${BASE_URL}blog`;
-    this.successListener = this.connectedCallback.bind(this);
+    this.factListener = this.connectedCallback.bind(this);
     window.addEventListener('success', this.successListener); //added to ensure it is always present
     
     this.reloadListener = this.connectedCallback.bind(this);

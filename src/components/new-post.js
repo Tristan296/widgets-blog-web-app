@@ -167,7 +167,8 @@ class NewPost extends LitElement {
         _user: { type: String, state: true },
         _error: { type: String, state: true },
         _visible: { type: Boolean, state: true },
-        _handleToggle: {state: true},
+        _text: {type: String},
+        _fact: {type: Boolean, state: true},
         
     }
 
@@ -176,19 +177,27 @@ class NewPost extends LitElement {
         this._user = getUser();
         this._error = null;
         this._visible = false;
-        this.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this._fact = false;
+        this._text = "";
+        window.addEventListener('keydown', this._handleKeyDown.bind(this));
+        window.addEventListener('share-fact', (event) => {
+            this._handleFact(event);
+            this._tog();
+        });
+        
+        
     }
 
-/** handleKeyDown(e)
- * This allows the user to hit enter and insert multiple lines within the context
- * of the text box.
- * */
-
-    handleKeyDown(e){
-        /*if (e.key === 'Enter' && !e.shiftKey){
-            this.preventDefault();
-        }*/
+    connectedCallback(){
+        super.connectedCallback();
+        
     }
+
+    disconnectedCallback(){
+        super.disconnectedCallback();
+        this.removeEventListener('share-fact', this._handleFact);
+    }
+
 
 /** postBlog(event)
  * Posts a new blog post to the server.
@@ -207,10 +216,7 @@ class NewPost extends LitElement {
         if (text == null || text == "") {
             this._error = "please write content.";
             console.log(this._error + " User did not enter text field.");
-        } else {
-
-            
-
+        } else {      
             const blogPost = text;
             console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
@@ -270,8 +276,37 @@ class NewPost extends LitElement {
         } else this._visible = false;
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
+//a second toggle for facts
+    _tog(){
+        this._visible = !this._visible;
+        this._fact = !this._fact;
+    }
 
+    /** handleKeyDown(e)
+ * This allows the user to hit enter and insert multiple lines within the context
+ * of the text box.
+ * */
+    _handleKeyDown(e){
+        //doesn't seem to need anything in it
+     }
+ 
+    /**_handleFact(event) */
+    _handleFact(event){
+        console.log("fact recieved: " + event.detail);
+        const fact = event.detail;
+        if (fact){
+         this._text = fact;
+        }
+    }
 
+    _todayDate(){
+        const date = new Date();
+        const day = date.getDate();
+        const month = date.toLocaleString('default', {month: 'short'});
+
+        return `What happened today, ${day} ${month}, in history:`
+    }
+ 
     render() {
         if (this._error && this._visible) {
         return html`
@@ -280,7 +315,7 @@ class NewPost extends LitElement {
         </div>
         <div class="visible">
             <div class="postbox">
-                <p> New blog post</p> 
+                <p>New blog post</p> 
                 <p>ERROR: ${this._error}</p> 
                 <form @submit=${this.postBlog}>
                 <label for="title">Title:</label>
@@ -296,7 +331,29 @@ class NewPost extends LitElement {
             </div> 
         </div> 
             `
-        } else if (this._visible) {
+        } else if (this._visible && this._fact) {
+            return html`
+            <div class="menu">
+                <div class="menubar"></div>
+            </div>
+            <div class="visible">
+                <div class="postbox">
+                    <p>New blog post</p> 
+                    <form @submit=${this.postBlog}>
+                    <label for="title">Title:</label>
+                    <input name="title" type="text" id="title" .value=${this._todayDate()}>
+                    <label for="blogpost">Content:</label>
+                    <textarea name="blogpost" id="blogpost" .value=${this._text}></textarea>
+                    <input name="button" type='submit' value='post to blog'>
+                    </form>
+                        <div class="togglebox">
+                        <input @click=${this._handleToggle} name="button" 
+                        type="button" class="toggle" id="tog" value="cancel">
+                        </div>
+                </div> 
+            </div> 
+                `
+            } else if (this._visible) {
             return html`
         
             <div class="menu">
@@ -317,7 +374,6 @@ class NewPost extends LitElement {
                         </form>
                         <div class="togglebox">
                 
-
                             <input @click=${this._handleToggle} name="button" 
                                 type="button" class="toggle" id="tog" 
                                 value="cancel">
