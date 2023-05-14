@@ -40,12 +40,14 @@ class BlockBlock extends LitElement {
   }
 
   .blog-border{
+    border-radius:20px;
     border-style: solid;
     border-color: var(--dgray);
     border-width: calc(50vw+10vw);
     background-color: var(--dgray);
     }
   .blogpost {
+    border-radius:20px;
     padding-left: 30px;
     padding-right: 30px;
     border-style: solid;
