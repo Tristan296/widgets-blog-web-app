@@ -40,11 +40,12 @@ class TrufactWidget extends LitElement {
   }
 
   .content {
-    max-height: 300px;
+    max-height: 250px;
+    overflow: hidden;
     margin: 0;
-    padding: 0;
+    padding: 20px;
   }
-
+  
   .text {
     max-height: 100px;
     overflow-y: scroll;
