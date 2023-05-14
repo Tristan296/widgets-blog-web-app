@@ -149,14 +149,13 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log("test: ", this._posts);
         this.giveTitles(this._posts);
         this._posts.forEach(post => {
           console.log(`"id": ${post.id}`);
           console.log(`"title": ${post.title}`);
           console.log(`"content": ${post.content}`);
           console.log(`"timestamp": ${post.timestamp}`);
-          console.log(`creator: ${post.creator}`);
+          console.log(`"creator": ${post.creator}`);
           console.log(`"name": ${post.name}`);
           console.log('---');
         });
@@ -187,6 +186,8 @@ connectedCallback(){
         content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
         name: this.sanitise(post.name),  
         timestamp: post.timestamp,
+        id: post.id, 
+        creator: post.creator,
       };
     });
   }
