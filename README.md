@@ -1,5 +1,16 @@
 # COMP2110 Portal: Group 2 Web Application Overview:
 This web app was developed using [Lit Web Components](https://lit.dev/). 
+##images used:
+['Colourful rainbow geometric' by 'Manuchi'](https://pixabay.com/illustrations/colorful-rainbow-gradient-geometric-2174045/)
+"Free to use under the Pixabay license
+ No attribution required."
+['Computer computer code' by 'Boskampi'](https://pixabay.com/illustrations/computer-computer-code-programming-1836330/)
+"Free to use under the Pixabay license
+ No attribution required."   
+##fonts used:
+['Press Start 2P' by 'CodeMan38'](https://fonts.google.com/specimen/Press+Start+2P)
+Licensed under the Open Font License. 
+
 ## This application has the following functionality
 * users can login and logout and the layout changes depending on whether a user is logged in or not
 * displays the most recent blog posts
