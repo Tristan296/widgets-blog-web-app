@@ -71,6 +71,7 @@ class BlockBlock extends LitElement {
     width: 150px;
     border: 5px solid black;
     border-radius: 10px;
+    margin-bottom: 20px;
   }
   `;
 
