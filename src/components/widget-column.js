@@ -23,7 +23,7 @@ class WidgetColumn extends LitElement {
 
   .widget-section{
     background-color: var(--darkBlue);
-    width: fit-content;
+    width: 200px;
   }
 
   div{
