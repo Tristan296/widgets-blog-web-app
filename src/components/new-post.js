@@ -109,12 +109,16 @@ class NewPost extends LitElement {
         
 
         //new post formatting
-        #title { 
+
+        { }
+
+        .titlebox > #title { 
             height: 20px;
             display: flex;
+            margin: 5px auto auto auto;
+            color: var(--dGray);
             border-radius: 10px;
             width: 80%;
-            color: var(--dGray);
             background-color: var(--white);
         }
 
@@ -166,6 +170,7 @@ class NewPost extends LitElement {
         .postbox > #tog{
             margin-top: 100px;
         }
+       
 
     `;
 
@@ -328,7 +333,9 @@ class NewPost extends LitElement {
                         <p>New Blog Post</p>
                         <form @submit=${this.postBlog}>
                         <label for="title">Title:</label>
-                        <input name="title" type="text" id="title" placeholder="Enter title here..." >
+                        <div class="titlebox">
+                        <input name="title" type="text" id="title" placeholder=" Enter title here..." >
+                        </div>
                         <label for="blogpost">Content:</label>
                         <textarea name="blogpost" id="blogpost" placeholder=" Enter blog post content here..."></textarea>
                         <input name="button" type='submit' value='post to blog'>
