@@ -25,7 +25,6 @@ It also used a google font for h1; ['Press Start 2P' by 'CodeMan38'](https://fon
 It also includes four widgets integrated into the overall design. 
 ## About our group: 
 Group two is made up of the following individuals: 
-((put your name, user ID here))
 * Stacey Purcell, 42123682 
 * Tristan Norbury, 47308028
 * Brigid McDermott, 46361804
@@ -38,10 +37,9 @@ Group two is made up of the following individuals:
 * Stacey Purcell, 'tru-fact' widget
 * Brigid McDermott, 'joke' widget
 
-
 ## Design and Features
 (put your name here any any design elements you contributed)
-* Stacey Purcell, style and layout; particularly header and new blog post.
+* Stacey Purcell, style and layout; particularly header and new blog post. Implemented user authentication token being used to change layouts.
 * Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
@@ -62,7 +60,6 @@ Group two is made up of the following individuals:
 * Brigid McDermott: blog popup will clear once message has been posted and reset to default placeholder text
 
 # Individual Widgets
-((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
 - The trufact widget accesses the [Numbers API](http://numbersapi.com/#42) and retrieves a fact about today's date. 
 - The user can click the new-fact button to access another random fact. 
