@@ -13,7 +13,6 @@ class BlockBlock extends LitElement {
     _posts: { state: true },
     _number: { type: Number, state: true },
     _url: {type: String, state: true},
-    _reloadBlog: {state:true},
     _timerInterval: {type: Number},
     reloadListener: {type: Function},
   }
@@ -68,9 +67,9 @@ class BlockBlock extends LitElement {
     word-break: break-all;
   }
   .blogpost h2 {
+    word-break: break-all;
     margin-top: 5px;
     text-transform: capitalize;
-    word-break: break-all;
   }
   .meme-img { 
     width: 150px;
@@ -125,6 +124,9 @@ class BlockBlock extends LitElement {
     this._url = `${BASE_URL}blog`;;
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
+    this.createBlog(this._url); //sets _posts
+    this.countPosts(this._url); //sets _numbersD
+    console.log("blog-block constructor");
   }
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
@@ -133,13 +135,13 @@ class BlockBlock extends LitElement {
   
 connectedCallback(){
   super.connectedCallback();
-  this.createBlog(this._url); //sets _posts
-  this.countPosts(this._url); //sets _numbersD
   this._reloadBlog();
+  console.log("blog-block connectedCallback");
 }
 
   disconnectedCallback(){
     window.removeEventListener('reload', this.reloadListener);
+    console.log("blog-block disconnectedCallback");
   }
 
   createBlog(url) {
@@ -147,9 +149,10 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log(posts.posts[0]);
+        console.log("test"+posts.posts.post);
         this.giveTitles(this._posts);
       });
+      console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -159,6 +162,7 @@ connectedCallback(){
         this._number = posts.posts[0].id;
         console.log(this._number);
       });
+      console.log("blog-block countposts");
   }
 
   /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
@@ -222,11 +226,12 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 1000);
+      }, 100000000000);
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
+    console.log("blog-block getBlogPostDate");
     var time = new Date(timestamp).toLocaleTimeString("en-us");
     var date = new Date(timestamp).toLocaleDateString("en-US");
     return {
@@ -234,13 +239,30 @@ connectedCallback(){
     };
   }
 
-  
+
+  /*formatBody(text)*/
+
+ // A simple formatter that just splits text into paragraphs and 
+  // wraps each in a <p> tag
+  // a fancier version could use markdown and a third party markdown
+  // formatting library
+  static formatBody(text) {
+    console.log("blog-block formatBody");
+    if (text == null || text == ""){
+      return text;
+    }
+    else {
+  const paragraphs = text.split('\r\n')
+  return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
+  }
+}
 
   render() {
+    console.log("blog-block render");
     if (!this._posts)
       return html`Loading...`
 
-      return html`
+    else return html`
       ${this._posts.map(post =>
       html`
       <div class="blog-border">
@@ -249,6 +271,7 @@ connectedCallback(){
           <h3>By ${post.name}</h3>
           <p> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
+          
           <p style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
           <p style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
          </div>
@@ -260,18 +283,4 @@ connectedCallback(){
 
 customElements.define('blog-block', BlockBlock);
 
-/* to remove before submission date if not implemented, but we need to try and implement*/
-//${BlockBlock.formatBody(post.content)} deleted from render function
- // A simple formatter that just splits text into paragraphs and 
-  // wraps each in a <p> tag
-  // a fancier version could use markdown and a third party markdown
-  // formatting library
 
-  //we actually do need this functionality
-  //but we need blogpost sanitation first
-
-  //commented out function as do not need to split blog posts
-  // static formatBody(text) {
-  //   const paragraphs = text.split('\r\n')
-  //   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
-  // }
