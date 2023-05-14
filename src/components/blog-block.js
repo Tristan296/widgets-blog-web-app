@@ -237,7 +237,7 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 100000000000);  //NB TURNED THIS DOWN FOR TESTING
+      }, 30000);  //NB TURNED THIS DOWN FOR TESTING
   }
 
   //Create a date from the timestamp field in 'posts'.
