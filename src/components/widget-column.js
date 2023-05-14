@@ -38,8 +38,11 @@ class WidgetColumn extends LitElement {
     gap:10px;
   }
 
-  .widget{
-
+  @media screen and (max-width: 900px) {
+    .widget-section{
+      background-color: var(--darkBlue);
+      width: 152px;
+    }
   }
   
 

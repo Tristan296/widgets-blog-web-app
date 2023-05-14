@@ -60,7 +60,21 @@ text: {state: true }
             box-shadow: 0 5px #666;
             transform: translateY(4px);
           }
-        
+          @media screen and (max-width: 900px) {
+            .widget-border {
+              width: 150px;
+              border: 6px solid var(--pinkHighlight);
+              border-radius: 8px;
+              padding: 8px;
+              box-sizing: border-box;
+              text-align: center;
+            }
+            div {
+              min-width: 75px;
+              min-height: 20px;
+              background-color: var(--white);
+            }
+          }
       `;
 
 
