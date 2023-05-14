@@ -31,18 +31,19 @@ Group two is made up of the following individuals:
 * 
 
 
-## Design 
+## Design and Features
 (put your name here any any design elements you contributed)
 * Stacey Purcell, style and layout; particularly header and blog post.
-* 
-* 
+* Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
+* Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
+* Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
 
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
 * Tristan Norbury, bug fixes; The website now displays only one widget on each side, instead of displaying three identical widgets for all of them.
 * Stacey Purcell, bug fixes; basic null checking and sanitation. 
-* 
-* 
+* Tristan Norbury, Fixed hardcoded Authorization for getting token for meme widget - ensures that widget cannot be posted to blog unless already logged in.
+* Tristan Norbury, Added alert for when new posts fail to send to blog (e.g. no WiFi when posting)
 * 
 
 ## Extension to blog-block: new-post.js
@@ -57,6 +58,7 @@ Group two is made up of the following individuals:
 - The user can click the button to access another random fact. 
 
 ## Meme Widget by Tristan Norbury 47308028
+- The meme widget accesses the [IMGFLIP API](https://api.imgflip.com/get_memes) and fetches a meme and it's caption.
 - posts meme image url and url (button) which is then fetched from the blog posts array and displayed as an image, 
 - Post meme caption posts the associated meme's caption as a quote. 
 - Fetch new meme (button) retrieves a new random meme by choosing a random index from the imgflip meme array.
@@ -142,4 +144,3 @@ posting in some way.
 
 This component displays an advertisement from the backend portal server. You should not
 modify it and it should appear somewhere in your page design.
-# 12/5/2023
