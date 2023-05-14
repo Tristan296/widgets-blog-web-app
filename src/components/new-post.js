@@ -235,6 +235,8 @@ class NewPost extends LitElement {
             const form = this.shadowRoot.querySelector('form');
             form.reset();
 
+            
+
             // Send the request
             fetch(endpoint, {
                 method: 'POST',
@@ -255,6 +257,8 @@ class NewPost extends LitElement {
                     console.error('Error posting to blog:', error);
                     this._error = error;
                 });
+
+              
         }
     }
 

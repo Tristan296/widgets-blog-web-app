@@ -3,10 +3,9 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class JokeWidget extends LitElement {
 
   static properties = {
-    twopart: { type: String },
     _data: { state: true },
-    visible: { type: Boolean }
-
+    visible: { type: Boolean },
+text: {state: true }
 
   }
 
@@ -41,10 +40,6 @@ class JokeWidget extends LitElement {
     text-align: center;
 }
 
-/*DEFAULT STYLES FINISH*/
-//write override styles below
-
-
           .widget-border button { 
             background-color: white;
             color: black;
@@ -54,7 +49,7 @@ class JokeWidget extends LitElement {
           }
     
           .widget-border button:hover { 
-            background-color: black;
+            background-color: #749DAB;
             color: white;
             transition: ease 0.3s;
             transform: scale(1.05);
@@ -65,7 +60,7 @@ class JokeWidget extends LitElement {
             box-shadow: 0 5px #666;
             transform: translateY(4px);
           }
-        }
+        
       `;
 
 
@@ -91,7 +86,7 @@ class JokeWidget extends LitElement {
       });
   }
 
-//show joke
+  //show joke
   render() {
     if (this._data) {
       return html`
@@ -100,11 +95,9 @@ class JokeWidget extends LitElement {
   <h2>Joke!</h2>
   <p> <b> ${this._data.setup} </b> </p>
   <div ?hidden="${!this.visible}">
-
   <p> ${this._data.delivery} </p>
 </div>
 <button @click="${this.togglePunchline}">${this.visible ? 'Hide Punchline' : 'Show Punchline'}</button>
-
 <button @click="${this.getNewJoke}">Show New Joke</button>
 `      ;
     }
@@ -119,16 +112,14 @@ class JokeWidget extends LitElement {
   }
 
 
-//function to call new joke (used on button click)
+  //function to call new joke (used on button click)
   getNewJoke() {
     this.fetchJoke();
   }
 
   //function to hide and show punchline
   togglePunchline() {
-    this.visible = !this.visible;
-    const text = this.shadowRoot.querySelector('div hidden');
-    text.hidden = !this.visible;
+    this.visible = !this.visible;    
   }
 }
 
