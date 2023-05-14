@@ -11,6 +11,7 @@ This web app was developed using [Lit Web Components](https://lit.dev/).
 * the blog loads new content automatically
 * if the application loads a blogpost with a null title, it gives it a default title
 * if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post
+* once the blog is posted the blog post popup will clear
 * messages over a certain length are hidden
 * messages without spaces are still wrapped to fit rather than going off the screen
 
@@ -20,7 +21,7 @@ Group two is made up of the following individuals:
 ((put your name, user ID here))
 * Stacey Purcell, 42123682 
 * Tristan Norbury, 47308028
-* Brigid
+* Brigid McDermott, 46361804
 * Nathan
 
 # Who did what?
@@ -28,7 +29,7 @@ Group two is made up of the following individuals:
 (put your name and the name of your widget here. There is another area below to describe what your widget does and how it is integrated into the page.
 * Tristan Norbury, 'meme' widget
 * Stacey Purcell, 'tru-fact' widget
-* 
+* Brigid McDermott, 'joke' widget
 
 
 ## Design and Features
@@ -37,6 +38,7 @@ Group two is made up of the following individuals:
 * Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
+* Brigid McDermott, blog post title and content, style across website (button styling, blog post styling)
 
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
@@ -44,12 +46,13 @@ Group two is made up of the following individuals:
 * Stacey Purcell, bug fixes; basic null checking and sanitation. 
 * Tristan Norbury, Fixed hardcoded Authorization for getting token for meme widget - ensures that widget cannot be posted to blog unless already logged in.
 * Tristan Norbury, Added alert for when new posts fail to send to blog (e.g. no WiFi when posting)
-* 
+* Brigid McDermott, fix for null entry posts
 
 ## Extension to blog-block: new-post.js
 * Stacey Purcell: initial implementation of the ability to post to the blog
 * Stacey Purcell: event listener to refresh blog-block only on successful post.  
 * Stacey Purcell: new posts have default titles and the user cannot submit a null or blank content post
+* Brigid McDermott: blog popup will clear once message has been posted and reset to default placeholder text
 
 # Individual Widgets
 ((include your widget below with a summary which should include a link to the API it uses))
@@ -63,7 +66,12 @@ Group two is made up of the following individuals:
 - Post meme caption posts the associated meme's caption as a quote. 
 - Fetch new meme (button) retrieves a new random meme by choosing a random index from the imgflip meme array.
 
-## Joke Widget by
+## Joke Widget by Brigid McDermott 46361804
+- The Joke widget accesses the
+- This API was configured to only load two part jokes (setup and delivery - no single line jokes) and never to display NSFW content 
+- The user can click a button to display and hide the punchline of each joke
+- The user can click a button to load a new joke without the need to reload the page
+- 
 
 ## Trivia Widget by
 
