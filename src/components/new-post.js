@@ -49,10 +49,6 @@ class NewPost extends LitElement {
 
     }
 
-   
-
-
-    
    //button formatting//
 
    .togglebox > #tog{
@@ -64,8 +60,8 @@ class NewPost extends LitElement {
     border-radius: 9px;
     border: 3px solid var(--pinkHighlight);
     transition: ease-out 0.1s;
-    margin-top: 10px;
-}
+    margin-top: 10px;   
+    }       
 
 .togglebox > #tog:hover{
     background-color: var(--purpleBody);
@@ -80,8 +76,6 @@ class NewPost extends LitElement {
         .toggle{
             color: var(--pinkHighlight);
         }
-
-
 
     input[name="button"] {
             background-color: var(--purpleBody);
@@ -110,6 +104,7 @@ class NewPost extends LitElement {
 
         //new post formatting
 
+        /*need the below brackets */
         { }
 
         .titlebox > #title { 
@@ -117,7 +112,7 @@ class NewPost extends LitElement {
             display: flex;
             margin: 5px auto auto auto;
             color: var(--dGray);
-            border-radius: 10px;
+            border-radius: 5px;
             width: 80%;
             background-color: var(--white);
         }
@@ -129,7 +124,7 @@ class NewPost extends LitElement {
             width: 80%;
             color: var(--dGray);
             background-color: var(--white);
-            border-radius: 10px;
+            border-radius: 5px;
         }
 
         .visible{
@@ -334,10 +329,10 @@ class NewPost extends LitElement {
                         <form @submit=${this.postBlog}>
                         <label for="title">Title:</label>
                         <div class="titlebox">
-                        <input name="title" type="text" id="title" placeholder=" Enter title here..." >
+                        <input name="title" type="text" id="title" placeholder="Enter title here..." >
                         </div>
                         <label for="blogpost">Content:</label>
-                        <textarea name="blogpost" id="blogpost" placeholder=" Enter blog post content here..."></textarea>
+                        <textarea name="blogpost" id="blogpost" placeholder="Enter blog post content here..."></textarea>
                         <input name="button" type='submit' value='post to blog'>
                         </form>
                         <div class="togglebox">
