@@ -56,6 +56,29 @@ class LoginWidget extends LitElement {
       border: none;
     }
 
+    .logout button {
+      background-color: #316273;
+            color: #749DAB;
+            width: 100px;
+            height: 30px;
+            border-radius: 9px;
+            border: 3px solid #749DAB;
+            transition: ease-out 0.1s;
+            margin-top: 10px;
+        
+    }
+
+    .logout button:hover { 
+      background-color: #316273;
+      color: #749DAB;
+      width: 100px;
+      height: 50px;
+      border-radius: 18px;
+      border: 10px solid #749DAB;
+      transition: ease-out 0.1s;
+      margin-top: 10px;
+  }
+
     @keyframes ease_color {
       0% {
         background-color: #CC0000;
@@ -110,7 +133,10 @@ class LoginWidget extends LitElement {
         </form>`;
       }
       if (this.user != null ) {
-        return html`<p>Logged in as ${this.user.name}</p><button @click=${this.logout}>Logout</button>`
+        return html`
+        <div class="logout">
+        <p> <b>Logged in as ${this.user.name} </b></p><button @click=${this.logout}>Logout</button>
+        </div>`
     } 
     
 
