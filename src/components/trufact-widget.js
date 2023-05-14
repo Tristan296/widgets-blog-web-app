@@ -19,31 +19,67 @@ class TrufactWidget extends LitElement {
   --blue: #8bc5cd;
   }
   div {
-  min-width: 100px;
-  min-height: 100px;
   background-color: var(--white);
   }
+
   .widget-border {
-    width: 200px;
+    max-height: 300px;
+    display: flex;
+    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  h2 {
+    margin: 0;
+    padding: 0;
   }
 
-@media screen and (max-width: 900px) {
-  .widget-border {
-    width: 150px;
-    border: 6px solid var(--pinkHighlight);
-    border-radius: 8px;
-    padding: 8px;
-    box-sizing: border-box;
-    text-align: center;
+  .content {
+    max-height: 250px;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
   }
-}
-/*DEFAULT STYLES FINISH*/
-//write override styles below
+  .text {
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+
+  div.buttons{
+    grid-row:2;
+    margin: 0;
+    display: flex;
+    flex-basis: row;
+  }
+
+  #button {
+  flex-basis: 1; 
+  background-color: var(--hay);
+  color: var(--gold);
+  border: 6px solid var(--gold);
+  border-radius: 20px;
+  transition: ease-out 0.1s;
+  }
+
+  #button:hover { 
+  background-color: var(--gold);
+  color: var(--white);
+  border: 6px solid var(--hay);
+  transition: ease 0.3s;
+  transform: scale(1.05);
+  }
+
+  #button:active {
+    border: 6px solid var(--blue);
+    background-color: var(--cyan);
+    transform: translateY(4px);
+  }
+
     `;
 
   static properties = {
@@ -57,7 +93,6 @@ class TrufactWidget extends LitElement {
   constructor() {
     super();
     this._date = new Date();
-    this.connectedCallback();
   }
 
   connectedCallback() {
@@ -79,30 +114,39 @@ class TrufactWidget extends LitElement {
   }
 
   _handleShare(e) {
-    const shareFact = new CustomEvent('share-fact', { detail: this.data.text });
+    const shareFact = new CustomEvent('share-fact', { detail: this._data.text });
     window.dispatchEvent(shareFact);
     console.log("fact dispatched: " + shareFact.type + shareFact.detail);
+    this.todayFact();
   }
 
   render() {
+    console.log("facts rendered");
     if (this._data) {
       return html`      
       <div class="widget-border">
-      <h2>On this day...</h2>
-      <p>${this._data.text}</p>
-      <input @click=${this._handleRefresh} type="button" value="new fact">
-      <input @click=${this._handleShare} type="button" value="share fact">
-    </div>`
+        <div class="content">
+          <h2>On this day in history:</h2>
+            <div class="text">
+            <p>${this._data.text}</p>
+            </div>
+          <div class="fact-buttons">
+            <input @click=${this._handleRefresh} id="button" type="button" value="new fact">
+            <input @click=${this._handleShare} id="button" type="button" value="share fact">
+          </div>
+      </div>
+    <div>`
     } else {
       return html`
       <div class="widget-border">
+        <input @click=${this._handleRefresh} id="button" value="new fact">
+        <input @click=${this._handleShare} id="button" type="button" value="share fact">
         <h2>On this day...</h2>
         <p>...loading a fact!</p>
       </div>
     `;
     }
   }
-
 }
 
 customElements.define('trufact-widget', TrufactWidget);

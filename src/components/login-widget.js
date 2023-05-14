@@ -9,6 +9,20 @@ class LoginWidget extends LitElement {
   }
 
   static styles = css`
+    :root {
+  --background: #316273;
+  --darkBlue: #20315a;
+  --pinkHighlight: #c52973; 
+  --purpleBody: #832052;
+  --white: #f6f6ff;
+  --dgray: #4a4a4a;
+  --lgray: #bdbdc5;
+  --pinkText: #f65273;
+  --cyan: #41839c;
+  --gold: #a47b39;
+  --hay: #decd73;
+  --blue: #8bc5cd;
+  }
     :host {
         display: block;
     }
@@ -19,12 +33,9 @@ class LoginWidget extends LitElement {
       width: 300px;
       grid-columns: 5% 50%, 40% 5%;
       grid-rows: 45%, 5% 5% 45%;
+      row-gap: 0px;
       text-transform: lowercase;
       visibility: hidden; //hides ugly password / username text
-    }
-
-    .login{
-
     }
 
     input[type="password"]{
@@ -63,41 +74,64 @@ class LoginWidget extends LitElement {
     input[type="submit"]:hover{
       animation: ease_color 8s infinite;
       color: white;
-      font-weight: bolder;
       border: none;
     }
 
-    .logout button {
-      background-color: #316273;
-            color: #749DAB;
-            width: 100px;
-            height: 30px;
-            border-radius: 9px;
-            border: 3px solid #749DAB;
-            transition: ease-out 0.1s;
-            margin-top: 10px;
+    .logout>#button{
+      background-color: var(--background);
+      color: var(--blue);
+      border-radius: 9px;
+      border: 6px solid var(--cyan);
+      padding: 3px;
+      padding-left:10px;
+      padding-right:10px;
     }
 
-    .logout button:hover { 
-      background-color: #316273;
-      color: #749DAB;
-      transform: scale(1.15);
-      border-radius: 15px;
-      border: 5px solid #749DAB;
+    .login>#button {
+      background-color: var(--background);
+      color: var(--blue);
+      width: 100px;
+      height: 30px;
+      border-radius: 9px;
+      border: 3px solid var(--dgray);
       transition: ease-out 0.1s;
-      margin-top: 10px;
+    }
+
+     #button:hover { 
+      border: 6px solid var(--dgray);
+      transition: ease-out 0.1s;
   }
 
     @keyframes ease_color {
       0% {
         background-color: #CC0000;
+  
       }
       50% {
         background-color: #FFDE00;
+        color: var(--dgray);
       }
       100% {
         background-color: #3B4CCA;
       }
+    }
+
+    .login h2{
+      font-size: 3.5em;
+      font-family: garamond;
+      text-transform: uppercase;
+    }
+  
+    .login h3{
+      font-size: 2em;
+      font-variant: small-caps;
+      font-family: garamond;
+    }
+
+    div.login{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
  `;
 
@@ -134,33 +168,33 @@ class LoginWidget extends LitElement {
     
     if (test.includes("login incorrect")){
         return html`
-        <p>An error occured, try again!</p>
-        <form @submit=${this.submitForm}>
-            Username: <input name="username" placeholder="Enter Username...">
-            Password: <input type="password" placeholder="Enter Password..." name="password">
-            <input type='submit' value='Login'>
-        </form>`;
-      }
-      if (this.user != null ) {
+        <div class="login">
+        <h2>Login to COMP2110 Portal</h2>
+          <h3><b>An error occured, try again!</b></h3>
+          <form @submit=${this.submitForm}>
+              Username: <input name="username" placeholder="Enter Username...">
+              Password: <input type="password" placeholder="Enter Password..." name="password">
+              <input id="button" type='submit' value='Login'>
+          </form>
+        </div>
+        `;
+      } else if (this.user != null) {
         return html`
         <div class="logout">
-        <p> <b>Logged in as ${this.user.name} </b></p><button @click=${this.logout}>Logout</button>
-        </div>`
-    } 
-    
-
-    /*else if (this.user.contains("error")){
-      return */
-
-    return html`
-      <h2><b>LOGIN TO COMP2110 PORTAL</b></h2>
+          <p><b>Logged in as ${this.user.name} </b></p>
+          <button id="button" @click=${this.logout}>Logout</button>
+        </div>
+        `;
+    } else return html`
       <div class="login">
+        <h2>Login to COMP2110 Portal</h2>
         <form @submit=${this.submitForm}>
-            Username: <input name="username" placeholder="Enter Username...">
-            Password: <input type="password" placeholder="Enter Password..." name="password">
-            <input type='submit' value='Login'>
-        </form>;
-        </div>`
+        Username: <input name="username" placeholder="Enter Username...">
+        Password: <input type="password" placeholder="Enter Password..." name="password">
+        <input id="button" type='submit' value='Login'>
+        </form>
+      </div>
+      `;
   }
 }
 

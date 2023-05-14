@@ -52,6 +52,7 @@ class NewPost extends LitElement {
    //button formatting//
 
    .togglebox > #tog{
+    z-index: 10;
     
     background-color: var(--purpleBody);
     color: var(--pinkHighlight);
@@ -64,14 +65,10 @@ class NewPost extends LitElement {
     }       
 
 .togglebox > #tog:hover{
-    background-color: var(--purpleBody);
+    background-color: var(--cyan);
         color: var(--pinkHighlight);
-        width: 100px;
-        height: 50px;
-        border-radius: 18px;
-        border: 10px solid var(--pinkHighlight);
+        border: 3px solid var(--blue);
         transition: ease-out 0.1s;
-        margin-top: 10px;
 }
         .toggle{
             color: var(--pinkHighlight);
@@ -90,14 +87,10 @@ class NewPost extends LitElement {
         }
 
        input[name="button"]:hover { 
-            background-color: var(--purpleBody);
+            background-color: var(--cyan);
             color: var(--pinkHighlight);
-            width: 100px;
-            height: 50px;
-            border-radius: 18px;
-            border: 10px solid var(--pinkHighlight);
+            border: 3px solid var(--blue);
             transition: ease-out 0.1s;
-            margin-top: 10px;
         }
 
         
@@ -128,6 +121,7 @@ class NewPost extends LitElement {
         }
 
         .visible{
+            z-index: 5000;
             color: var(--pinkHighlight);
             position: relative;
             display: flex;
@@ -173,7 +167,8 @@ class NewPost extends LitElement {
         _user: { type: String, state: true },
         _error: { type: String, state: true },
         _visible: { type: Boolean, state: true },
-        _handleToggle: {state: true},
+        _text: {type: String},
+        _fact: {type: Boolean, state: true},
         
     }
 
@@ -182,19 +177,27 @@ class NewPost extends LitElement {
         this._user = getUser();
         this._error = null;
         this._visible = false;
-        this.addEventListener('keydown', this.handleKeyDown.bind(this));
+        this._fact = false;
+        this._text = "";
+        window.addEventListener('keydown', this._handleKeyDown.bind(this));
+        window.addEventListener('share-fact', (event) => {
+            this._handleFact(event);
+            this._tog();
+        });
+        
+        
     }
 
-/** handleKeyDown(e)
- * This allows the user to hit enter and insert multiple lines within the context
- * of the text box.
- * */
-
-    handleKeyDown(e){
-        /*if (e.key === 'Enter' && !e.shiftKey){
-            this.preventDefault();
-        }*/
+    connectedCallback(){
+        super.connectedCallback();
+        
     }
+
+    disconnectedCallback(){
+        super.disconnectedCallback();
+        this.removeEventListener('share-fact', this._handleFact);
+    }
+
 
 /** postBlog(event)
  * Posts a new blog post to the server.
@@ -213,10 +216,7 @@ class NewPost extends LitElement {
         if (text == null || text == "") {
             this._error = "please write content.";
             console.log(this._error + " User did not enter text field.");
-        } else {
-
-            
-
+        } else {      
             const blogPost = text;
             console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
@@ -241,8 +241,6 @@ class NewPost extends LitElement {
             const form = this.shadowRoot.querySelector('form');
             form.reset();
 
-            
-
             // Send the request
             fetch(endpoint, {
                 method: 'POST',
@@ -256,17 +254,15 @@ class NewPost extends LitElement {
                         //this reloads the blog only on a successful post (listener in blog-block)
                         const success = new CustomEvent('reload');
                         window.dispatchEvent(success);
-                        console.log(success);
-                        alert("Blog post was sent successfully!");  
                     }
-                })
-                .catch(error => {
+                }).then( () => {
+                    this._visible = false
+                }).catch(error => {
                     console.error('Error posting to blog:', error);
                     this._error = error;
                     alert("Error sending blog post. Please check internet connection and try again.");  
-                });
-
-              
+                    //the user is only alerted on a failure, as success should be obvious.
+                });          
         }
     }
 
@@ -280,20 +276,37 @@ class NewPost extends LitElement {
         } else this._visible = false;
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
+//a second toggle for facts
+    _tog(){
+        this._visible = !this._visible;
+        this._fact = !this._fact;
+    }
 
- /*   firstUpdated(){
-        const titleInput = this.shadowRoot.getElementById('input-title');
-        const contentInput = this.shadowRoot.getElementById('input-content');
-        if (this._visible){
-            const submitButton = this.shadowRoot.getElementById('input-title');
-        } 
-        const toggleButton = this.ShadowRoot.getElementbyId('toggle-button');
+    /** handleKeyDown(e)
+ * This allows the user to hit enter and insert multiple lines within the context
+ * of the text box.
+ * */
+    _handleKeyDown(e){
+        //doesn't seem to need anything in it
+     }
+ 
+    /**_handleFact(event) */
+    _handleFact(event){
+        console.log("fact recieved: " + event.detail);
+        const fact = event.detail;
+        if (fact){
+         this._text = fact;
+        }
+    }
 
-        toggleBu
-        
-        
-    }*/
+    _todayDate(){
+        const date = new Date();
+        const day = date.getDate();
+        const month = date.toLocaleString('default', {month: 'short'});
 
+        return `What happened today, ${day} ${month}, in history:`
+    }
+ 
     render() {
         if (this._error && this._visible) {
         return html`
@@ -302,7 +315,7 @@ class NewPost extends LitElement {
         </div>
         <div class="visible">
             <div class="postbox">
-                <p> New blog post</p> 
+                <p>New blog post</p> 
                 <p>ERROR: ${this._error}</p> 
                 <form @submit=${this.postBlog}>
                 <label for="title">Title:</label>
@@ -318,7 +331,29 @@ class NewPost extends LitElement {
             </div> 
         </div> 
             `
-        } else if (this._visible) {
+        } else if (this._visible && this._fact) {
+            return html`
+            <div class="menu">
+                <div class="menubar"></div>
+            </div>
+            <div class="visible">
+                <div class="postbox">
+                    <p>New blog post</p> 
+                    <form @submit=${this.postBlog}>
+                    <label for="title">Title:</label>
+                    <input name="title" type="text" id="title" .value=${this._todayDate()}>
+                    <label for="blogpost">Content:</label>
+                    <textarea name="blogpost" id="blogpost" .value=${this._text}></textarea>
+                    <input name="button" type='submit' value='post to blog'>
+                    </form>
+                        <div class="togglebox">
+                        <input @click=${this._handleToggle} name="button" 
+                        type="button" class="toggle" id="tog" value="cancel">
+                        </div>
+                </div> 
+            </div> 
+                `
+            } else if (this._visible) {
             return html`
         
             <div class="menu">
@@ -339,7 +374,6 @@ class NewPost extends LitElement {
                         </form>
                         <div class="togglebox">
                 
-
                             <input @click=${this._handleToggle} name="button" 
                                 type="button" class="toggle" id="tog" 
                                 value="cancel">

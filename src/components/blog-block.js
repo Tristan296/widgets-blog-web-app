@@ -34,28 +34,7 @@ class BlockBlock extends LitElement {
     --width: calc(50vw+20px)
 }
 
-  :host {
-    margin: 1em;
-  }
 
-  .blog-border{
-    border-radius:20px;
-    border-style: solid;
-    border-color: var(--dgray);
-    border-width: calc(50vw+10vw);
-    background-color: var(--dgray);
-  }
-  .blogpost {
-    border-radius:20px;
-    width: 780px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border-style: solid;
-    border-color: var(--lgray);
-    border-width: 7px;
-    text-align: left;
-    background-color: var(--white);
-  }
 
   .blogpost p {
     font: serif;
@@ -71,38 +50,85 @@ class BlockBlock extends LitElement {
     margin-top: 5px;
     text-transform: capitalize;
   }
+
+  h4{
+    margin-top: -20px;
+  }
   .meme-img { 
     width: 150px;
     border: 5px solid black;
     border-radius: 10px;
     margin-bottom: 20px;
   }
-
-  @media screen and (max-width: 1000px) {
-    .blog-border{
-      border-radius:20px;
-      border-style: solid;
-      border-color: var(--dgray);
-      border-width: calc(20+5vw);
-      background-color: var(--dgray);
-    }
-    .blogpost {
-      border-radius:20px;
-      width: 300px;
-      padding-left: 5px;
-      padding-right: 5px;
-      border-style: solid;
-      border-color: var(--lgray);
-      border-width: 7px;
-      text-align: left;
-      background-color: var(--white);
-    }
-    .blogpost p {
+  .blogpost p {
       font: serif;
-      margin-top: -20px;
       word-break: ellipse;
     }
 
+    h1.loading{
+      padding: 100px;
+      text-transform: uppercase;
+    }
+
+    div.loading{
+      height: 100vh;
+    }
+
+  .blog-border{
+    position: relative;
+    top: 0;
+    left: -1%;
+    width: 98%;
+    border-radius:20px;
+    border-style: solid;
+    border-color: var(--dgray);
+    background-color: var(--dgray);
+  }
+  .blogpost {
+    padding: 20px;
+    border-radius:20px;
+    border-style: solid;
+    border-color: var(--lgray);
+    border-width: 7px;
+    text-align: left;
+    background-color: var(--white);
+  }
+
+  .information{
+    display: grid;
+    gap: 0px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    max-height: 100px;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .information h2 {
+    grid-column: 1/3;
+    grid-row: 1;
+  }
+
+  .information h3 {
+    grid-column: 1/3;
+    grid-row: 2;
+    text-transform: lowercase;
+  }
+
+  .information h4{
+    grid-column: 5;
+  }
+
+  .information> h4.date{
+    grid-row: 1;
+    padding-top: 20px;
+  }
+
+  .information h4.time{
+    grid-row:2;
+  }
+
+ 
   `;
 
 /* constructor() notes:
@@ -121,10 +147,12 @@ class BlockBlock extends LitElement {
 **/
   constructor() {
     super();
-    this._url = `${BASE_URL}blog`;;
+    this._url = `${BASE_URL}blog`;
+    this.factListener = this.connectedCallback.bind(this);
+    window.addEventListener('success', this.successListener); //added to ensure it is always present
+    
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
-    this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     console.log("blog-block constructor");
   }
@@ -135,6 +163,7 @@ class BlockBlock extends LitElement {
   
 connectedCallback(){
   super.connectedCallback();
+  this.createBlog(this._url); //sets _posts
   this._reloadBlog();
   console.log("blog-block connectedCallback");
 }
@@ -149,10 +178,19 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log("test"+posts.posts.post);
         this.giveTitles(this._posts);
-      });
-      console.log("blog-block createblog");
+        this._posts.forEach(post => {
+          console.log(`"id": ${post.id}`);
+          console.log(`"title": ${post.title}`);
+          console.log(`"content": ${post.content}`);
+          console.log(`"timestamp": ${post.timestamp}`);
+          console.log(`"creator": ${post.creator}`);
+          console.log(`"name": ${post.name}`);
+          console.log('---');
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -174,9 +212,11 @@ connectedCallback(){
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
-        content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
+        content: post.content ? this.sanitise(post.content) : '[User Submitted Blank Content]',
         name: this.sanitise(post.name),  
         timestamp: post.timestamp,
+        id: post.id, 
+        creator: post.creator,
       };
     });
   }
@@ -226,12 +266,12 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 100000000000);
+      }, 30000);  //NB TURNED THIS DOWN FOR TESTING
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
-    console.log("blog-block getBlogPostDate");
+    //console.log("blog-block getBlogPostDate");
     var time = new Date(timestamp).toLocaleTimeString("en-us");
     var date = new Date(timestamp).toLocaleDateString("en-US");
     return {
@@ -260,20 +300,23 @@ connectedCallback(){
   render() {
     console.log("blog-block render");
     if (!this._posts)
-      return html`Loading...`
+      return html`<div class="loading"><h1>Loading...</h1></div>`
 
     else return html`
       ${this._posts.map(post =>
       html`
       <div class="blog-border">
         <div class="blogpost">
-          <h2>${post.title}</h2>
-          <h3>By ${post.name}</h3>
-          <p> ${post.content}</p> 
+          <div class="information">
+            <h2>${post.title}</h2>
+            <h3>By ${post.name}</h3>
+            <h4 id="date" style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
+            <h4 id="time" style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
+          </div>
+          <div class="content">
+          <p id="post-content"> ${post.content}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
-          
-          <p style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
-          <p style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
+          </div>   
          </div>
       </div>`
     )}
