@@ -154,8 +154,7 @@ VV review below style VV*/
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Meme caption posted:', data);
-        alert("Meme image url and caption sent successfully to blog server!");  
+        console.log('Meme caption posted:', data); 
       })
       .catch(error => {
         console.error('Error posting meme caption:', error);
