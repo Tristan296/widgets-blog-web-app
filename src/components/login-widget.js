@@ -76,16 +76,14 @@ class LoginWidget extends LitElement {
             border: 3px solid #749DAB;
             transition: ease-out 0.1s;
             margin-top: 10px;
-        
     }
 
     .logout button:hover { 
       background-color: #316273;
       color: #749DAB;
-      width: 100px;
-      height: 50px;
-      border-radius: 18px;
-      border: 10px solid #749DAB;
+      transform: scale(1.15);
+      border-radius: 15px;
+      border: 5px solid #749DAB;
       transition: ease-out 0.1s;
       margin-top: 10px;
   }
