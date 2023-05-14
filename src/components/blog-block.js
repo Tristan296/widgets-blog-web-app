@@ -40,18 +40,20 @@ class BlockBlock extends LitElement {
   }
 
   .blog-border{
+    border-radius:20px;
     border-style: solid;
     border-color: var(--dgray);
     border-width: calc(50vw+10vw);
     background-color: var(--dgray);
-    }
+  }
   .blogpost {
+    border-radius:20px;
+    width: 780px;
     padding-left: 30px;
     padding-right: 30px;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
-    width: 50vw;
     text-align: left;
     background-color: var(--white);
   }
@@ -71,6 +73,7 @@ class BlockBlock extends LitElement {
     width: 150px;
     border: 5px solid black;
     border-radius: 10px;
+    margin-bottom: 20px;
   }
   `;
 

@@ -23,22 +23,33 @@ class LoginWidget extends LitElement {
       visibility: hidden; //hides ugly password / username text
     }
 
+    .login{
+
+    }
+
     input[type="password"]{
+      margin-top: 1em;
+      border-radius: 10px;
       grid-column: 1;
       grid-row: 2;
       height: 3em;         
       visibility: visible;
+      border-color: white;
     }
 
     input[name="username"]{
+      border-radius: 10px;
       grid-column: 1;
       grid-row: 1;
       height: 3em;
       visibility: visible;
+      border-color: white;
+
     }
 
     input[type="submit"]{
-      margin-left: .8px;
+      border-radius: 10px;
+      margin-left: 1em;
       font-size: 13px;
       width: 80%;
       position: relative;
@@ -55,6 +66,29 @@ class LoginWidget extends LitElement {
       font-weight: bolder;
       border: none;
     }
+
+    .logout button {
+      background-color: #316273;
+            color: #749DAB;
+            width: 100px;
+            height: 30px;
+            border-radius: 9px;
+            border: 3px solid #749DAB;
+            transition: ease-out 0.1s;
+            margin-top: 10px;
+        
+    }
+
+    .logout button:hover { 
+      background-color: #316273;
+      color: #749DAB;
+      width: 100px;
+      height: 50px;
+      border-radius: 18px;
+      border: 10px solid #749DAB;
+      transition: ease-out 0.1s;
+      margin-top: 10px;
+  }
 
     @keyframes ease_color {
       0% {
@@ -102,7 +136,7 @@ class LoginWidget extends LitElement {
     
     if (test.includes("login incorrect")){
         return html`
-        <p>"Error, try again!"</p>
+        <p>An error occured, try again!</p>
         <form @submit=${this.submitForm}>
             Username: <input name="username" placeholder="Enter Username...">
             Password: <input type="password" placeholder="Enter Password..." name="password">
@@ -110,7 +144,10 @@ class LoginWidget extends LitElement {
         </form>`;
       }
       if (this.user != null ) {
-        return html`<p>Logged in as ${this.user.name}</p><button @click=${this.logout}>Logout</button>`
+        return html`
+        <div class="logout">
+        <p> <b>Logged in as ${this.user.name} </b></p><button @click=${this.logout}>Logout</button>
+        </div>`
     } 
     
 
@@ -118,12 +155,14 @@ class LoginWidget extends LitElement {
       return */
 
     return html`
-      <p>"Login to Portal"</p>
+      <h2><b>LOGIN TO COMP2110 PORTAL</b></h2>
+      <div class="login">
         <form @submit=${this.submitForm}>
             Username: <input name="username" placeholder="Enter Username...">
             Password: <input type="password" placeholder="Enter Password..." name="password">
             <input type='submit' value='Login'>
-        </form>`;
+        </form>;
+        </div>`
   }
 }
 
