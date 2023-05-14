@@ -182,6 +182,11 @@ class NewPost extends LitElement {
         //this stops the page refreshing on submit
         event.preventDefault();
         //prevents the user from submitting a null blog post.
+
+        const form = this.shadowRoot.querySelector('form');
+        form.reset();
+
+
         this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
