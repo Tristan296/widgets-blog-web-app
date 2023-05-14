@@ -46,7 +46,7 @@ Group two is made up of the following individuals:
 * Stacey Purcell, bug fixes; basic null checking and sanitation. 
 * Tristan Norbury, Fixed hardcoded Authorization for getting token for meme widget - ensures that widget cannot be posted to blog unless already logged in.
 * Tristan Norbury, Added alert for when new posts fail to send to blog (e.g. no WiFi when posting)
-* Brigid McDermott, fix for null entry posts
+* Brigid McDermott, fix for null entry posts to not crash the blog post displaying
 
 ## Extension to blog-block: new-post.js
 * Stacey Purcell: initial implementation of the ability to post to the blog
@@ -67,11 +67,9 @@ Group two is made up of the following individuals:
 - Fetch new meme (button) retrieves a new random meme by choosing a random index from the imgflip meme array.
 
 ## Joke Widget by Brigid McDermott 46361804
-- The Joke widget accesses the
-- This API was configured to only load two part jokes (setup and delivery - no single line jokes) and never to display NSFW content 
+- The Joke widget accesses the [JokeAPI](https://v2.jokeapi.dev/) that has certain flags to only load two part jokes (setup and delivery - no single line jokes) and never to display NSFW content 
 - The user can click a button to display and hide the punchline of each joke
-- The user can click a button to load a new joke without the need to reload the page
-- 
+- The user can click a button to load a new joke without the need to reload the page 
 
 ## Trivia Widget by
 
