@@ -28,7 +28,7 @@ text: {state: true }
   }
   div {
   min-width: 150px;
-  min-height: 150px;
+  min-height: 20px;
   background-color: var(--white);
   }
   .widget-border {
