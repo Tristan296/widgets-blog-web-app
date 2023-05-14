@@ -45,6 +45,8 @@ class NewPost extends LitElement {
         display: flex;
         justify-content: center;
         color: var(--pinkHighlight);
+        margin-bottom: 20px;
+
     }
 
    
@@ -54,6 +56,7 @@ class NewPost extends LitElement {
    //button formatting//
 
    .togglebox > #tog{
+    
     background-color: var(--purpleBody);
     color: var(--pinkHighlight);
     width: 100px;
@@ -88,7 +91,8 @@ class NewPost extends LitElement {
             border-radius: 9px;
             border: 3px solid var(--pinkHighlight);
             transition: ease-out 0.1s;
-            margin-top: 10px;
+            margin-top: 20px;
+            margin-top: 20px;
         }
 
        input[name="button"]:hover { 
