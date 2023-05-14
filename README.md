@@ -38,7 +38,7 @@ Group two is made up of the following individuals:
 * Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
-* Brigid McDermott, blog post title and content, style across website (button styling, blog post styling)
+* Brigid McDermott, blog post title and content, style across website (button styling, blog post styling, log-in form styling)
 
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
