@@ -85,6 +85,8 @@ class BlockBlock extends LitElement {
     background-color: var(--dgray);
   }
   .blogpost {
+    display: grid;
+    grid-rows: 10% 90%;
     padding: 20px;
     border-radius:20px;
     border-style: solid;
@@ -97,37 +99,52 @@ class BlockBlock extends LitElement {
   .information{
     display: grid;
     gap: 0px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 80% 10% 10%;
+    grid-template-rows: repeat(2, 50px);
     max-height: 100px;
     padding: 0px;
     margin: 0px;
   }
 
   .information h2 {
-    grid-column: 1/3;
+    grid-column: 1;
     grid-row: 1;
   }
 
   .information h3 {
-    grid-column: 1/3;
+    grid-column: 1;
     grid-row: 2;
     text-transform: lowercase;
   }
 
-  .information h4{
-    grid-column: 5;
+  h4{
+    color: var(--lgray);
+    text-transform: lowercase;
+    font-size: small;
   }
 
+
   .information> h4.date{
+    grid-column: 2;
     grid-row: 1;
     padding-top: 20px;
   }
 
   .information h4.time{
-    grid-row:2;
+    grid-column: 3;
+    grid-row:1;
   }
 
+  div.contentborder{
+    padding: 20px;
+  }
+
+  div.content{
+    padding: 20px;
+    min-height: 25px;
+    max-height: 25vh;
+    overflow-y: scroll;
+  }
  
   `;
 
@@ -286,13 +303,13 @@ connectedCallback(){
   // wraps each in a <p> tag
   // a fancier version could use markdown and a third party markdown
   // formatting library
-  static formatBody(text) {
+ formatBody(text) {
     console.log("blog-block formatBody");
     if (text == null || text == ""){
       return text;
     }
     else {
-  const paragraphs = text.split('\r\n')
+  const paragraphs = text.split('\n');
   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
   }
 }
@@ -314,7 +331,7 @@ connectedCallback(){
             <h4 id="time" style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
           </div>
           <div class="content">
-          <p id="post-content"> ${post.content}</p> 
+          <p id="post-content"> ${this.formatBody(post.content)}</p> 
           ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
           </div>   
          </div>

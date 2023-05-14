@@ -136,6 +136,10 @@ VV review below style VV*/
 
   postMeme() {
     const memeCaption = this._data.name;
+    const user = getUser();
+    if (user == null){
+      alert("please login first");
+    } else {
     const Authorization = "Basic " + getUser().token;
     const endpoint = "https://comp2110-portal-server.fly.dev/blog";
     const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
@@ -164,6 +168,7 @@ VV review below style VV*/
         console.error('Error posting meme caption:', error);
         alert("Error sending meme image url and caption. Please try again.");  
       });
+    }
   }
 
   render() {

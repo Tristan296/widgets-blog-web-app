@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
-
+import { getUser } from '../auth.js';
 class TrufactWidget extends LitElement {
   static styles =
     css`
@@ -114,6 +114,10 @@ class TrufactWidget extends LitElement {
   }
 
   _handleShare(e) {
+    const user = getUser();
+    if (user ==null){
+      alert ("please login to share facts");
+    }
     const shareFact = new CustomEvent('share-fact', { detail: this._data.text });
     window.dispatchEvent(shareFact);
     console.log("fact dispatched: " + shareFact.type + shareFact.detail);
