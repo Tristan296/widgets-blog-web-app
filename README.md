@@ -3,6 +3,7 @@ This web app was developed using [Lit Web Components](https://lit.dev/).
 ## This application has the following functionality
 * users can login and logout and the layout changes depending on whether a user is logged in or not
 * displays the most recent blog posts
+* displays the date and time of blog posts
 * creating a new post refreshes the blog, not the whole page
 * the user cannot enter a null title (the web app assigns a default title)
 * if the user leaves the content field in their new post blank, they are prompted to enter text
