@@ -21,64 +21,95 @@ VV review below style VV*/
   --blue: #8bc5cd;
   }
   div {
-  min-width: 100px;
-  min-height: 100px;
   background-color: var(--white);
   }
   .widget-border {
-    width: 200px;
+    flex-basis: 1;
+    max-height: fit-content;
+    max-width: fit-content;
+    display: flex;
+    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
+    margin: 0;
+    padding: 0;
   }
-/*^^review above style^^*/
+  h2 {flex-basis: 3;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  }
 
-      .meme-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+  .content {
+    flex-basis: 2;
+    max-height: 250px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  div.buttons{
+    flex-basis: 1;
+    grid-row:2;
+    margin: 0;
+    min-height: 10px;
+    display: flex;
+    flex-basis: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-flow: space-evenly;
+  }
+
+  #button {
+    flex-basis: 1;
+  }
+
+  .meme-img {
+    grid-row: 4;
+        flex-basis: 1;
+        max-width: 100px;
+        height: 50%;
+        object-fit: scale-down;
         border-radius: 8px;
       }
-      
-      .widget-border button { 
-        background-color: white;
-        color: black;
-        border-radius: 20px;
-        border-style: none;
-        transition: ease-out 0.1s;
-      }
 
-      .widget-border button:hover { 
-        background-color: black;
-        color: white;
-        transition: ease 0.3s;
-        transform: scale(1.05);
-      }
+  #button {
+  flex-basis: 1; 
+  background-color: var(--hay);
+  color: var(--gold);
+  border: 6px solid var(--gold);
+  border-radius: 20px;
+  transition: ease-out 0.1s;
+  }
 
-      .widget-border button:active {
-        background-color: black;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
-      @media screen and (max-width: 900px) {
-        .meme-img {
-          width: 50%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 4px;
-        }
-        .widget-border {
-          width: 150px;
-          border: 6px solid var(--pinkHighlight);
-          border-radius: 8px;
-          padding: 8px;
-          box-sizing: border-box;
-          text-align: center;
-        }
-      }
+  #button:hover { 
+  background-color: var(--gold);
+  color: var(--white);
+  border: 6px solid var(--hay);
+  transition: ease 0.3s;
+  transform: scale(1.05);
+  }
+
+  #button:active {
+    border: 6px solid var(--blue);
+    background-color: var(--cyan);
+    transform: translateY(4px);
+  }
+
+/*^^review above style^^*/
+
+
     `;
+
+    /**
+     * 
+     *      
+      
+     
+     */
 
   static properties = {
     _data: { state: true },
@@ -106,25 +137,6 @@ VV review below style VV*/
       .catch(error => {
         console.error('Encountered an error when fetching meme', error);
       });
-  }
-
-  render() {
-    if (this._data) {
-      return html`
-          <div class="widget-border">
-            <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
-            <button @click="${this.getNewMeme}">Show New Meme</button>
-            <button @click="${this.postMeme}">Post Caption and Image</button>
-            <p>${this._data.name}</p>
-          </div>
-        `;
-    } else {
-      return html`
-          <div class="widget-border">
-            <p>Loading...</p>
-          </div>
-        `;
-    }
   }
 
   getNewMeme() {
@@ -161,6 +173,29 @@ VV review below style VV*/
         console.error('Error posting meme caption:', error);
         alert("Error sending meme image url and caption. Please try again.");  
       });
+  }
+
+  render() {
+    if (this._data) {
+      return html`
+          <div class="widget-border">
+            <div class="content">
+              <img class="meme-img" src="${this._data.url}" alt="${this._data.name}">
+              <h2>${this._data.name}</h2>
+              <div class="buttons">
+                <button @click="${this.getNewMeme}" id="button">Show New Meme</button>
+                <button @click="${this.postMeme}" id="button">Post Caption and Image</button>
+              </div>
+            </div>
+          </div>
+        `;
+    } else {
+      return html`
+          <div class="widget-border">
+            <p>Loading...</p>
+          </div>
+        `;
+    }
   }
 
 }

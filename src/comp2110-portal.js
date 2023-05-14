@@ -35,7 +35,6 @@ class Comp2110Portal extends LitElement {
       max-width: 960px;
       margin: 0 auto;
       text-align: center;
-    
     }
 
     :root {
@@ -51,38 +50,9 @@ class Comp2110Portal extends LitElement {
       --gold: #a47b39;
       --hay: #decd73;
       --blue: #8bc5cd;
-}
-
-    main {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      width:100%;
-      background-color: var(--background);
-    }
-
-    body {
-      background-color: var(--background);
   }
 
-  footer.footer-border {
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
-  }
-
-
-    .app-footer {
-      font-size: calc(12px + 0.5vmin);
-      align-items: center;
-      height: 50px;
-    }
-
-    .app-footer a {
-      margin-left: 5px;
-    }
-
-    header {
+  header {
       margin-left: -10px;
       display: grid;
       background-color: #316273;
@@ -105,13 +75,7 @@ class Comp2110Portal extends LitElement {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: 1fr 1fr 1fr 70px;
     }
-    header#user{
-      height: 30vh;
-      min-height: 200px;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1fr 1fr 1fr 1fr
-    }
-      
+   
 
     h1 {
       font-size: xx-large;
@@ -143,16 +107,22 @@ class Comp2110Portal extends LitElement {
       min-width: 400px;
     }
 
+    div.app-footer{
+      padding: 20px;
+      margin: 0px;
+      background-image: 
+      url(https://cdn.pixabay.com/photo/2017/03/25/17/55/colorful-2174045_1280.png);
+    }
+    p.app-footer{
+      color: var(--white);
+     }
+
+ 
+    /*login page css*/
     h1#login{
-      //margin-top: -100px;
       grid-row: 4;
       grid-column: 2;
       margin-bottom: -100px;
-    }
-
-    h1#user{
-      grid-row: 2/3;
-      grid-column:1;
     }
 
     login-widget#login{
@@ -160,31 +130,88 @@ class Comp2110Portal extends LitElement {
       grid-column: 2;
     }
 
+    blog-block#login{
+      background-color: var(----purpleBody);
+      grid-column: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    main.login-page {
+    display: flex;
+    flex-basis: row;
+    background-color: var(--background);
+    overflow: hidden;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: stretch;
+    align-content: stretch;
+    }
+
+
+
+
+    /**user logged in CSS */
+
+    header#user{
+      height: 30vh;
+      min-height: 200px;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr 1fr 1fr
+    }
+
+    h1#user{
+      grid-row: 2/3;
+      grid-column:1;
+    }
+
+    #top {
+      background-color: var(--darkblue);
+      min-width: 1200px;
+      height: fit-content;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      grid-row: 1;
+    }
+
     login-widget#user{
       grid-row: 2; 
       grid-column:3;
     }
-    
-    #Left{
-      margin-left: 0px;
-      grid-column: 1;
+
+    main.user-page{
+      display: flex;
+      flex-direction: column;
+      background-color: var(--background);
+      gap: 10px;
+      align-items: stretch;
+      align-content: stretch;
+      justify-content: space-between;
     }
 
-    #Right{
-      grid-column: 4;
-    }
 
-    #advertisement{
-      background-color: red;
-    }
-    blog-block{
+    .user-page > blog-block{
       background-color: var(----purpleBody);
+      grid-row: 2;
       grid-column: 2;
-      width: 50+10vw;
       display: flex;
       flex-direction: column;
       padding-left: 90px;
     }
+
+    .wrapper{
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    widget-row.#top, widget-block {
+      background-color: var(--darkBlue);
+    }
+   
   `
     ;
 
@@ -205,27 +232,23 @@ class Comp2110Portal extends LitElement {
         <h1 id="user">${this.header}</h1>
         <login-widget id="user"></login-widget>
         <div class="menu">
-          <new-post></new-post>
+        <new-post></new-post>
         </div>        
       </header>
 
-      <main>
+      
+      <main class="user-page">
+        <widget-row id="top">
+          <widget-block id="widget-block"></widget-block>
+        </widget-row>
+        <blog-block id="blogs"></blog-block>       
         
-        <widget-column id="Left">
-        <ad-widget></ad-widget>
-          <widget-block id="First Widget"></widget-block>
-        </widget-column>
-        <blog-block></blog-block>       
-        <widget-column id="Right">
-          
-          <widget-block id="Second Widget"></widget-block>
-        </widget-column>
-      </main>
-
-      <p class="app-footer">
-        A product of the COMP2110 Web Development Collective &copy; 2023
-      </p>`;
-
+        <div class="app-footer"> 
+          <p class="app-footer">
+          A product of the COMP2110 Web Development Collective &copy; 2023
+          </p>
+        </div>
+      </main>`;
     }
     else {
       return html`
@@ -235,24 +258,22 @@ class Comp2110Portal extends LitElement {
         <div class="menu"></div>
       </header>
 
-      <main>
-        <widget-menu>
+
+      <main class="login-page">
         <widget-column id="Left">
           <widget-block id="firstWidgets"></widget-block>
         </widget-column>
-        </widget-menu>
-        <blog-block></blog-block>       
+        <blog-block id="login"></blog-block>       
         <widget-column id="Right">
-          <ad-widget></ad-widget>
           <widget-block id="secondWidgets"></widget-block>
         </widget-column>
-      </main>
 
-      <footer-border> 
-        <p class="app-footer">
-        A product of the COMP2110 Web Development Collective &copy; 2023
-        </p>
-      </footer-border>
+        <div class="app-footer"> 
+          <p class="app-footer">
+          A product of the COMP2110 Web Development Collective &copy; 2023
+          </p>
+        </div>
+      </main>
     `;
     }
   }

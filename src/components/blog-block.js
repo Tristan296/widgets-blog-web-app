@@ -33,23 +33,19 @@ class BlockBlock extends LitElement {
     --blue: #8bc5cd;
     --width: calc(50vw+20px)
 }
-
-  :host {
-    margin: 1em;
-  }
-
   .blog-border{
+    position: relative;
+    top: 0;
+    left: -1%;
+    width: 98%;
     border-radius:20px;
     border-style: solid;
     border-color: var(--dgray);
-    border-width: calc(50vw+10vw);
     background-color: var(--dgray);
   }
   .blogpost {
     border-radius:20px;
-    width: 780px;
-    padding-left: 30px;
-    padding-right: 30px;
+    height: fit-content;
     border-style: solid;
     border-color: var(--lgray);
     border-width: 7px;
@@ -77,31 +73,37 @@ class BlockBlock extends LitElement {
     border-radius: 10px;
     margin-bottom: 20px;
   }
+  .blogpost p {
+      font: serif;
+      word-break: ellipse;
+    }
 
-  @media screen and (max-width: 1000px) {
+    h1.loading{
+      padding: 100px;
+      text-transform: uppercase;
+    }
+
+    div.loading{
+      height: 100vh;
+    }
+
+  /*@media screen and (max-width: 1000px) {
     .blog-border{
+      margin-left: -20px;
       border-radius:20px;
       border-style: solid;
       border-color: var(--dgray);
-      border-width: calc(20+5vw);
       background-color: var(--dgray);
     }
     .blogpost {
       border-radius:20px;
-      width: 300px;
-      padding-left: 5px;
-      padding-right: 5px;
       border-style: solid;
       border-color: var(--lgray);
       border-width: 7px;
       text-align: left;
       background-color: var(--white);
-    }
-    .blogpost p {
-      font: serif;
-      margin-top: -20px;
-      word-break: ellipse;
-    }
+    }*/
+
 
   `;
 
@@ -121,10 +123,12 @@ class BlockBlock extends LitElement {
 **/
   constructor() {
     super();
-    this._url = `${BASE_URL}blog`;;
+    this._url = `${BASE_URL}blog`;
+    this.successListener = this.connectedCallback.bind(this);
+    window.addEventListener('success', this.successListener); //added to ensure it is always present
+    
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
-    this.createBlog(this._url); //sets _posts
     this.countPosts(this._url); //sets _numbersD
     console.log("blog-block constructor");
   }
@@ -135,6 +139,7 @@ class BlockBlock extends LitElement {
   
 connectedCallback(){
   super.connectedCallback();
+  this.createBlog(this._url); //sets _posts
   this._reloadBlog();
   console.log("blog-block connectedCallback");
 }
@@ -149,10 +154,19 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._posts = posts.posts;
-        console.log("test"+posts.posts.post);
         this.giveTitles(this._posts);
-      });
-      console.log("blog-block createblog");
+        this._posts.forEach(post => {
+          console.log(`"id": ${post.id}`);
+          console.log(`"title": ${post.title}`);
+          console.log(`"content": ${post.content}`);
+          console.log(`"timestamp": ${post.timestamp}`);
+          console.log(`"creator": ${post.creator}`);
+          console.log(`"name": ${post.name}`);
+          console.log('---');
+        });
+      })
+      .catch(error => console.error('Error:', error));
+    console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -174,9 +188,11 @@ connectedCallback(){
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
-        content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
+        content: post.content ? this.sanitise(post.content) : '[User Submitted Blank Content]',
         name: this.sanitise(post.name),  
         timestamp: post.timestamp,
+        id: post.id, 
+        creator: post.creator,
       };
     });
   }
@@ -226,12 +242,12 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 100000000000);
+      }, 30000);  //NB TURNED THIS DOWN FOR TESTING
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
-    console.log("blog-block getBlogPostDate");
+    //console.log("blog-block getBlogPostDate");
     var time = new Date(timestamp).toLocaleTimeString("en-us");
     var date = new Date(timestamp).toLocaleDateString("en-US");
     return {
@@ -260,7 +276,7 @@ connectedCallback(){
   render() {
     console.log("blog-block render");
     if (!this._posts)
-      return html`Loading...`
+      return html`<div class="loading"><h1>Loading...</h1></div>`
 
     else return html`
       ${this._posts.map(post =>

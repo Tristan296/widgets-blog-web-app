@@ -52,6 +52,7 @@ class NewPost extends LitElement {
    //button formatting//
 
    .togglebox > #tog{
+    z-index: 10;
     
     background-color: var(--purpleBody);
     color: var(--pinkHighlight);
@@ -128,6 +129,7 @@ class NewPost extends LitElement {
         }
 
         .visible{
+            z-index: 5000;
             color: var(--pinkHighlight);
             position: relative;
             display: flex;
@@ -241,8 +243,6 @@ class NewPost extends LitElement {
             const form = this.shadowRoot.querySelector('form');
             form.reset();
 
-            
-
             // Send the request
             fetch(endpoint, {
                 method: 'POST',
@@ -254,19 +254,17 @@ class NewPost extends LitElement {
                     console.log('blog posted:', data);
                     if (data.status=='success'){
                         //this reloads the blog only on a successful post (listener in blog-block)
-                        const success = new CustomEvent('reload');
+                        const success = new CustomEvent('success');
                         window.dispatchEvent(success);
-                        console.log(success);
-                        alert("Blog post was sent successfully!");  
                     }
-                })
-                .catch(error => {
+                }).then( () => {
+                    this._visible = false
+                }).catch(error => {
                     console.error('Error posting to blog:', error);
                     this._error = error;
                     alert("Error sending blog post. Please check internet connection and try again.");  
-                });
-
-              
+                    //the user is only alerted on a failure, as success should be obvious.
+                });          
         }
     }
 
@@ -281,18 +279,6 @@ class NewPost extends LitElement {
         console.log("visibility has changed to " + this._visible + "|" + e);
     }
 
- /*   firstUpdated(){
-        const titleInput = this.shadowRoot.getElementById('input-title');
-        const contentInput = this.shadowRoot.getElementById('input-content');
-        if (this._visible){
-            const submitButton = this.shadowRoot.getElementById('input-title');
-        } 
-        const toggleButton = this.ShadowRoot.getElementbyId('toggle-button');
-
-        toggleBu
-        
-        
-    }*/
 
     render() {
         if (this._error && this._visible) {
