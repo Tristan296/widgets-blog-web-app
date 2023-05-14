@@ -56,6 +56,7 @@ class BlockBlock extends LitElement {
     text-align: left;
     background-color: var(--white);
   }
+
   .blogpost p {
     font: serif;
     margin-top: -20px;
@@ -63,6 +64,7 @@ class BlockBlock extends LitElement {
   }
   .blogpost h3{
     margin-top: -20px;
+    word-break: break-all;
   }
   .blogpost h2 {
     word-break: break-all;
@@ -75,6 +77,32 @@ class BlockBlock extends LitElement {
     border-radius: 10px;
     margin-bottom: 20px;
   }
+
+  @media screen and (max-width: 1000px) {
+    .blog-border{
+      border-radius:20px;
+      border-style: solid;
+      border-color: var(--dgray);
+      border-width: calc(20+5vw);
+      background-color: var(--dgray);
+    }
+    .blogpost {
+      border-radius:20px;
+      width: 300px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-style: solid;
+      border-color: var(--lgray);
+      border-width: 7px;
+      text-align: left;
+      background-color: var(--white);
+    }
+    .blogpost p {
+      font: serif;
+      margin-top: -20px;
+      word-break: ellipse;
+    }
+
   `;
 
 /* constructor() notes:
@@ -184,8 +212,6 @@ connectedCallback(){
     });
   }
 
-
-
   /* sanitise(text)
   *  this uses regex to attempt to match <script> tags to prevent XSS attack.
   *  while Lit uses HTML templating for rendering web components, it is still
@@ -223,7 +249,8 @@ connectedCallback(){
     };
   }
 
-  /* to remove before submission date if not implemented, but we need to try and implement*/
+
+  /*formatBody(text)*/
 
  // A simple formatter that just splits text into paragraphs and 
   // wraps each in a <p> tag
@@ -237,7 +264,8 @@ connectedCallback(){
     else {
   const paragraphs = text.split('\r\n')
   return paragraphs.map(paragraph => html`<p>${paragraph}</p>`)
-}}
+  }
+}
 
   render() {
     console.log("blog-block render");

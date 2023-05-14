@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 class TrufactWidget extends LitElement {
-  static styles = 
+  static styles =
     css`
 /*default styles*/
 :root {
@@ -30,15 +30,26 @@ class TrufactWidget extends LitElement {
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
+  }
+
+@media screen and (max-width: 900px) {
+  .widget-border {
+    width: 150px;
+    border: 6px solid var(--pinkHighlight);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+  }
 }
 /*DEFAULT STYLES FINISH*/
 //write override styles below
     `;
 
   static properties = {
-    _date: {type: Date},
-    _data: {state: true},
-    _handleRefresh: {state: true},
+    _date: { type: Date },
+    _data: { state: true },
+    _handleRefresh: { state: true },
   }
 
   static BASE_URL = "http://numbersapi.com/";
@@ -54,8 +65,8 @@ class TrufactWidget extends LitElement {
     this.todayFact();
   }
 
-  todayFact(){
-    const url = TrufactWidget.BASE_URL + this._date.getMonth() +'/' + this._date.getDay() + '/date?json';
+  todayFact() {
+    const url = TrufactWidget.BASE_URL + this._date.getMonth() + '/' + this._date.getDay() + '/date?json';
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -63,18 +74,18 @@ class TrufactWidget extends LitElement {
       });
   }
 
-  _handleRefresh(e){
+  _handleRefresh(e) {
     this.connectedCallback();
   }
 
-  _handleShare(e){
-    const shareFact = new CustomEvent('share-fact', {detail: this.data.text});
+  _handleShare(e) {
+    const shareFact = new CustomEvent('share-fact', { detail: this.data.text });
     window.dispatchEvent(shareFact);
     console.log("fact dispatched: " + shareFact.type + shareFact.detail);
   }
 
   render() {
-    if (this._data){
+    if (this._data) {
       return html`      
       <div class="widget-border">
       <h2>On this day...</h2>
@@ -83,7 +94,7 @@ class TrufactWidget extends LitElement {
       <input @click=${this._handleShare} type="button" value="share fact">
     </div>`
     } else {
-    return html`
+      return html`
       <div class="widget-border">
         <h2>On this day...</h2>
         <p>...loading a fact!</p>
