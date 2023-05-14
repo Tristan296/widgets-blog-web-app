@@ -182,12 +182,16 @@ class NewPost extends LitElement {
         //this stops the page refreshing on submit
         event.preventDefault();
         //prevents the user from submitting a null blog post.
+
         this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
             this._error = "please write content.";
             console.log(this._error + " User did not enter text field.");
         } else {
+
+            
+
             const blogPost = text;
             console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
@@ -207,6 +211,10 @@ class NewPost extends LitElement {
                 title: useThis,
                 content: blogPost
             });
+
+            //clear the form after submitting blog post
+            const form = this.shadowRoot.querySelector('form');
+            form.reset();
 
             // Send the request
             fetch(endpoint, {
