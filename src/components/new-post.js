@@ -212,6 +212,7 @@ class NewPost extends LitElement {
                 content: blogPost
             });
 
+            //clear the form after submitting blog post
             const form = this.shadowRoot.querySelector('form');
             form.reset();
 
