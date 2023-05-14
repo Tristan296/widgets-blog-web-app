@@ -251,11 +251,13 @@ class NewPost extends LitElement {
                         const success = new CustomEvent('reload');
                         window.dispatchEvent(success);
                         console.log(success);
+                        alert("Blog post was sent successfully!");  
                     }
                 })
                 .catch(error => {
                     console.error('Error posting to blog:', error);
                     this._error = error;
+                    alert("Error sending blog post. Please check internet connection and try again.");  
                 });
 
               
