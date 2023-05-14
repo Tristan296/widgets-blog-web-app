@@ -183,16 +183,16 @@ class NewPost extends LitElement {
         event.preventDefault();
         //prevents the user from submitting a null blog post.
 
-        const form = this.shadowRoot.querySelector('form');
-        form.reset();
-
-
         this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
             this._error = "please write content.";
             console.log(this._error + " User did not enter text field.");
         } else {
+
+            const form = this.shadowRoot.querySelector('form');
+            form.reset();
+
             const blogPost = text;
             console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
