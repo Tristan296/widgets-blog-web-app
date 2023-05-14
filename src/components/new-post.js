@@ -47,8 +47,25 @@ class NewPost extends LitElement {
         color: var(--pinkHighlight);
     }
 
-    .togglebox > #tog{
-        background-color: var(--purpleBody);
+   
+
+
+    
+   //button formatting//
+
+   .togglebox > #tog{
+    background-color: var(--purpleBody);
+    color: var(--pinkHighlight);
+    width: 100px;
+    height: 30px;
+    border-radius: 9px;
+    border: 3px solid var(--pinkHighlight);
+    transition: ease-out 0.1s;
+    margin-top: 10px;
+}
+
+.togglebox > #tog:hover{
+    background-color: var(--purpleBody);
         color: var(--pinkHighlight);
         width: 100px;
         height: 50px;
@@ -56,12 +73,22 @@ class NewPost extends LitElement {
         border: 10px solid var(--pinkHighlight);
         transition: ease-out 0.1s;
         margin-top: 10px;
-    }
-
-    
-   //button formatting//
+}
         .toggle{
             color: var(--pinkHighlight);
+        }
+
+
+
+    input[name="button"] {
+            background-color: var(--purpleBody);
+            color: var(--pinkHighlight);
+            width: 100px;
+            height: 30px;
+            border-radius: 9px;
+            border: 3px solid var(--pinkHighlight);
+            transition: ease-out 0.1s;
+            margin-top: 10px;
         }
 
        input[name="button"]:hover { 
@@ -75,16 +102,7 @@ class NewPost extends LitElement {
             margin-top: 10px;
         }
 
-        input[name="button"] {
-            background-color: var(--purpleBody);
-            color: var(--pinkHighlight);
-            width: 100px;
-            height: 30px;
-            border-radius: 9px;
-            border: 3px solid var(--pinkHighlight);
-            transition: ease-out 0.1s;
-            margin-top: 10px;
-        }
+        
 
         //new post formatting
         #title { 
@@ -123,6 +141,7 @@ class NewPost extends LitElement {
             width: fit-content;
             align-self: center;
             width: 30%;
+            border-radius:20px;
         }
 
         .flex{
@@ -182,12 +201,16 @@ class NewPost extends LitElement {
         //this stops the page refreshing on submit
         event.preventDefault();
         //prevents the user from submitting a null blog post.
+
         this._error = null;
         let text = event.target.blogpost.value;
         if (text == null || text == "") {
             this._error = "please write content.";
             console.log(this._error + " User did not enter text field.");
         } else {
+
+            
+
             const blogPost = text;
             console.log("user content= " + blogPost);
             const endpoint = "https://comp2110-portal-server.fly.dev/blog";
@@ -207,6 +230,12 @@ class NewPost extends LitElement {
                 title: useThis,
                 content: blogPost
             });
+
+            //clear the form after submitting blog post
+            const form = this.shadowRoot.querySelector('form');
+            form.reset();
+
+            
 
             // Send the request
             fetch(endpoint, {
@@ -228,6 +257,8 @@ class NewPost extends LitElement {
                     console.error('Error posting to blog:', error);
                     this._error = error;
                 });
+
+              
         }
     }
 
@@ -297,6 +328,8 @@ class NewPost extends LitElement {
                         <input name="button" type='submit' value='post to blog'>
                         </form>
                         <div class="togglebox">
+                
+
                             <input @click=${this._handleToggle} name="button" 
                                 type="button" class="toggle" id="tog" 
                                 value="cancel">

@@ -40,12 +40,14 @@ class BlockBlock extends LitElement {
   }
 
   .blog-border{
+    border-radius:20px;
     border-style: solid;
     border-color: var(--dgray);
     border-width: calc(50vw+10vw);
     background-color: var(--dgray);
   }
   .blogpost {
+    border-radius:20px;
     width: 780px;
     padding-left: 30px;
     padding-right: 30px;
@@ -141,7 +143,7 @@ connectedCallback(){
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
         content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
         name: this.sanitise(post.name),  
-        timestamp: date.toLocaleDateString(),
+        timestamp: post.timestamp,
       };
     });
   }
@@ -193,7 +195,7 @@ connectedCallback(){
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
       console.log("event created:"+ reload.type);
-      }, 10000);
+      }, 1000);
   }
 
   //Create a date from the timestamp field in 'posts'.
