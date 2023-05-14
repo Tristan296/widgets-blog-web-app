@@ -112,6 +112,7 @@ class NewPost extends LitElement {
         #title { 
             height: 20px;
             display: flex;
+            border-radius: 10px;
             width: 80%;
             color: var(--dGray);
             background-color: var(--white);
@@ -124,6 +125,7 @@ class NewPost extends LitElement {
             width: 80%;
             color: var(--dGray);
             background-color: var(--white);
+            border-radius: 10px;
         }
 
         .visible{
@@ -326,9 +328,9 @@ class NewPost extends LitElement {
                         <p>New Blog Post</p>
                         <form @submit=${this.postBlog}>
                         <label for="title">Title:</label>
-                        <input name="title" type="text" placeholder="Enter title here..." id="title">
+                        <input name="title" type="text" id="title" placeholder="Enter title here..." >
                         <label for="blogpost">Content:</label>
-                        <textarea name="blogpost" id="blogpost" placeholder="Enter blog post content here..."></textarea>
+                        <textarea name="blogpost" id="blogpost" placeholder=" Enter blog post content here..."></textarea>
                         <input name="button" type='submit' value='post to blog'>
                         </form>
                         <div class="togglebox">
@@ -350,7 +352,7 @@ class NewPost extends LitElement {
             <div class="togglebox">
                 <input @click=${this._handleToggle} name="button" 
                     type="button" class="toggle" id="tog" 
-                    value="create post">
+                    value="Create Post">
             </div>
 
         `
