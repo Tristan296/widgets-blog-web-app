@@ -12,7 +12,7 @@ This web app was developed using [Lit Web Components](https://lit.dev/).
 * if the application loads a blogpost with a null title, it gives it a default title
 * if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post
 * once the blog is posted the blog post popup will clear
-* messages over a certain length are hidden
+* messages over a certain length scroll rather than stretching the window
 * messages without spaces are still wrapped to fit rather than going off the screen
 
 It also includes four widgets integrated into the overall design. 
@@ -34,7 +34,7 @@ Group two is made up of the following individuals:
 
 ## Design and Features
 (put your name here any any design elements you contributed)
-* Stacey Purcell, style and layout; particularly header and blog post.
+* Stacey Purcell, style and layout; particularly header and new blog post.
 * Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
@@ -58,7 +58,8 @@ Group two is made up of the following individuals:
 ((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
 - The trufact widget accesses the [Numbers API](http://numbersapi.com/#42) and retrieves a fact about today's date. 
-- The user can click the button to access another random fact. 
+- The user can click the new-fact button to access another random fact. 
+- The user can click the share button to share the fact to the blog through the new blog post widget. The user can type a message about the fact as it has been passed to the text field.
 
 ## Meme Widget by Tristan Norbury 47308028
 - The meme widget accesses the [IMGFLIP API](https://api.imgflip.com/get_memes) and fetches a meme and it's caption.
@@ -71,7 +72,7 @@ Group two is made up of the following individuals:
 - The user can click a button to display and hide the punchline of each joke
 - The user can click a button to load a new joke without the need to reload the page 
 
-## Trivia Widget by
+## Trivia Widget by Nathan
 
 # Boilerplate 'starter code' documentation: 
 The boilerplate and starter code remains a product of the COMP2110 Web Development Collective © 2023. The following documentation was provided for the boilerplate.
