@@ -62,6 +62,22 @@ VV review below style VV*/
         box-shadow: 0 5px #666;
         transform: translateY(4px);
       }
+      @media screen and (max-width: 900px) {
+        .meme-img {
+          width: 50%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+        .widget-border {
+          width: 150px;
+          border: 6px solid var(--pinkHighlight);
+          border-radius: 8px;
+          padding: 8px;
+          box-sizing: border-box;
+          text-align: center;
+        }
+      }
     `;
 
   static properties = {
@@ -139,9 +155,11 @@ VV review below style VV*/
       .then(response => response.json())
       .then(data => {
         console.log('Meme caption posted:', data);
+        alert("Meme image url and caption sent successfully to blog server!");  
       })
       .catch(error => {
         console.error('Error posting meme caption:', error);
+        alert("Error sending meme image url and caption. Please try again.");  
       });
   }
 
