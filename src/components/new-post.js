@@ -191,9 +191,9 @@ class NewPost extends LitElement {
  * */
 
     handleKeyDown(e){
-        if (e.key === 'Enter' && !e.shiftKey){
+        /*if (e.key === 'Enter' && !e.shiftKey){
             this.preventDefault();
-        }
+        }*/
     }
 
 /** postBlog(event)
