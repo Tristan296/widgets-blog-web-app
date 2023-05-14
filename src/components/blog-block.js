@@ -78,6 +78,15 @@ class BlockBlock extends LitElement {
       word-break: ellipse;
     }
 
+    h1.loading{
+      padding: 100px;
+      text-transform: uppercase;
+    }
+
+    div.loading{
+      height: 100vh;
+    }
+
   /*@media screen and (max-width: 1000px) {
     .blog-border{
       margin-left: -20px;
@@ -179,7 +188,7 @@ connectedCallback(){
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
-        content: post.content ? this.sanitise(post.content) : '[[ERROR: Content Field Blank]]',
+        content: post.content ? this.sanitise(post.content) : '[User Submitted Blank Content]',
         name: this.sanitise(post.name),  
         timestamp: post.timestamp,
         id: post.id, 
@@ -267,7 +276,7 @@ connectedCallback(){
   render() {
     console.log("blog-block render");
     if (!this._posts)
-      return html`Loading...`
+      return html`<div class="loading"><h1>Loading...</h1></div>`
 
     else return html`
       ${this._posts.map(post =>

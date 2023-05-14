@@ -22,6 +22,7 @@ class WidgetRow extends LitElement {
 }
 
 .widget-section {
+    background-color: var(--darkblue);
     display: flex;
     flex-direction: row;
     justify-content: center;

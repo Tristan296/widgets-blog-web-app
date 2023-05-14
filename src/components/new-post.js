@@ -52,6 +52,7 @@ class NewPost extends LitElement {
    //button formatting//
 
    .togglebox > #tog{
+    z-index: 10;
     
     background-color: var(--purpleBody);
     color: var(--pinkHighlight);
@@ -128,6 +129,7 @@ class NewPost extends LitElement {
         }
 
         .visible{
+            z-index: 5000;
             color: var(--pinkHighlight);
             position: relative;
             display: flex;
