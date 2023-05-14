@@ -66,7 +66,6 @@ class LoginWidget extends LitElement {
       position: relative;
       grid-row: 1/3;
       grid-column:2/3;
-      height: 100%;
       visibility: visible;
       transition: ease-out 0.7s;
     }
