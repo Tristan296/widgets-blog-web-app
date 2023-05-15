@@ -61,12 +61,12 @@ class TrufactWidget extends LitElement {
 
   #button {
     padding-top: 4px;
-  flex-basis: 1; 
-  background-color: var(--hay);
-  color: var(--gold);
-  border: 6px solid var(--gold);
-  border-radius: 20px;
-  transition: ease-out 0.1s;
+    flex-basis: 1; 
+    background-color: var(--hay);
+    color: var(--gold);
+    border: 6px solid var(--gold);
+    border-radius: 20px;
+    transition: ease-out 0.1s;
   }
 
   #button:hover { 
@@ -96,22 +96,29 @@ class TrufactWidget extends LitElement {
   constructor() {
     super();
     this._date = new Date();
+    console.log(this._date);
   }
 
   connectedCallback() {
     super.connectedCallback();
+    console.log(this._date);
     this.todayFact();
   }
 
   todayFact() {
-    const url = TrufactWidget.BASE_URL + this._date.getMonth() + '/' + this._date.getDay() + '/date?json';
+    let date = this._date;
+    let month = date.getMonth() +1;
+    let day = date.getDate();
+    console.log("month "+ month + "day " + day);
+    const url = TrufactWidget.BASE_URL + month + '/' + day + '/date?json';
+    console.log(url);    
     fetch(url)
       .then(response => response.json())
       .then(data => {
         this._data = data;
       });
   }
-
+d
   _handleRefresh(e) {
     this.connectedCallback();
   }

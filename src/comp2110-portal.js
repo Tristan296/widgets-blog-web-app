@@ -150,9 +150,6 @@ class Comp2110Portal extends LitElement {
     align-content: stretch;
     }
 
-
-
-
     /**user logged in CSS */
 
     header#user{
@@ -192,7 +189,6 @@ class Comp2110Portal extends LitElement {
       justify-content: space-between;
     }
 
-
     .user-page > blog-block{
       background-color: var(----purpleBody);
       grid-row: 2;
@@ -222,44 +218,37 @@ class Comp2110Portal extends LitElement {
     this.loginStatus = 'login'; 
   }
 
-
-
   render() {
-    
-    if (this.user && !JSON.stringify(this.user).includes("login incorrect")) {
-      return html`
+  if (this.user && !JSON.stringify(this.user).includes("login incorrect")) {
+    return html`
      <header id="user">
         <h1 id="user">${this.header}</h1>
         <login-widget id="user"></login-widget>
         <div class="menu">
-        <new-post></new-post>
+          <new-post></new-post>
         </div>        
-      </header>
-
-      
-      <main class="user-page">
-        <widget-row id="top">
-          <widget-block id="widget-block"></widget-block>
-        </widget-row>
+    </header>
+   
+    <main class="user-page">
+      <widget-row id="top">
+        <widget-block id="widget-block"></widget-block>
+      </widget-row>
         <blog-block id="blogs"></blog-block>
-      </main>       
-        
-      <footer class="app-footer"> 
-          <p class="app-footer">
-          A product of the COMP2110 Web Development Collective &copy; 2023
-          </p>
-      </footer>
-      `;
-    }
-    else {
-      return html`
+    </main>       
+      
+    <footer class="app-footer"> 
+      <p class="app-footer">
+        A product of the COMP2110 Web Development Collective &copy; 2023
+      </p>
+    </footer>
+    `;
+    } else {
+    return html`
       <header id="login">
         <h1 id="login">${this.header}</h1>
         <login-widget id="login"></login-widget>
         <div class="menu"></div>
       </header>
-
-
       <main class="login-page">
         <widget-column id="Left">
           <widget-block id="firstWidgets"></widget-block>
@@ -274,8 +263,7 @@ class Comp2110Portal extends LitElement {
           <p class="app-footer">
           A product of the COMP2110 Web Development Collective &copy; 2023
           </p>
-        </footer>
-      
+        </footer>    
     `;
     }
   }

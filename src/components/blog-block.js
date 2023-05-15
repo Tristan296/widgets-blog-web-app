@@ -188,7 +188,6 @@ class BlockBlock extends LitElement {
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
     this.countPosts(this._url); //sets _numbersD
-    console.log("blog-block constructor");
   }
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
@@ -199,12 +198,10 @@ connectedCallback(){
   super.connectedCallback();
   this.createBlog(this._url); //sets _posts
   this._reloadBlog();
-  console.log("blog-block connectedCallback");
 }
 
   disconnectedCallback(){
     window.removeEventListener('reload', this.reloadListener);
-    console.log("blog-block disconnectedCallback");
   }
 
   createBlog(url) {
@@ -213,7 +210,7 @@ connectedCallback(){
       .then(posts => {
         this._posts = posts.posts;
         this.giveTitles(this._posts);
-        this._posts.forEach(post => {
+       /* this._posts.forEach(post => {
           console.log(`"id": ${post.id}`);
           console.log(`"title": ${post.title}`);
           console.log(`"content": ${post.content}`);
@@ -221,10 +218,9 @@ connectedCallback(){
           console.log(`"creator": ${post.creator}`);
           console.log(`"name": ${post.name}`);
           console.log('---');
-        });
+        });*/
       })
       .catch(error => console.error('Error:', error));
-    console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -232,9 +228,7 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._number = posts.posts[0].id;
-        console.log(this._number);
       });
-      console.log("blog-block countposts");
   }
 
   /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
@@ -242,7 +236,6 @@ connectedCallback(){
   ** @param {Object} posts the most recent 10 posts loaded */
 
   giveTitles(posts) {
-    console.log(posts[0]);
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
@@ -263,7 +256,6 @@ connectedCallback(){
   ** @param {Object} posts the most recent 10 posts loaded */
 
   sanitisePosts(posts) {
-    console.log(posts)
     // Remove any null posts
     this._posts = posts.filter(post => post !== null);
     // Sanitize content of each post
@@ -299,15 +291,13 @@ connectedCallback(){
     this._timerInterval = setTimeout(() => {
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
-      console.log("event created:"+ reload.type);
-      }, 30000);  //NB TURNED THIS DOWN FOR TESTING
+      }, 30000);  //30 seconds
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
-    //console.log("blog-block getBlogPostDate");
-    var time = new Date(timestamp).toLocaleTimeString("en-us");
-    var date = new Date(timestamp).toLocaleDateString("en-US");
+    let time = new Date(timestamp).toLocaleTimeString("en-us");
+    let date = new Date(timestamp).toLocaleDateString("en-US");
     return {
       time, date
     };
@@ -321,7 +311,6 @@ connectedCallback(){
   // a fancier version could use markdown and a third party markdown
   // formatting library
   static formatBody(text) {
-    console.log("blog-block formatBody");
     if (text == null || text == ""){
       return text;
     }
@@ -332,10 +321,8 @@ connectedCallback(){
 }
 
   render() {
-    console.log("blog-block render");
     if (!this._posts)
       return html`<div class="loading"><h1>Loading...</h1></div>`
-
     else return html`
       ${this._posts.map(post =>
       html`

@@ -46,21 +46,21 @@ class WidgetBlock extends LitElement {
    if (this.user && !JSON.stringify(this.user).includes("login incorrect")) {
       return html`
       <div id="rows">
-      <ad-widget class=widget></ad-widget>
-      <meme-widget class=widget></meme-widget>
-      <trufact-widget class=widget></trufact-widget>
-      <joke-widget class=widget></joke-widget>
-      <trivia-widget class=widget></trivia-widget>
-      <ad-widget class=widget></ad-widget>
+        <ad-widget class=widget></ad-widget>
+        <meme-widget class=widget></meme-widget>
+        <trufact-widget class=widget></trufact-widget>
+        <joke-widget class=widget></joke-widget>
+        <trivia-widget class=widget></trivia-widget>
+        <ad-widget class=widget></ad-widget>
       </div>`
      } else return html`
       <div id="columns">
-      <ad-widget></ad-widget>
-      <meme-widget></meme-widget>
-      <trufact-widget></trufact-widget>
-      <joke-widget></joke-widget>
-      <trivia-widget></trivia-widget>
-      <ad-widget></ad-widget>
+        <ad-widget></ad-widget>
+        <meme-widget></meme-widget>
+        <trufact-widget></trufact-widget>
+        <joke-widget></joke-widget>
+        <trivia-widget></trivia-widget>
+        <ad-widget></ad-widget>
       </div>
     `;
   }
