@@ -16,17 +16,14 @@ class WidgetBlock extends LitElement {
   }
 
   div#rows{
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    gap: 30px;
+    gap: 60px;
+    flex-wrap: wrap;
   }
 
-  .widget{
-    flex-grow: 1;
-  }
   `;
 
   constructor() {

@@ -32,20 +32,6 @@ class WidgetColumn extends LitElement {
     padding-bottom: 0px;
   }
 
-  slot {
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-  }
-
-  @media screen and (max-width: 900px) {
-    .widget-section{
-      background-color: var(--darkBlue);
-      width: 152px;
-    }
-  }
-  
-
   h2{
     visibility:hidden;
   }
