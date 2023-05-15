@@ -86,7 +86,6 @@ class TrufactWidget extends LitElement {
     `;
 
   static properties = {
-    _date: { type: Date },
     _data: { state: true },
     _handleRefresh: { state: true },
   }
@@ -95,23 +94,18 @@ class TrufactWidget extends LitElement {
 
   constructor() {
     super();
-    this._date = new Date();
-    console.log(this._date);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    console.log(this._date);
     this.todayFact();
   }
 
   todayFact() {
-    let date = this._date;
+    let date = new Date();
     let month = date.getMonth() +1;
     let day = date.getDate();
-    console.log("month "+ month + "day " + day);
     const url = TrufactWidget.BASE_URL + month + '/' + day + '/date?json';
-    console.log(url);    
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -136,7 +130,6 @@ d
   }
 
   render() {
-    console.log("facts rendered");
     if (this._data) {
       return html`      
       <div class="widget-border">
