@@ -127,34 +127,42 @@ VV review below style VV*/
   }
 
   postMeme() {
-    const memeCaption = this._data.name;
-    const Authorization = "Basic " + getUser().token;
-    const endpoint = "https://comp2110-portal-server.fly.dev/blog";
-    const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
+    let user = getUser();
+    if (user === null || JSON.stringify(user).includes("incorrect"))  {
+      alert("please login to post memes.")
+    } else {
+      const memeCaption = this._data.name;
+      const Authorization = "Basic " + getUser().token;
+      const endpoint = "https://comp2110-portal-server.fly.dev/blog";
+      const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
 
-    const headers = {
-      Authorization,
-      'Content-Type': 'application/json'
-    };
-    const body = JSON.stringify({
-      title: "Meme Caption",
-      content: memeData
-    });
-
-    // Send the request
-    fetch(endpoint, {
-      method: 'POST',
-      headers: headers,
-      body: body
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Meme caption posted:', data); 
-      })
-      .catch(error => {
-        console.error('Error posting meme caption:', error);
-        alert("Error sending meme image url and caption. Please try again.");  
+      const headers = {
+        Authorization,
+        'Content-Type': 'application/json'
+      };
+      const body = JSON.stringify({
+        title: "Meme Caption",
+        content: memeData
       });
+
+      // Send the request
+      fetch(endpoint, {
+        method: 'POST',
+        headers: headers,
+        body: body
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Meme caption posted:', data);
+          //this reloads the blog only on a successful post (listener in blog-block)
+          const success = new CustomEvent('reload');
+          window.dispatchEvent(success);
+        })
+        .catch(error => {
+          console.error('Error posting meme caption:', error);
+          alert("Error sending meme image url and caption. Please try again.");
+        });
+    }
   }
 
   render() {

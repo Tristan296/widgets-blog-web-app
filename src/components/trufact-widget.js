@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
-
+import { getUser } from '../auth.js';
 class TrufactWidget extends LitElement {
   static styles =
     css`
@@ -24,6 +24,7 @@ class TrufactWidget extends LitElement {
 
   .widget-border {
     max-height: 300px;
+    max-width: 400px;
     display: flex;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
@@ -32,7 +33,7 @@ class TrufactWidget extends LitElement {
     text-align: center;
     margin: 0;
     padding: 0;
-    max-width: 450px;
+    
   }
   h2 {
     margin: 0;
@@ -51,6 +52,7 @@ class TrufactWidget extends LitElement {
   }
 
   div.buttons{
+    padding-top: 4px;
     grid-row: 2;
     margin: 0;
     display: flex;
@@ -58,6 +60,7 @@ class TrufactWidget extends LitElement {
   }
 
   #button {
+    padding-top: 4px;
   flex-basis: 1; 
   background-color: var(--hay);
   color: var(--gold);
@@ -114,6 +117,11 @@ class TrufactWidget extends LitElement {
   }
 
   _handleShare(e) {
+    let user = getUser();
+    if (user === null || JSON.stringify(user).includes("incorrect")) {
+      alert("Please login to share facts.")
+      return;
+    }
     const shareFact = new CustomEvent('share-fact', { detail: this._data.text });
     window.dispatchEvent(shareFact);
     console.log("fact dispatched: " + shareFact.type + shareFact.detail);

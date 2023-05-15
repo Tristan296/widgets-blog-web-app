@@ -16,12 +16,22 @@ class WidgetBlock extends LitElement {
   }
 
   div#rows{
+    background-color: var(--darkBlue);
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 60px;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .widget {
+    flex: 1 0 200px;
+  }
+
+  @media (max-width: 1270px){
+    div#rows{
+    max-width: 99vw;
     flex-wrap: wrap;
+    }
   }
 
   `;

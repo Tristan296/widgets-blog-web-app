@@ -97,37 +97,71 @@ class BlockBlock extends LitElement {
   .information{
     display: grid;
     gap: 0px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(4, 25%);
     max-height: 100px;
+  
     padding: 0px;
     margin: 0px;
   }
 
   .information h2 {
-    grid-column: 1/3;
-    grid-row: 1;
+    grid-column: 1/4;
+    grid-row: 3;
+    max-height: 1.5em;
+    max-width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: max-width 0.3 ease, white-space 0.3 ease;
   }
 
   .information h3 {
-    grid-column: 1/3;
-    grid-row: 2;
+    grid-column: 3;
+    grid-row: 1;
     text-transform: lowercase;
   }
 
   .information h4{
-    grid-column: 5;
+    grid-row: 1;
   }
 
   .information> h4.date{
-    grid-row: 1;
+    grid-column: 1;
     padding-top: 20px;
   }
 
   .information h4.time{
-    grid-row:2;
+    grid-column: 2;
   }
 
+  .blogpost h2 {
+    word-break: break-all;
+    margin-top: 5px;
+    text-transform: capitalize;
+  }
+
+  .blogpost p {
+    font-family: serif;
+    max-height: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    transition: max-height: 0.3 ease;
+    padding: 5px;
+    margin: 20px;
+    }
+
+    .blogpost p:hover{
+      max-height: unset;
+      overflow: auto;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  
  
   `;
 
