@@ -25,7 +25,6 @@ VV review below style VV*/
   }
   .widget-border {
     display: flex;
-    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
@@ -40,7 +39,7 @@ VV review below style VV*/
   }
 
   .content {
-    max-height: 250px;
+    max-height: 230px;
     overflow: hidden;
     margin: 0;
     padding: 20px;
@@ -62,8 +61,8 @@ VV review below style VV*/
 
   .meme-img {
     grid-row: 4;
-    max-width: 100px;
-    height: 40%;
+    max-width: 150px; 
+    max-height: 60%;
     object-fit: scale-down;
     border-radius: 8px;
   }
@@ -94,13 +93,6 @@ VV review below style VV*/
 
 
     `;
-
-    /**
-     * 
-     *      
-      
-     
-     */
 
   static properties = {
     _data: { state: true },

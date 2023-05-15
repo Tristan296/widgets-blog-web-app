@@ -25,7 +25,6 @@ class TrufactWidget extends LitElement {
   .widget-border {
     max-height: 300px;
     display: flex;
-    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
@@ -33,6 +32,7 @@ class TrufactWidget extends LitElement {
     text-align: center;
     margin: 0;
     padding: 0;
+    max-width: 450px;
   }
   h2 {
     margin: 0;
@@ -51,7 +51,7 @@ class TrufactWidget extends LitElement {
   }
 
   div.buttons{
-    grid-row:2;
+    grid-row: 2;
     margin: 0;
     display: flex;
     flex-basis: row;
