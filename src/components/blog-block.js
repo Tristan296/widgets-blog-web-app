@@ -97,37 +97,71 @@ class BlockBlock extends LitElement {
   .information{
     display: grid;
     gap: 0px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 33%);
+    grid-template-rows: repeat(4, 25%);
     max-height: 100px;
+  
     padding: 0px;
     margin: 0px;
   }
 
   .information h2 {
-    grid-column: 1/3;
-    grid-row: 1;
+    grid-column: 1/4;
+    grid-row: 3;
+    max-height: 1.5em;
+    max-width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: max-width 0.3 ease, white-space 0.3 ease;
   }
 
   .information h3 {
-    grid-column: 1/3;
-    grid-row: 2;
+    grid-column: 3;
+    grid-row: 1;
     text-transform: lowercase;
   }
 
   .information h4{
-    grid-column: 5;
+    grid-row: 1;
   }
 
   .information> h4.date{
-    grid-row: 1;
+    grid-column: 1;
     padding-top: 20px;
   }
 
   .information h4.time{
-    grid-row:2;
+    grid-column: 2;
   }
 
+  .blogpost h2 {
+    word-break: break-all;
+    margin-top: 5px;
+    text-transform: capitalize;
+  }
+
+  .blogpost p {
+    font-family: serif;
+    max-height: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    transition: max-height: 0.3 ease;
+    padding: 5px;
+    margin: 20px;
+    }
+
+    .blogpost p:hover{
+      max-height: unset;
+      overflow: auto;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  
  
   `;
 
@@ -154,7 +188,6 @@ class BlockBlock extends LitElement {
     this.reloadListener = this.connectedCallback.bind(this);
     window.addEventListener('reload', this.reloadListener); //added to ensure it is always present
     this.countPosts(this._url); //sets _numbersD
-    console.log("blog-block constructor");
   }
 /** connectedCallback()
  * setup tasks that should only occur when element is connnected to the document.
@@ -165,12 +198,10 @@ connectedCallback(){
   super.connectedCallback();
   this.createBlog(this._url); //sets _posts
   this._reloadBlog();
-  console.log("blog-block connectedCallback");
 }
 
   disconnectedCallback(){
     window.removeEventListener('reload', this.reloadListener);
-    console.log("blog-block disconnectedCallback");
   }
 
   createBlog(url) {
@@ -179,7 +210,7 @@ connectedCallback(){
       .then(posts => {
         this._posts = posts.posts;
         this.giveTitles(this._posts);
-        this._posts.forEach(post => {
+       /* this._posts.forEach(post => {
           console.log(`"id": ${post.id}`);
           console.log(`"title": ${post.title}`);
           console.log(`"content": ${post.content}`);
@@ -187,10 +218,9 @@ connectedCallback(){
           console.log(`"creator": ${post.creator}`);
           console.log(`"name": ${post.name}`);
           console.log('---');
-        });
+        });*/
       })
       .catch(error => console.error('Error:', error));
-    console.log("blog-block createblog");
   }
 
   countPosts(url) {
@@ -198,9 +228,7 @@ connectedCallback(){
       .then(response => response.json())
       .then(posts => {
         this._number = posts.posts[0].id;
-        console.log(this._number);
       });
-      console.log("blog-block countposts");
   }
 
   /** If a post lacks a title, null, NaN, "" or 0, this gives it a title. 
@@ -208,7 +236,6 @@ connectedCallback(){
   ** @param {Object} posts the most recent 10 posts loaded */
 
   giveTitles(posts) {
-    console.log(posts[0]);
     this._posts = this._posts.map(post => {
       return {
         title: post.title ? this.sanitise(post.title) : 'Untitled Blog Post',
@@ -229,7 +256,6 @@ connectedCallback(){
   ** @param {Object} posts the most recent 10 posts loaded */
 
   sanitisePosts(posts) {
-    console.log(posts)
     // Remove any null posts
     this._posts = posts.filter(post => post !== null);
     // Sanitize content of each post
@@ -265,15 +291,13 @@ connectedCallback(){
     this._timerInterval = setTimeout(() => {
       const reload = new CustomEvent('reload');
       window.dispatchEvent(reload);
-      console.log("event created:"+ reload.type);
-      }, 30000);  //NB TURNED THIS DOWN FOR TESTING
+      }, 30000);  //30 seconds
   }
 
   //Create a date from the timestamp field in 'posts'.
   getBlogPostDate(timestamp) { 
-    //console.log("blog-block getBlogPostDate");
-    var time = new Date(timestamp).toLocaleTimeString("en-us");
-    var date = new Date(timestamp).toLocaleDateString("en-US");
+    let time = new Date(timestamp).toLocaleTimeString("en-us");
+    let date = new Date(timestamp).toLocaleDateString("en-US");
     return {
       time, date
     };
@@ -287,7 +311,6 @@ connectedCallback(){
   // a fancier version could use markdown and a third party markdown
   // formatting library
   static formatBody(text) {
-    console.log("blog-block formatBody");
     if (text == null || text == ""){
       return text;
     }
@@ -298,10 +321,8 @@ connectedCallback(){
 }
 
   render() {
-    console.log("blog-block render");
     if (!this._posts)
       return html`<div class="loading"><h1>Loading...</h1></div>`
-
     else return html`
       ${this._posts.map(post =>
       html`

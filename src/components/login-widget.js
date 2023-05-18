@@ -101,37 +101,37 @@ class LoginWidget extends LitElement {
       transition: ease-out 0.1s;
   }
 
-    @keyframes ease_color {
-      0% {
-        background-color: #CC0000;
-  
-      }
-      50% {
-        background-color: #FFDE00;
-        color: var(--dgray);
-      }
-      100% {
-        background-color: #3B4CCA;
-      }
-    }
+  @keyframes ease_color {
+    0% {
+      background-color: #CC0000;
 
-    .login h2{
-      font-size: 3.5em;
-      font-family: garamond;
-      text-transform: uppercase;
     }
-  
-    .login h3{
-      font-size: 2em;
-      font-variant: small-caps;
-      font-family: garamond;
+    50% {
+      background-color: #FFDE00;
+      color: var(--dgray);
     }
+    100% {
+      background-color: #3B4CCA;
+    }
+  }
 
-    div.login{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+  .login h2{
+    font-size: 3.5em;
+    font-family: garamond;
+    text-transform: uppercase;
+  }
+
+  .login h3{
+    font-size: 2em;
+    font-variant: small-caps;
+    font-family: garamond;
+  }
+
+  div.login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
  `;
 
   constructor() {
