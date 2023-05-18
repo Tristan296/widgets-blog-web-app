@@ -29,8 +29,8 @@ class triviaWidget extends LitElement{
 
   .widget-border {
     max-height: 300px;
+    max-width: 400px;
     display: flex;
-    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;

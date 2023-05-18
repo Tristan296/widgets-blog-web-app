@@ -1,5 +1,12 @@
 # COMP2110 Portal: Group 2 Web Application Overview:
 This web app was developed using [Lit Web Components](https://lit.dev/). 
+
+It used ['Colourful rainbow geometric' by 'Manuchi'](https://pixabay.com/illustrations/colorful-rainbow-gradient-geometric-2174045/)
+and ['Computer computer code' by 'Boskampi'](https://pixabay.com/illustrations/computer-computer-code-programming-1836330/)
+both "Free to use under the Pixabay license. No attribution required."   
+
+It also used a google font for h1; ['Press Start 2P' by 'CodeMan38'](https://fonts.google.com/specimen/Press+Start+2P), licensed under the Open Font License. 
+
 ## This application has the following functionality
 * users can login and logout and the layout changes depending on whether a user is logged in or not
 * displays the most recent blog posts
@@ -12,13 +19,12 @@ This web app was developed using [Lit Web Components](https://lit.dev/).
 * if the application loads a blogpost with a null title, it gives it a default title
 * if the application loads a blogpost with null content, it displays a message indicating that the message was a blank post
 * once the blog is posted the blog post popup will clear
-* messages over a certain length are hidden
+* messages over a certain length scroll rather than stretching the window
 * messages without spaces are still wrapped to fit rather than going off the screen
 
 It also includes four widgets integrated into the overall design. 
 ## About our group: 
 Group two is made up of the following individuals: 
-((put your name, user ID here))
 * Stacey Purcell, 42123682 
 * Tristan Norbury, 47308028
 * Brigid McDermott, 46361804
@@ -31,10 +37,9 @@ Group two is made up of the following individuals:
 * Stacey Purcell, 'tru-fact' widget
 * Brigid McDermott, 'joke' widget
 
-
 ## Design and Features
 (put your name here any any design elements you contributed)
-* Stacey Purcell, style and layout; particularly header and blog post.
+* Stacey Purcell, style and layout; particularly header and new blog post. Implemented user authentication token being used to change layouts.
 * Tristan Norbury, blog post date and time; gets the timestamp from a blog post and returns it.
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
@@ -55,10 +60,10 @@ Group two is made up of the following individuals:
 * Brigid McDermott: blog popup will clear once message has been posted and reset to default placeholder text
 
 # Individual Widgets
-((include your widget below with a summary which should include a link to the API it uses))
 ## Trufact Widget by Stacey Purcell 42123682
 - The trufact widget accesses the [Numbers API](http://numbersapi.com/#42) and retrieves a fact about today's date. 
-- The user can click the button to access another random fact. 
+- The user can click the new-fact button to access another random fact. 
+- The user can click the share button to share the fact to the blog through the new blog post widget. The user can type a message about the fact as it has been passed to the text field.
 
 ## Meme Widget by Tristan Norbury 47308028
 - The meme widget accesses the [IMGFLIP API](https://api.imgflip.com/get_memes) and fetches a meme and it's caption.
@@ -71,7 +76,7 @@ Group two is made up of the following individuals:
 - The user can click a button to display and hide the punchline of each joke
 - The user can click a button to load a new joke without the need to reload the page 
 
-## Trivia Widget by
+## Trivia Widget by Nathan
 
 # Boilerplate 'starter code' documentation: 
 The boilerplate and starter code remains a product of the COMP2110 Web Development Collective © 2023. The following documentation was provided for the boilerplate.

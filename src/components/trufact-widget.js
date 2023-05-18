@@ -24,8 +24,8 @@ class TrufactWidget extends LitElement {
 
   .widget-border {
     max-height: 300px;
+    max-width: 400px;
     display: flex;
-    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
@@ -33,6 +33,7 @@ class TrufactWidget extends LitElement {
     text-align: center;
     margin: 0;
     padding: 0;
+    
   }
   h2 {
     margin: 0;
@@ -51,19 +52,21 @@ class TrufactWidget extends LitElement {
   }
 
   div.buttons{
-    grid-row:2;
+    padding-top: 4px;
+    grid-row: 2;
     margin: 0;
     display: flex;
     flex-basis: row;
   }
 
   #button {
-  flex-basis: 1; 
-  background-color: var(--hay);
-  color: var(--gold);
-  border: 6px solid var(--gold);
-  border-radius: 20px;
-  transition: ease-out 0.1s;
+    padding-top: 4px;
+    flex-basis: 1; 
+    background-color: var(--hay);
+    color: var(--gold);
+    border: 6px solid var(--gold);
+    border-radius: 20px;
+    transition: ease-out 0.1s;
   }
 
   #button:hover { 
@@ -83,7 +86,6 @@ class TrufactWidget extends LitElement {
     `;
 
   static properties = {
-    _date: { type: Date },
     _data: { state: true },
     _handleRefresh: { state: true },
   }
@@ -92,7 +94,6 @@ class TrufactWidget extends LitElement {
 
   constructor() {
     super();
-    this._date = new Date();
   }
 
   connectedCallback() {
@@ -101,22 +102,26 @@ class TrufactWidget extends LitElement {
   }
 
   todayFact() {
-    const url = TrufactWidget.BASE_URL + this._date.getMonth() + '/' + this._date.getDay() + '/date?json';
+    let date = new Date();
+    let month = date.getMonth() +1;
+    let day = date.getDate();
+    const url = TrufactWidget.BASE_URL + month + '/' + day + '/date?json';
     fetch(url)
       .then(response => response.json())
       .then(data => {
         this._data = data;
       });
   }
-
+d
   _handleRefresh(e) {
     this.connectedCallback();
   }
 
   _handleShare(e) {
-    const user = getUser();
-    if (user ==null){
-      alert ("please login to share facts");
+    let user = getUser();
+    if (user === null || JSON.stringify(user).includes("incorrect")) {
+      alert("Please login to share facts.")
+      return;
     }
     const shareFact = new CustomEvent('share-fact', { detail: this._data.text });
     window.dispatchEvent(shareFact);
@@ -125,7 +130,6 @@ class TrufactWidget extends LitElement {
   }
 
   render() {
-    console.log("facts rendered");
     if (this._data) {
       return html`      
       <div class="widget-border">

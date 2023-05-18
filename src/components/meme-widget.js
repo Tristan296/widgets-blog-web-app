@@ -25,7 +25,6 @@ VV review below style VV*/
   }
   .widget-border {
     display: flex;
-    flex-basis: column;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
@@ -40,7 +39,7 @@ VV review below style VV*/
   }
 
   .content {
-    max-height: 250px;
+    max-height: 230px;
     overflow: hidden;
     margin: 0;
     padding: 20px;
@@ -62,8 +61,8 @@ VV review below style VV*/
 
   .meme-img {
     grid-row: 4;
-    max-width: 100px;
-    height: 40%;
+    max-width: 150px; 
+    max-height: 60%;
     object-fit: scale-down;
     border-radius: 8px;
   }
@@ -94,13 +93,6 @@ VV review below style VV*/
 
 
     `;
-
-    /**
-     * 
-     *      
-      
-     
-     */
 
   static properties = {
     _data: { state: true },
@@ -135,39 +127,42 @@ VV review below style VV*/
   }
 
   postMeme() {
-    const memeCaption = this._data.name;
-    const user = getUser();
-    if (user == null){
-      alert("please login first");
+
+    let user = getUser();
+    if (user === null || JSON.stringify(user).includes("incorrect"))  {
+      alert("please login to post memes.")
     } else {
-    const Authorization = "Basic " + getUser().token;
-    const endpoint = "https://comp2110-portal-server.fly.dev/blog";
-    const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
+      const memeCaption = this._data.name;
+      const Authorization = "Basic " + getUser().token;
+      const endpoint = "https://comp2110-portal-server.fly.dev/blog";
+      const memeData = [this._data.url, " Caption: \'" + memeCaption + "\""]
 
-    const headers = {
-      Authorization,
-      'Content-Type': 'application/json'
-    };
-    const body = JSON.stringify({
-      title: "Meme Caption",
-      content: memeData
-    });
-
-    // Send the request
-    fetch(endpoint, {
-      method: 'POST',
-      headers: headers,
-      body: body
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Meme caption posted:', data);
-        alert("Meme image url and caption sent successfully to blog server!");  
-      })
-      .catch(error => {
-        console.error('Error posting meme caption:', error);
-        alert("Error sending meme image url and caption. Please try again.");  
+      const headers = {
+        Authorization,
+        'Content-Type': 'application/json'
+      };
+      const body = JSON.stringify({
+        title: "Meme Caption",
+        content: memeData
       });
+
+      // Send the request
+      fetch(endpoint, {
+        method: 'POST',
+        headers: headers,
+        body: body
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Meme caption posted:', data);
+          //this reloads the blog only on a successful post (listener in blog-block)
+          const success = new CustomEvent('reload');
+          window.dispatchEvent(success);
+        })
+        .catch(error => {
+          console.error('Error posting meme caption:', error);
+          alert("Error sending meme image url and caption. Please try again.");
+        });
     }
   }
 
