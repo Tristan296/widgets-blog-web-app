@@ -3,14 +3,15 @@ import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/co
 class JokeWidget extends LitElement {
 
   static properties = {
-    _data: { state: true }
+    _data: { state: true },
+    visible: { type: Boolean },
+text: {state: true }
 
   }
 
   static styles =
     css`
-/*Stacey's Style Edit:
-VV review below style VV*/
+/*default styles*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
@@ -26,47 +27,69 @@ VV review below style VV*/
   --blue: #8bc5cd;
   }
   div {
-  min-width: 150px;
-  min-height: 150px;
   background-color: var(--white);
   }
+
   .widget-border {
-    width: 200px;
+    max-height: 300px;
+    display: flex;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
-}
-/*^^review above style^^*/
+    margin: 0;
+    padding: 0;
+  }
 
-          .widget-border button { 
-            background-color: white;
-            color: black;
-            border-radius: 20px;
-            border-style: none;
-            transition: ease-out 0.1s;
-          }
-    
-          .widget-border button:hover { 
-            background-color: black;
-            color: white;
-            transition: ease 0.3s;
-            transform: scale(1.05);
-          }
-    
-          .widget-border button:active {
-            background-color: black;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-          }
-        }
+  .content {
+    max-height: 250px;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
+  }
+
+  div.buttons{
+    grid-row:2;
+    margin: 0;
+    display: flex;
+    flex-basis: row;
+  }
+
+  #button {
+    flex-basis: 1;
+  }
+
+  #button {
+  flex-basis: 1; 
+  background-color: var(--hay);
+  color: var(--gold);
+  border: 6px solid var(--gold);
+  border-radius: 20px;
+  transition: ease-out 0.1s;
+  }
+
+  #button:hover { 
+  background-color: var(--gold);
+  color: var(--white);
+  border: 6px solid var(--hay);
+  transition: ease 0.3s;
+  transform: scale(1.05);
+  }
+
+  #button:active {
+    border: 6px solid var(--blue);
+    background-color: var(--cyan);
+    transform: translateY(4px);
+  }
       `;
 
 
   constructor() {
     super();
     this._data = null;
+    this.visible = false;
+
   }
 
   connectedCallback() {
@@ -74,50 +97,59 @@ VV review below style VV*/
     this.fetchJoke();
   }
 
+
+
   fetchJoke() {
-    fetch(`https://official-joke-api.appspot.com/random_joke`)
+    fetch(`https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit&type=twopart`)
       .then(response => response.json())
       .then(data => {
         this._data = data;
       });
   }
 
-
+  //show joke
   render() {
     if (this._data) {
       return html`
-  <div class="widget-border">
-  <h2> Joke! </h2>
-  <p> <b> ${this._data.setup} </b> </p>
-  <p> ${this._data.punchline} </p>
-  <button @click="${this.showPunchline}">Show Punchline</button>
-  <button @click="${this.getNewJoke}">Show New Joke</button>
-  </div>`;
+      
+<div class="widget-border">
+  <div class="content">
+    <h2>Joke!</h2>
+    <div class="text">
+    <p> <b> ${this._data.setup} </b> </p>
+    <div ?hidden="${!this.visible}">
+    <p> ${this._data.delivery} </p>
+    </div>
+    <div class="buttons">
+      <button @click="${this.togglePunchline}" id="button">
+        ${this.visible ? 'Hide Punchline' : 'Show Punchline'}</button>
+      <button @click="${this.getNewJoke}" id="button">Show New Joke</button>
+    </div>
+    </div>
+</div>
+`      ;
     }
     else {
       return html`
     <div class="widget-border">
+    <h2>Joke!</h2>
         <p>joke loading...</p>
       </div>
     `;
     }
   }
 
+
+  //function to call new joke (used on button click)
   getNewJoke() {
     this.fetchJoke();
   }
 
-  showPunchline() {
-    var p = this._data.punchline;
-    if (p.styles.display === "none") {
-      p.styles.display = "block";
-    } else {
-      p.styles.display = "none";
-    }
+  //function to hide and show punchline
+  togglePunchline() {
+    this.visible = !this.visible;    
   }
 }
 
-
-/* is working but is slow - do not know if need this.getNewJoke() or without ()*/
 
 customElements.define('joke-widget', JokeWidget);

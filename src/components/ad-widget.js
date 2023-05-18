@@ -68,6 +68,43 @@ class AdWidget extends LitElement {
     box-sizing: border-box;
     text-align: center;
 }
+@media screen and (max-width: 900px) {
+  .widget-border {
+    width: 100px;
+    border: 6px solid var(--pinkHighlight);
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  img{
+    margin-top: 30px;
+    width: 100px;
+    padding-top: 5px;
+    max-width: fit-content;
+  }
+  div#advertisement{
+    display: flex;
+    width: 152px;
+    height: 50%;
+    margin-bottom: 10px;
+  }
+  div#box{
+    background: var(--white);
+    width: 152px;
+    height: 225px;
+  }
+  :host p {
+    position: relative;
+    top: -20px;
+    padding: 0px;
+    padding-left: 10px;
+    padding-right:10px;
+    text-align: center;
+    z-index: 0;
+    font-style: italic;
+  }
+}
   `;
 
   constructor() {

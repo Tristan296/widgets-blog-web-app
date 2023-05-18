@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
-class WidgetColumn extends LitElement {
+class WidgetRow extends LitElement {
   static properties = {
     header: { type: String },
   }
@@ -21,20 +21,13 @@ class WidgetColumn extends LitElement {
     --blue: #8bc5cd;
 }
 
-  .widget-section{
-    background-color: var(--darkBlue);
-    width: 200px;
-  }
-
-  div{
-    padding: 10px;
-    height: 99.7%;
-    padding-bottom: 0px;
-  }
-
-  h2{
-    visibility:hidden;
-  }
+.widget-section {
+    background-color: var(--darkblue);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
   `;
 
   constructor() {
@@ -46,15 +39,14 @@ class WidgetColumn extends LitElement {
     return html`
       <div class="widget-section">
         <h2>${this.header}</h2>
-        <slot>
-          <meme-widget class="widget"></meme-widget>
-          <trufact-widget class="widget"></trufact-widget>
-          <joke-widget class="widget"></joke-widget>
-          <trivia-widget class="widget"></trivia-widget>
+        <meme-widget class="widget"></meme-widget>
+        <trufact-widget class="widget"></trufact-widget>
+        <joke-widget class="widget"></joke-widget>
+        <trivia-widget class="widget"></trivia-widget>
         </slot>
       </div>
     `;
   }
 }
 
-customElements.define('widget-column', WidgetColumn);
+customElements.define('widget-row', WidgetRow);

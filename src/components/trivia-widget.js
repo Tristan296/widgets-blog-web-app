@@ -8,8 +8,7 @@ class triviaWidget extends LitElement{
 
   static styles =
     css`
-    /*Stacey's Style Edit:
-VV review below style VV*/
+/*default styles*/
 :root {
   --background: #316273;
   --darkBlue: #20315a;
@@ -25,40 +24,68 @@ VV review below style VV*/
   --blue: #8bc5cd;
   }
   div {
-  min-width: 100px;
-  min-height: 100px;
   background-color: var(--white);
   }
+
   .widget-border {
-    width: 200px;
+    max-height: 300px;
+    max-width: 400px;
+    display: flex;
     border: 6px solid var(--pinkHighlight);
     border-radius: 8px;
     padding: 16px;
     box-sizing: border-box;
     text-align: center;
-}
-/*^^review above style^^*/
-    
-.widget-border button { 
-        background-color: white;
-        color: black;
-        border-radius: 20px;
-        border-style: none;
-        transition: ease-out 0.1s;
-      }
+    margin: 0;
+    padding: 0;
+  }
 
-      .widget-border button:hover { 
-        background-color: black;
-        color: white;
-        transition: ease 0.3s;
-        transform: scale(1.05);
-      }
+  .content {
+    max-height: 250px;
+    overflow: hidden;
+    margin: 0;
+    padding: 20px;
+  }
 
-      .widget-border button:active {
-        background-color: black;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-      }
+  .text {
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+
+  div.buttons{
+    grid-row:2;
+    margin: 0;
+    display: flex;
+    flex-basis: row;
+    justify-content: center;
+  }
+
+  #button {
+    flex-basis: 1;
+  }
+
+  #button {
+  flex-basis: 1; 
+  background-color: var(--hay);
+  color: var(--gold);
+  border: 6px solid var(--gold);
+  border-radius: 20px;
+  transition: ease-out 0.1s;
+  }
+
+  #button:hover { 
+  background-color: var(--gold);
+  color: var(--white);
+  border: 6px solid var(--hay);
+  transition: ease 0.3s;
+  transform: scale(1.05);
+  }
+
+  #button:active {
+    border: 6px solid var(--blue);
+    background-color: var(--cyan);
+    transform: translateY(4px);
+  }
 
   `;
 
@@ -87,10 +114,16 @@ VV review below style VV*/
     if (this._data) {
       return html`
   <div class="widget-border">
-  <h2> Trivia Question! </h2>
-  <p> <b> ${this._data.question} </b> </p>
-  <p> ${this._data.answer} </p>
-  <button @click="${this.getNewQuestion}">Show New Question</button>
+      <div class="content">
+        <h2> Trivia Question! </h2>
+        <div class="text">
+          <p> <b> ${this._data.question} </b> </p>
+          <p> ${this._data.answer} </p>
+        </div>
+      <div class="buttons">
+        <button @click="${this.getNewQuestion}" id="button">Show New Question</button>
+      </div>
+    </div>
   </div>`;
     }
     else {
