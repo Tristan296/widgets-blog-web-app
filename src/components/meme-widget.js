@@ -127,6 +127,7 @@ VV review below style VV*/
   }
 
   postMeme() {
+
     let user = getUser();
     if (user === null || JSON.stringify(user).includes("incorrect"))  {
       alert("please login to post memes.")
