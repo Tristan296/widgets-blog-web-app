@@ -309,8 +309,8 @@ connectedCallback(){
   // wraps each in a <p> tag
   // a fancier version could use markdown and a third party markdown
   // formatting library
-  / * @param {Object} text: the text to be examined */
- static formatBody(text) {
+  // * @param {Object} text: the text to be examined */
+  formatBody(text) {
     console.log("blog-block formatBody");
     if (text == null || text == ""){
       return text;
@@ -321,31 +321,32 @@ connectedCallback(){
   }
 }
 
-  render() {
-    if (!this._posts)
-      return html`<div class="loading"><h1>Loading...</h1></div>`
-    else return html`
-      ${this._posts.map(post =>
-      html`
-      <div class="blog-border">
-        <div class="blogpost">
-          <div class="information">
-            <h2>${post.title}</h2>
-            <h3>By ${post.name}</h3>
-            <h4 id="date" style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</p>
-            <h4 id="time" style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</p>
+render() {
+  if (!this._posts) {
+    return html`<div class="loading"><h1>Loading...</h1></div>`;
+  } else {
+    return html`
+      ${this._posts.map(post => html`
+        <div class="blog-border">
+          <div class="blogpost">
+            <div class="information">
+              <h2>${post.title}</h2>
+              <h3>By ${post.name}</h3>
+              <h4 id="date" style="font-weight: bold;">Date Posted: ${this.getBlogPostDate(post.timestamp).date}</h4>
+              <h4 id="time" style="font-weight: bold;">Time Posted: ${this.getBlogPostDate(post.timestamp).time}</h4>
+            </div>
+            <div class="content">
+              <p id="post-content">${this.formatBody(post.content)}</p> 
+              ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
+            </div>
           </div>
-          <div class="content">
-          <p id="post-content"> ${this.formatBody(post.content)}</p> 
-          ${post.title === "Meme Caption" ? html`<img class="meme-img" alt="couldn't load meme image" src="${post.content.split(',')[0]}"></img>` : ''}
-          </div>   
-         </div>
-      </div>`
-    )}
-      `;
+        </div>
+      `)}
+    `;
   }
 }
 
+}
 customElements.define('blog-block', BlockBlock);
 
 
