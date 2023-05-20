@@ -28,7 +28,7 @@ Group two is made up of the following individuals:
 * Stacey Purcell, 42123682 
 * Tristan Norbury, 47308028
 * Brigid McDermott, 46361804
-* Nathan
+* Nathan Lewis, 46606610
 
 # Who did what?
 ## Integration of Individual Widgets 
@@ -36,6 +36,7 @@ Group two is made up of the following individuals:
 * Tristan Norbury, 'meme' widget
 * Stacey Purcell, 'tru-fact' widget
 * Brigid McDermott, 'joke' widget
+* Nathan Lewis, 'trivia' widget
 
 ## Design and Features
 (put your name here any any design elements you contributed)
@@ -44,6 +45,7 @@ Group two is made up of the following individuals:
 * Tristan Norbury, Post To Blog window - layout and style improvements; particularly aligning items using `flex`, placeholders, and button styling.
 * Tristan Norbury, Post widget Implementation - Initial implementation of the ability to post widget content to the blog.
 * Brigid McDermott, blog post title and content, style across website (button styling, blog post styling, log-in form styling)
+* Nathan Lewis, general styling across website (pictures, colours and positioning)
 
 ## Bug Testing
 (include major bugs here and the fix, eg Brigid's fix for null entries)
@@ -52,6 +54,7 @@ Group two is made up of the following individuals:
 * Tristan Norbury, Fixed hardcoded Authorization for getting token for meme widget - ensures that widget cannot be posted to blog unless already logged in.
 * Tristan Norbury, Added alert for when new posts fail to send to blog (e.g. no WiFi when posting)
 * Brigid McDermott, fix for null entry posts to not crash the blog post displaying
+* Nathan Lewis, widget not displaying, attempted fix was to put trivia in seperate file and import the file, but found a bypass for the API that worked
 
 ## Extension to blog-block: new-post.js
 * Stacey Purcell: initial implementation of the ability to post to the blog
@@ -76,7 +79,10 @@ Group two is made up of the following individuals:
 - The user can click a button to display and hide the punchline of each joke
 - The user can click a button to load a new joke without the need to reload the page 
 
-## Trivia Widget by Nathan
+## Trivia Widget by Nathan Lewis 46006610
+ - The Trivia Widget accessed the [JService API](http://jservice.io/api/random) and fetches a Jeopardy trivia question.
+ - The trivia widget diaplays the prompt that the Jeopardy contestant recieved, and the answer to that prompt.
+ - The user can click a button to dsplay a new trivia question without reloading the website.
 
 # Boilerplate 'starter code' documentation: 
 The boilerplate and starter code remains a product of the COMP2110 Web Development Collective © 2023. The following documentation was provided for the boilerplate.
