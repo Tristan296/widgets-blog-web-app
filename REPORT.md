@@ -1,5 +1,4 @@
-Group 2 Report on Web Development Project
-
+# Group 2 Report on Web Development Project
 Outline:
 1. Details of your deployment and where your application can be accessed (URL).
 2. What you achieved: a short (few paragraphs) description of what your group has implemented; highlight any extensions or additional work you did.
@@ -8,3 +7,26 @@ Outline:
 5. Individual reflection: each team member should write one paragraph on their personal experience (include your name):
 -which widget did you choose and why?
 -what was the most challenging part of the project for you?
+
+## Deployment
+
+
+
+
+## Challenges we faced
+
+
+## Aspects we found rewarding
+
+
+## Individual Reflection
+### Stacey
+
+### Tristan
+
+### Nathan
+
+### Brigid
+
+
+
