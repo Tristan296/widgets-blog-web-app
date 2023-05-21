@@ -9,15 +9,29 @@ Outline:
 -what was the most challenging part of the project for you?
 
 ## Deployment
+-TBD (likely cloudfare)
+
+## Achievements
 
 
+### Extensions (may not need as heading as may simply be addressed through regular paragraphs)
 
+change in appearance depending on if user is logged in or logged out
+pop-out blog post
+- clearing on submission
+- different error messages if fields are left blank/auto filled if submit was hit
+widgets had additional features (show new joke, trivia, meme etc., post meme to blog page)
+blog post had additional feature (show images)
 
 ## Challenges we faced
 
+- responsiveness
+- blog null check
+-used the issues function to help delegate the different issues/challenges we encountered within our code
+-did not struggle with communication as a group -- group discord + having class together + issues function on github, all worked well
 
 ## Aspects we found rewarding
-
+- 
 
 ## Individual Reflection
 ### Stacey
