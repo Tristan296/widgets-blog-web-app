@@ -28,7 +28,6 @@ blog post had additional feature (show images)
 - responsiveness
 - blog null check
 -used the issues function to help delegate the different issues/challenges we encountered within our code
--did not struggle with communication as a group -- group discord + having class together + issues function on github, all worked well
 
 ## Aspects we found rewarding
 - 
