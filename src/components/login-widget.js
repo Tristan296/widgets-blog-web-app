@@ -168,7 +168,7 @@ class LoginWidget extends LitElement {
     if (test.includes("login incorrect")){
         return html`
         <div class="login">
-        <h2>Login to COMP2110 Portal</h2>
+        <h2>Comp2110 Portal Login</h2>
           <h3><b>An error occured, try again!</b></h3>
           <form @submit=${this.submitForm}>
               Username: <input name="username" placeholder="Enter Username...">
