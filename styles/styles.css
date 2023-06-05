@@ -1,0 +1,52 @@
+/* 
+  'Colourful rainbow geometric' by 'Manuchi' accessed 16/3/23
+  https://pixabay.com/illustrations/colorful-rainbow-gradient-geometric-2174045/
+      "Free to use under the Pixabay license
+      No attribution required."
+
+        'Computer computer code' by 'Boskampi' accessed 24/3/23
+  https://pixabay.com/illustrations/computer-computer-code-programming-1836330/
+      "Free to use under the Pixabay license
+      No attribution required."
+
+          Imported Fonts used:
+
+    'Press Start 2P' by 'CodeMan38' accessed 24/3/23
+    https://fonts.google.com/specimen/Press+Start+2P
+      Licensed under the Open Font License. 
+
+            websites reviewed::after
+      https://www.cssstickyfooter.com/ 3/5/23 by Stacey Purcell
+
+*/
+
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+--background: #316273;
+--darkBlue: #20315a;
+--pinkHighlight: #c52973; 
+--purpleBody: #832052;
+--white: #f6f6ff;
+--dgray: #4a4a4a;
+--lgray: #bdbdc5;
+--pinkText: #f65273;
+--cyan: #41839c;
+--gold: #a47b39;
+--hay: #decd73;
+--blue: #8bc5cd;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    color: var(--dgray);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #ededed;
+  }
+
+ 
+  
+
+  
